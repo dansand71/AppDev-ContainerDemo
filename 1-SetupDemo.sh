@@ -40,7 +40,7 @@ if [[ $continuescript != "n" ]];then
     cd /source
     sudo rm -rf /source/AppDev-ContainerDemo
     sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
-    sudo chmod +x /source/AppDev-ContainerDemo/1-SetupDemos.sh
+    sudo chmod +x /source/AppDev-ContainerDemo/1-SetupDemo.sh
     echo ""
     echo "--------------------------------------------"
 fi
@@ -53,20 +53,44 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
 fi
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
-echo " Current Template Values:"
-echo "DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
-echo "DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
-echo "DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
-echo "DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
-echo "DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
-echo "DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
-echo "DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
-echo "DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
+echo "Current Template Values:"
+echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
+echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
+echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
+echo "      DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
+echo "      DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
+echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
+echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
+echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
-read -p "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file.  Continue? [y/n]" continuescript
+echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
+read -p "Continue? [y/n]" continuescript
 if [[ $continuescript != "y" ]];then
     exit
 fi
+
+#Leverage the existing public key for new VM creation script
+echo "--------------------------------------------"
+echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
+sshpubkey=$(< ~/.ssh/id_rsa.pub)
+sudo sed -i -e "s@REPLACE-SSH-KEY@${sshpubkey}@g" /source/AppDev-ContainerDemo/.
+echo "--------------------------------------------"
+
+echo "Configure demo scripts"
+sudo echo "export ANSIBLE_HOST_KEY_CHECKING=false" >> ~/.bashrc
+export ANSIBLE_HOST_KEY_CHECKING=false
+sudo sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-UNIQUE-STORAGE-ACCOUNT-PREFIX@$DEMO_STORAGE_ACCOUNT@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-REGISTRY-SERVER-NAME@$DEMO_REGISTRY_SERVER_NAME@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-REGISTRY-USER-NAME@$DEMO_REGISTRY_USER_NAME@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-REGISTRY-PASSWORD@$DEMO_REGISTRY_PASSWORD@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-REPLACE-OMS-WORKSPACE@$DEMO_OMS_WORKSPACE@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-REPLACE-OMS-PRIMARYKEY@$DEMO_OMS_PRIMARYKEY@g" /source/AppDev-ContainerDemo/.
+sudo sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-KEY@$DEMO_APPLICATION_INSIGHTS_KEY@g" /source/AppDev-ContainerDemo/.
+
+echo ""
+echo"---------------------------------------------"
+
 
 echo ""
 echo "Set values for creation of resource groups for container demo"
@@ -115,19 +139,6 @@ if [[ $continuescript != "n" ]];then
      --destination-port-range 22
 fi
 
-#Leverage the existing public key for new VM creation script
-echo "--------------------------------------------"
-echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
-sshpubkey=$(< ~/.ssh/id_rsa.pub)
-sudo sed -i -e "s@REPLACE-SSH-KEY@${sshpubkey}@g" /source/AppDev-ContainerDemo/.
-echo "--------------------------------------------"
-
-echo "Configure demo scripts"
-sudo echo "export ANSIBLE_HOST_KEY_CHECKING=false" >> ~/.bashrc
-export ANSIBLE_HOST_KEY_CHECKING=false
-sudo sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g" /source/AppDev-ContainerDemo/.
-echo ""
-echo"---------------------------------------------"
 
 #Copy the desktop icons
 sudo cp /source/OSSonAzure/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/

@@ -2,8 +2,8 @@
 echo "Login to the K8S environment"
 #az account set --subscription "Microsoft Azure Internal Consumption"
 az acs kubernetes get-credentials \
-        --resource-group ossdemo-kubernetes \
-        --name ossdemo-k8s-VALUEOF-UNIQUE-SERVER-PREFIX
+        --resource-group ossdemo-appdev-acs \
+        --name k8s-VALUEOF-UNIQUE-SERVER-PREFIX
 
 echo "create secret to login to the private registry"
 kubectl create secret docker-registry ossdemoRegistryKey \
