@@ -12,6 +12,16 @@ echo "Installation & Configuration will require SU rights but pleae run this scr
 echo ""
 echo "Upon download please edit /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues file with your unique values."
 echo ""
+echo ""
+echo "Installing AZ command line tools if they are missing."
+#Check to see if Azure is installed if not do it...
+if [ -f ~/bin/az ]
+  then
+    echo "    AZ Client installed. Skipping install.."
+  else
+    curl -L https://aka.ms/InstallAzureCli | bash
+    exec -l $SHELL
+fi
 echo "Logging in to Azure"
 #Checking to see if we are logged into Azure
 echo "    Checking if we are logged in to Azure."
