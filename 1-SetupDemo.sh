@@ -111,7 +111,7 @@ if [[ $continuescript != "n" ]];then
     echo ""
     echo "BUILDING RESOURCE GROUPS"
     echo "--------------------------------------------"
-    echo 'create utility resource group'
+    echo 'create ossdemo-appdev-iaas, ossdemo-appdev-acs, ossdemo-appdev-paas resource groups'
     az group create --name ossdemo-appdev-iaas --location eastus
     az group create --name ossdemo-appdev-acs --location eastus
     az group create --name ossdemo-appdev-paas --location eastus
@@ -120,7 +120,7 @@ if [[ $continuescript != "n" ]];then
     echo ""
     echo "BUILDING NETWORKS SECURTIY GROUPS and RULES"
     echo "--------------------------------------------"
-    echo 'Network Security Group for Resource Groups'
+    echo 'Network Security Groups (NSGs) for Resource Groups'
     az network nsg create --resource-group ossdemo-appdev-iaas --name NSG-ossdemo-appdev-iaas --location eastus
     az network nsg create --resource-group ossdemo-appdev-acs --name NSG-ossdemo-appdev-acs --location eastus
     az network nsg create --resource-group ossdemo-appdev-paas --name NSG-ossdemo-appdev-paas --location eastus
@@ -132,6 +132,12 @@ if [[ $continuescript != "n" ]];then
         --source-address-prefix Internet \
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 22
+    az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name ssh-rule \
+        --access Allow --protocol Tcp --direction Inbound --priority 120 \
+        --source-address-prefix Internet \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 80
 
     az network nsg rule create --resource-group ossdemo-appdev-acs \
      --nsg-name NSG-ossdemo-appdev-acs --name ssh-rule \
@@ -139,6 +145,7 @@ if [[ $continuescript != "n" ]];then
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
+     
 
     az network nsg rule create --resource-group ossdemo-appdev-paas \
      --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
@@ -146,11 +153,17 @@ if [[ $continuescript != "n" ]];then
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
+    az network nsg rule create --resource-group ossdemo-appdev-paas \
+     --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
+     --access Allow --protocol Tcp --direction Inbound --priority 120 \
+     --source-address-prefix Internet \
+     --source-port-range "*" --destination-address-prefix "*" \
+     --destination-port-range 80
 fi
 
 
 #Copy the desktop icons
-sudo cp /source/OSSonAzure/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/
+sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/
 sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
