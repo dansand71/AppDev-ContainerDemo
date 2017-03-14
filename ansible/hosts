@@ -8,9 +8,9 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
-[rhelrunners]
-ossdemo-svr21-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
-ossdemo-svr22-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
+[dockerhosts]
+svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
+svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
 
 [buildbox]
 localhost

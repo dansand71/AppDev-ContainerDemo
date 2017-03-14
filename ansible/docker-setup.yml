@@ -1,7 +1,7 @@
 ---
 # This playbook installs docker on all the hosts
 - name: Install Docker
-  hosts: rhelrunners
+  hosts: dockerhosts
   remote_user: GBBOSSDemo
   sudo : true 
 
