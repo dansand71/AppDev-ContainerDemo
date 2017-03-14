@@ -44,7 +44,7 @@ if [[ $continuescript != "n" ]];then
     echo ""
     echo "--------------------------------------------"
 fi
-if [ -f /source/appdev-demo-EnvironmentTemplateValues ]
+if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
   then
     echo "    Existing settings file found.  Not copying the version from /source/AppDev-ContainerDemo/vm-assets"
   else
