@@ -40,10 +40,11 @@ if [[ $continuescript != "n" ]];then
     cd /source
     sudo rm -rf /source/AppDev-ContainerDemo
     sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
+    sudo chmod +x /source/AppDev-ContainerDemo/1-SetupDemos.sh
     echo ""
     echo "--------------------------------------------"
 fi
-if [ -f /source/appdev-demo-EnvironmentTemplateValues]
+if [ -f /source/appdev-demo-EnvironmentTemplateValues ]
   then
     echo "    Existing settings file found.  Not copying the version from /source/AppDev-ContainerDemo/vm-assets"
   else
