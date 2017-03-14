@@ -73,7 +73,8 @@ fi
 echo "--------------------------------------------"
 echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
 sshpubkey=$(< ~/.ssh/id_rsa.pub)
-sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo  | sudo xargs sed -i -e "s@REPLACE-SSH-KEY@${sshpubkey}@g" 
+echo "Using public key:" ${sshpubkey}
+sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo  | sudo xargs sed -i -e "s@REPLACE-SSH-KEY@${sshpubkey}@g" 
 echo "--------------------------------------------"
 
 echo "Configure demo scripts"
