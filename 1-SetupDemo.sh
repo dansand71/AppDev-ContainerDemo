@@ -14,13 +14,16 @@ echo "Upon download please edit /source/AppDev-ContainerDemo/vm-assets/DemoEnvir
 echo ""
 echo ""
 echo "Installing AZ command line tools if they are missing."
-#Check to see if Azure is installed if not do it...
+
+#Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
 if [ -f ~/bin/az ]
   then
     echo "    AZ Client installed. Skipping install.."
   else
+    echo "    Need to install Azure Tools.  After completion please re-run the script."
     curl -L https://aka.ms/InstallAzureCli | bash
-    exec -l $SHELL
+    echo "Please rerun the script now that you have installed the Azure Tools"
+    exit
 fi
 echo "Logging in to Azure"
 #Checking to see if we are logged into Azure
@@ -181,10 +184,10 @@ sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
 ##Please ensure your logged in to azure via the CLI & your subscription is set correctly
 
 #Create new worker VM's for the docker demo
-#/source/AppDev-ContainerDemo/azscripts/newVM.sh
+/source/AppDev-ContainerDemo/azscripts/newVM.sh
 
 #Create Azure Registry
-#/source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
+/source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
 
 #Create K8S Cluster
-#/source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
+/source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
