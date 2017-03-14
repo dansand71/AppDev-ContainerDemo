@@ -171,6 +171,12 @@ sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
 
+#ensure .net is setup correctly
+sudo yum install libunwind libicu
+cd /source
+curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449
+sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 
 #Set Scripts as executable
 sudo chmod +x /source/AppDev-ContainerDemo/kubernetes/configK8S.sh
