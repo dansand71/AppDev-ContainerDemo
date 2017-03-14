@@ -11,7 +11,7 @@ az vm create -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX \
         --ssh-key-value 'REPLACE-SSH-KEY' 
 
 echo "Create VM #2"
-az vm create -g 'ossdemo-docker' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
+az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr22-VALUEOF-UNIQUE-SERVER-PREFIX-disk' --image "OpenLogic:CentOS:7.2:latest" --os-type linux --storage-sku 'Premium_LRS' \
         --size Standard_DS1_v2 --admin-username GBBOSSDemo  \

@@ -8,5 +8,5 @@ echo "--------------------------------------------"
 echo " navigate to the Utility resource group.  Name the registry - gbbossdemoregistry"
 az component update --add acr
 az acr create -n VALUEOF-REGISTRY-USER-NAME -g ossdemo-utility -l eastus \
-        --storage-account-name VALUEOF-UNIQUE-STORAGE-ACCOUNT-PREFIX-storage \
+        --storage-account-name VALUEOF-UNIQUE-STORAGE-ACCOUNT \
         --admin-enabled true
