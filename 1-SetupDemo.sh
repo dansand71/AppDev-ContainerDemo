@@ -54,6 +54,7 @@ if [[ $continuescript != "n" ]];then
     sudo rm -rf /source/AppDev-ContainerDemo
     sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
     sudo chmod +x /source/AppDev-ContainerDemo/1-SetupDemo.sh
+    sudo chmod -R 777 /source
     echo ""
     echo "--------------------------------------------"
 fi
@@ -62,7 +63,7 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     echo "    Existing settings file found.  Not copying the version from /source/AppDev-ContainerDemo/vm-assets"
   else
     echo "    Copying the template file for your edits - /source/appdev-demo-EnvironmentTemplateValues"
-    cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
+    sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
 fi
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
