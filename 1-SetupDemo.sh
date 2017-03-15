@@ -177,6 +177,10 @@ cd /source
 curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449
 sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
 sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+sudo yum install -y gcc libffi-devel python-devel openssl-devel
+sudo yum install -y npm
+sudo npm install bower -g
+sudo npm install gulp -g
 
 #Set Scripts as executable
 sudo chmod +x /source/AppDev-ContainerDemo/kubernetes/configK8S.sh
