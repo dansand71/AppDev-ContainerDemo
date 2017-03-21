@@ -16,7 +16,7 @@ echo ""
 echo "Installing AZ command line tools if they are missing."
 
     #Necessary for demos to build and restore .NET application
-    sudo chmod -R 755 /source/AppDev-ContainerDemo
+    sudo chmod -R 777 /source/AppDev-ContainerDemo
 
 if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
   then
