@@ -41,11 +41,8 @@ echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
 echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
-read -p "Continue? [y/n]" startscript
-if [[ ${startscript,,} != y* ]];then
-    echo " response was ${startscript} - expecting y/n exiting."
-    exit
-fi
+read -p "Press any key to continue or CTRL-C to exit... " startscript
+
 
 #Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
 if [ -f ~/bin/az ]
