@@ -13,3 +13,5 @@ az group delete --name ossdemo-appdev-iaas -y --no-wait
 
 echo 'Delete ossdemo-appdev-paas resource group'
 az group delete --name ossdemo-appdev-paas -y --no-wait
+
+fi
