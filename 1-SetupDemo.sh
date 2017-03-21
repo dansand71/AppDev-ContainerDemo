@@ -188,7 +188,7 @@ sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
 /source/AppDev-ContainerDemo/azscripts/newVM.sh
 
 #Create Azure Registry
-/source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
+#/source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
 
 #Create K8S Cluster
 /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
