@@ -42,11 +42,8 @@
     become: true
 
   - name: Log into private registry and force re-authorization
-    docker_login:
-      registry: VALUEOF-REGISTRY-SERVER-NAME
-      username: VALUEOF-REGISTRY-USER-NAME
-      password: VALUEOF-REGISTRY-PASSWORD
-      reauthorize: yes
+    command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+    become: true
 
   - name: Push to the Azure Private Registry
     command: docker push VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
@@ -60,11 +57,8 @@
 
   tasks: 
   - name: Log into private registry and force re-authorization
-    docker_login:
-      registry: VALUEOF-REGISTRY-SERVER-NAME
-      username: VALUEOF-REGISTRY-USER-NAME
-      password: VALUEOF-REGISTRY-PASSWORD
-      reauthorize: yes
+    command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+    become: true
 
   - name: Kill the existing DOCKER container
     command: docker rm aspnet-core-linux -f
