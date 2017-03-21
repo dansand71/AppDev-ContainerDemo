@@ -15,55 +15,17 @@ echo ""
 echo ""
 echo "Installing AZ command line tools if they are missing."
 
-#Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
-if [ -f ~/bin/az ]
-  then
-    echo "    AZ Client installed. Skipping install.."
-  else
-    echo "    Need to install Azure Tools.  After completion please re-run the script."
-    curl -L https://aka.ms/InstallAzureCli | bash
-    echo "Please rerun the script now that you have installed the Azure Tools"
-    exit
-fi
-echo "Logging in to Azure"
-#Checking to see if we are logged into Azure
-echo "    Checking if we are logged in to Azure."
-#We need to redirect the output streams to stdout
-azstatus=`az group list 2>&1` 
-if [[ $azstatus =~ "Please run 'az login' to setup account." ]]; then
-   echo "   We need to login to azure.."
-   az login
-else
-   echo "    Logged in."
-fi
-read -p "    Change default subscription? [y/n]:" changesubscription
-if [[ $changesubscription =~ "y" ]];then
-    read -p "      New Subscription Name:" newsubscription
-    az account set --subscription "$newsubscription"
-else
-    echo "    Using default existing subscription."
-fi
+    #Necessary for demos to build and restore .NET application
+    sudo chmod -R 755 /source/AppDev-ContainerDemo
 
-echo "GIT HUB REPO"
-read -p "Download the GIT HUB repo for https://github.com/dansand71/AppDev-ContainerDemo? [y/n]" continuescript
-if [[ $continuescript != "n" ]];then
-    #Download the GIT Repo for keys etc.
-    echo "--------------------------------------------"
-    echo "Downloading the Github repo for the connectivity keys and bits."
-    cd /source
-    sudo rm -rf /source/AppDev-ContainerDemo
-    sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
-    sudo chmod +x /source/AppDev-ContainerDemo/1-SetupDemo.sh
-    sudo chmod -R 777 /source
-    echo ""
-    echo "--------------------------------------------"
-fi
 if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
   then
     echo "    Existing settings file found.  Not copying the version from /source/AppDev-ContainerDemo/vm-assets"
   else
     echo "    Copying the template file for your edits - /source/appdev-demo-EnvironmentTemplateValues"
     sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
+    echo "    Please update /source/appdev-demo-EnvironmentTemplateValues and re-run this script."
+    exit
 fi
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
@@ -81,6 +43,34 @@ echo "The remainder of this script requires the template values be filled in the
 read -p "Continue? [y/n]" continuescript
 if [[ $continuescript != "y" ]];then
     exit
+fi
+
+#Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
+if [ -f ~/bin/az ]
+  then
+    echo "    AZ Client installed. Skipping install.."
+  else
+    echo "    Need to install Azure Tools."
+    curl -L https://aka.ms/InstallAzureCli | bash
+    echo "Please rerun the script now that you have installed the Azure Tools"
+fi
+echo "Logging in to Azure"
+#Checking to see if we are logged into Azure
+echo "    Checking if we are logged in to Azure."
+#We need to redirect the output streams to stdout
+azstatus=`~/bin/az group list 2>&1` 
+if [[ $azstatus =~ "Please run 'az login' to setup account." ]]; then
+   echo "   We need to login to azure.."
+   az login
+else
+   echo "    Logged in."
+fi
+read -p "    Change default subscription? [y/n]:" changesubscription
+if [[ $changesubscription =~ "y" ]];then
+    read -p "      New Subscription Name:" newsubscription
+    ~/bin/az account set --subscription "$newsubscription"
+else
+    echo "    Using default existing subscription."
 fi
 
 #Leverage the existing public key for new VM creation script
@@ -116,34 +106,34 @@ if [[ $continuescript != "n" ]];then
     echo "BUILDING RESOURCE GROUPS"
     echo "--------------------------------------------"
     echo 'create ossdemo-appdev-iaas, ossdemo-appdev-acs, ossdemo-appdev-paas resource groups'
-    az group create --name ossdemo-appdev-iaas --location eastus
-    az group create --name ossdemo-appdev-acs --location eastus
-    az group create --name ossdemo-appdev-paas --location eastus
+    ~/bin/az group create --name ossdemo-appdev-iaas --location eastus
+    ~/bin/az group create --name ossdemo-appdev-acs --location eastus
+    ~/bin/az group create --name ossdemo-appdev-paas --location eastus
 
     #BUILD NETWORKS SECURTIY GROUPS and RULES
     echo ""
     echo "BUILDING NETWORKS SECURTIY GROUPS and RULES"
     echo "--------------------------------------------"
     echo 'Network Security Groups (NSGs) for Resource Groups'
-    az network nsg create --resource-group ossdemo-appdev-iaas --name NSG-ossdemo-appdev-iaas --location eastus
-    az network nsg create --resource-group ossdemo-appdev-acs --name NSG-ossdemo-appdev-acs --location eastus
-    az network nsg create --resource-group ossdemo-appdev-paas --name NSG-ossdemo-appdev-paas --location eastus
+    ~/bin/az network nsg create --resource-group ossdemo-appdev-iaas --name NSG-ossdemo-appdev-iaas --location eastus
+    ~/bin/az network nsg create --resource-group ossdemo-appdev-acs --name NSG-ossdemo-appdev-acs --location eastus
+    ~/bin/az network nsg create --resource-group ossdemo-appdev-paas --name NSG-ossdemo-appdev-paas --location eastus
 
     echo 'Allow SSH inbound to iaas, acs and paas resource groups'
-    az network nsg rule create --resource-group ossdemo-appdev-iaas \
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
         --nsg-name NSG-ossdemo-appdev-iaas --name ssh-rule \
         --access Allow --protocol Tcp --direction Inbound --priority 110 \
         --source-address-prefix Internet \
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 22
-    az network nsg rule create --resource-group ossdemo-appdev-iaas \
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
         --nsg-name NSG-ossdemo-appdev-iaas --name ssh-rule \
         --access Allow --protocol Tcp --direction Inbound --priority 120 \
         --source-address-prefix Internet \
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 80
 
-    az network nsg rule create --resource-group ossdemo-appdev-acs \
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
      --nsg-name NSG-ossdemo-appdev-acs --name ssh-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 110 \
      --source-address-prefix Internet \
@@ -151,13 +141,13 @@ if [[ $continuescript != "n" ]];then
      --destination-port-range 22
      
 
-    az network nsg rule create --resource-group ossdemo-appdev-paas \
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
      --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 110 \
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
-    az network nsg rule create --resource-group ossdemo-appdev-paas \
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
      --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 120 \
      --source-address-prefix Internet \
