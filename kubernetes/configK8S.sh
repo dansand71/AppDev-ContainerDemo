@@ -6,7 +6,7 @@ az acs kubernetes get-credentials \
         --name k8s-VALUEOF-UNIQUE-SERVER-PREFIX
 
 echo "create secret to login to the private registry"
-kubectl create secret docker-registry ossdemoRegistryKey \
+kubectl create secret docker-registry ossdemoregistrykey \
         --docker-server=VALUEOF-REGISTRY-SERVER-NAME \
         --docker-username=VALUEOF-REGISTRY-USER-NAME \
         --docker-password=VALUEOF-REGISTRY-PASSWORD \

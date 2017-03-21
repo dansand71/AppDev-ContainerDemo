@@ -18,4 +18,4 @@ spec:
         ports:
         - containerPort: 5000
       imagePullSecrets:
-      - name: ossdemoRegistryKey
+      - name: ossdemoregistrykey
