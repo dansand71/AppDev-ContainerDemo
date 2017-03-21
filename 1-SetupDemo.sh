@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Welcome to the OSS Demo for Simple app dev Containers.  This demo will configure:"
 echo "    - Resource group - ossdemo-appdev-iaas"
 echo "    - Resource group - ossdemo-appdev-acs"
@@ -41,7 +42,7 @@ echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
 echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
 read -p "Continue? [y/n]" startscript
-if [[ $startscript,, != "y" ]];then
+if [[ ${startscript,,} != y* ]];then
     echo " response was ${startscript} - expecting y/n exiting."
     exit
 fi
