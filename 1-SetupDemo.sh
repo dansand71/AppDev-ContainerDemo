@@ -126,7 +126,7 @@ if [[ $continuescript != "n" ]];then
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 22
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
-        --nsg-name NSG-ossdemo-appdev-iaas --name ssh-rule \
+        --nsg-name NSG-ossdemo-appdev-iaas --name http-rule \
         --access Allow --protocol Tcp --direction Inbound --priority 120 \
         --source-address-prefix Internet \
         --source-port-range "*" --destination-address-prefix "*" \
@@ -139,15 +139,8 @@ if [[ $continuescript != "n" ]];then
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
      
-
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
-     --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
-     --access Allow --protocol Tcp --direction Inbound --priority 110 \
-     --source-address-prefix Internet \
-     --source-port-range "*" --destination-address-prefix "*" \
-     --destination-port-range 22
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
-     --nsg-name NSG-ossdemo-appdev-paas --name ssh-rule \
+     --nsg-name NSG-ossdemo-appdev-paas --name http-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 120 \
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
