@@ -1,6 +1,7 @@
 echo "Be sure to login to Azure prior to running this script."
 #az account set --subscription "Microsoft Azure Internal Consumption"
 
+echo "Creating Docker Runtime hosts for Demo #1"
 echo "Create Public IP Address and Load Balancers"
 az vm availability-set create -n ossdemo-appdev-iaas-availabilityset -g ossdemo-appdev-iaas --platform-update-domain-count 5 --platform-fault-domain-count 2
 #az network public-ip create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicIP -l eastus --dns-name VALUEOF-UNIQUE-SERVER-PREFIX
