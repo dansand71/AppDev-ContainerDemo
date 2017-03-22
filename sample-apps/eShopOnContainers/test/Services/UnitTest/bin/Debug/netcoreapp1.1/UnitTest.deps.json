@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "10d5cae955a84f7081b904252ad26534a4b71190"
+    "signature": "9d7e6d7c816f17a3ecb05eebf9a5be7b4eac41f4"
   },
   "compilationOptions": {},
   "targets": {
@@ -942,7 +942,7 @@
           "lib/netstandard1.0/Microsoft.Extensions.WebEncoders.dll": {}
         }
       },
-      "microsoft.identitymodel.logging/1.1.0": {
+      "microsoft.identitymodel.logging/1.1.3": {
         "runtime": {
           "lib/netstandard1.4/Microsoft.IdentityModel.Logging.dll": {}
         }
@@ -951,7 +951,7 @@
         "dependencies": {
           "System.Collections.Specialized": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
-          "System.IdentityModel.Tokens.Jwt": "5.1.0"
+          "System.IdentityModel.Tokens.Jwt": "5.1.3"
         },
         "runtime": {
           "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.dll": {}
@@ -965,9 +965,9 @@
           "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
         }
       },
-      "microsoft.identitymodel.tokens/5.1.0": {
+      "microsoft.identitymodel.tokens/5.1.3": {
         "dependencies": {
-          "Microsoft.IdentityModel.Logging": "1.1.0",
+          "Microsoft.IdentityModel.Logging": "1.1.3",
           "Newtonsoft.Json": "9.0.1"
         },
         "runtime": {
@@ -1199,9 +1199,9 @@
           }
         }
       },
-      "system.identitymodel.tokens.jwt/5.1.0": {
+      "system.identitymodel.tokens.jwt/5.1.3": {
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "5.1.0"
+          "Microsoft.IdentityModel.Tokens": "5.1.3"
         },
         "runtime": {
           "lib/netstandard1.4/System.IdentityModel.Tokens.Jwt.dll": {}
@@ -1374,7 +1374,8 @@
           "Microsoft.Extensions.Logging.Console": "1.1.1",
           "Microsoft.Extensions.Logging.Debug": "1.1.1",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.1",
-          "Swashbuckle": "6.0.0-beta902"
+          "Swashbuckle": "6.0.0-beta902",
+          "System.IdentityModel.Tokens.Jwt": "5.1.3"
         },
         "runtime": {
           "Catalog.API.dll": {}
@@ -1450,7 +1451,7 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.1",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
           "Newtonsoft.Json": "9.0.1",
-          "System.IdentityModel.Tokens.Jwt": "5.1.0"
+          "System.IdentityModel.Tokens.Jwt": "5.1.3"
         },
         "runtime": {
           "WebMVC.dll": {}
@@ -2157,12 +2158,12 @@
       "path": "microsoft.extensions.webencoders/1.1.1",
       "hashPath": "microsoft.extensions.webencoders.1.1.1.nupkg.sha512"
     },
-    "microsoft.identitymodel.logging/1.1.0": {
+    "microsoft.identitymodel.logging/1.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Dv3G9GIdKyCc4xJjZECQosRJ9//4q/yXmb0vOUOjN1XpkCcHEt5UJ5S4zm8yJR+5tLODA159G2QtVNtK1RsAXw==",
-      "path": "microsoft.identitymodel.logging/1.1.0",
-      "hashPath": "microsoft.identitymodel.logging.1.1.0.nupkg.sha512"
+      "sha512": "sha512-2QS51c01mQVcy2Jsx7E3g1A2aXt3HBTN1in4YcBAFbIgfXkVIwquGAlaw1H+UwM2BvPajs5DCeyvMrse6Uxshw==",
+      "path": "microsoft.identitymodel.logging/1.1.3",
+      "hashPath": "microsoft.identitymodel.logging.1.1.3.nupkg.sha512"
     },
     "microsoft.identitymodel.protocols/2.1.2": {
       "type": "package",
@@ -2178,12 +2179,12 @@
       "path": "microsoft.identitymodel.protocols.openidconnect/2.1.2",
       "hashPath": "microsoft.identitymodel.protocols.openidconnect.2.1.2.nupkg.sha512"
     },
-    "microsoft.identitymodel.tokens/5.1.0": {
+    "microsoft.identitymodel.tokens/5.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Hg1+IbP0F9oQ8qIxQobKoOczrwufYMNHrSXj+xF1+4VCpvymhyvpVcgLqi5GOie1qcQYp/yBy04dpBImemVXKg==",
-      "path": "microsoft.identitymodel.tokens/5.1.0",
-      "hashPath": "microsoft.identitymodel.tokens.5.1.0.nupkg.sha512"
+      "sha512": "sha512-bmfaPlcQEtYVuu440OSzY8IxSM5dFyyDmFnZ9aLjswtkPilD/NOvCWQDV9krwNsfL/ge7B+s+omaS2xhIYL8TQ==",
+      "path": "microsoft.identitymodel.tokens/5.1.3",
+      "hashPath": "microsoft.identitymodel.tokens.5.1.3.nupkg.sha512"
     },
     "microsoft.net.http.headers/1.1.1": {
       "type": "package",
@@ -2374,12 +2375,12 @@
       "path": "system.diagnostics.tracesource/4.0.0",
       "hashPath": "system.diagnostics.tracesource.4.0.0.nupkg.sha512"
     },
-    "system.identitymodel.tokens.jwt/5.1.0": {
+    "system.identitymodel.tokens.jwt/5.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-oMcOZ0/7seZYkv8yRPBlfHyc7K/33TS0hVtshvOAiH9rHWqCb3htq4mEbOtqMTo45pzblcm10ArpERlZrSS69A==",
-      "path": "system.identitymodel.tokens.jwt/5.1.0",
-      "hashPath": "system.identitymodel.tokens.jwt.5.1.0.nupkg.sha512"
+      "sha512": "sha512-4vQI+9vjMmcg4GJM2N9udsAc7d+Eu/yEZQgp/henwx3moZUD8PGq2uGo224UNQrVwQuI/YLlBOusZUVqCqdRHA==",
+      "path": "system.identitymodel.tokens.jwt/5.1.3",
+      "hashPath": "system.identitymodel.tokens.jwt.5.1.3.nupkg.sha512"
     },
     "system.interactive.async/3.0.0": {
       "type": "package",

@@ -20,6 +20,6 @@ C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\C
 C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\Catalog.API.csprojResolveAssemblyReference.cache
 C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\Catalog.API.AssemblyInfo.cs
 C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\bin\Debug\netcoreapp1.1\Catalog.API.pdb
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
 C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\Catalog.API.dll
 C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\Catalog.API.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Catalog\Catalog.API\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
