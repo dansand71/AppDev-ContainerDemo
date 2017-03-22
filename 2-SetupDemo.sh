@@ -151,7 +151,11 @@ sudo chmod +x /source/AppDev-ContainerDemo/azscripts/newVM.sh
 sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
 sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
 
-##Please ensure your logged in to azure via the CLI & your subscription is set correctly
+
+#Install Docker Compose
+curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
+chmod +x ~/bin/docker-compose
+
 
 #Create new worker VM's for the docker demo
 /source/AppDev-ContainerDemo/azscripts/newVM.sh
