@@ -11,23 +11,10 @@ echo "     - Azure app service in ossdemo-appdev-paas"
 echo ""
 echo "Installation & Configuration will require SU rights but pleae run this script as GBBOSSDemo."
 echo ""
-echo "Upon download please edit /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues file with your unique values."
+echo "This particular demo script will create a resource groups, K8S cluster and 2 docker hosts."
 echo ""
 echo ""
-echo "Installing AZ command line tools if they are missing."
 
-    #Necessary for demos to build and restore .NET application
-    sudo chmod -R 777 /source/AppDev-ContainerDemo
-
-if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
-  then
-    echo "    Existing settings file found.  Not copying the version from /source/AppDev-ContainerDemo/vm-assets"
-  else
-    echo "    Copying the template file for your edits - /source/appdev-demo-EnvironmentTemplateValues"
-    sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
-    echo "    Please update /source/appdev-demo-EnvironmentTemplateValues and re-run this script."
-    exit
-fi
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
 echo "Current Template Values:"
@@ -43,16 +30,6 @@ echo ""
 echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
 read -p "Press any key to continue or CTRL-C to exit... " startscript
 
-
-#Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
-if [ -f ~/bin/az ]
-  then
-    echo "    AZ Client installed. Skipping install.."
-  else
-    echo "    Need to install Azure Tools."
-    curl -L https://aka.ms/InstallAzureCli | bash
-    echo "Please rerun the script now that you have installed the Azure Tools"
-fi
 echo "Logging in to Azure"
 #Checking to see if we are logged into Azure
 echo "    Checking if we are logged in to Azure."
