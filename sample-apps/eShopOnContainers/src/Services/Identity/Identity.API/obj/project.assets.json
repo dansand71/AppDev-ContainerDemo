@@ -11241,6 +11241,9 @@
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "files": {
+        "lib/netcoreapp1.1/Identity.API.dll": "C:\\git\\AppDev-ContainerDemo\\sample-apps\\eShopOnContainers\\src\\Services\\Identity\\Identity.API\\bin\\placeholder\\netcoreapp1.1\\Identity.API.dll"
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
@@ -11250,45 +11253,19 @@
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+          "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "1.1.1"
+            "version": "1.1.0"
           },
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+          "Microsoft.ApplicationInsights.AspNetCore": {
             "target": "Package",
-            "version": "1.1.1"
+            "version": "2.0.0"
           },
           "Microsoft.AspNetCore.Authentication.Cookies": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.Extensions.Configuration.Json": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.Extensions.Logging.Debug": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.AspNetCore.Server.Kestrel": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.EntityFrameworkCore.Tools": {
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "1.1.0"
-          },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "1.1.0"
-          },
           "Microsoft.AspNetCore.Diagnostics": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.AspNetCore.Server.IISIntegration": {
             "target": "Package",
             "version": "1.1.1"
           },
@@ -11296,20 +11273,27 @@
             "target": "Package",
             "version": "1.1.1"
           },
-          "IdentityServer4.EntityFramework": {
-            "target": "Package",
-            "version": "1.0.0-rc3"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "1.1.0",
-            "autoReferenced": true
-          },
-          "Microsoft.Extensions.Configuration.UserSecrets": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+          "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "1.1.2"
+          },
+          "Microsoft.AspNetCore.Routing": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.AspNetCore.Server.IISIntegration": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.AspNetCore.Server.Kestrel": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "1.1.1"
           },
@@ -11322,37 +11306,55 @@
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.Extensions.Logging.Console": {
+          "Microsoft.EntityFrameworkCore.Tools": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "1.1.0"
+          },
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.AspNetCore.Mvc": {
+          "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
-            "version": "1.1.2"
+            "version": "1.1.1"
           },
-          "Microsoft.VisualStudio.Web.BrowserLink.Loader": {
+          "Microsoft.Extensions.Configuration.UserSecrets": {
             "target": "Package",
-            "version": "14.1.0"
-          },
-          "Microsoft.ApplicationInsights.AspNetCore": {
-            "target": "Package",
-            "version": "2.0.0"
+            "version": "1.1.1"
           },
           "Microsoft.Extensions.Logging": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.AspNetCore.StaticFiles": {
+          "Microsoft.Extensions.Logging.Console": {
             "target": "Package",
             "version": "1.1.1"
+          },
+          "Microsoft.Extensions.Logging.Debug": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.VisualStudio.Web.BrowserLink.Loader": {
+            "target": "Package",
+            "version": "14.1.0"
+          },
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "1.1.0"
           },
           "IdentityServer4.AspNetIdentity": {
             "target": "Package",
             "version": "1.0.0-rc3"
           },
-          "Microsoft.AspNetCore.Routing": {
+          "IdentityServer4.EntityFramework": {
             "target": "Package",
-            "version": "1.1.1"
+            "version": "1.0.0-rc3"
           }
         },
         "imports": [

@@ -1,11 +1,11 @@
 
 projectList=(
-    "/src/Services/Catalog/Catalog.API"
-    "/src/Services/Basket/Basket.API"
-    "/src/Services/Ordering/Ordering.API"
-    "/src/Services/Identity/Identity.API"
-    "/src/Web/WebMVC"
-    "/src/Web/WebSPA"
+    "../src/Services/Catalog/Catalog.API"
+    "../src/Services/Basket/Basket.API"
+    "../src/Services/Ordering/Ordering.API"
+    "../src/Services/Identity/Identity.API"
+    "../src/Web/WebMVC"
+    "../src/Web/WebSPA"
 )
 
 # Build SPA app
@@ -18,11 +18,11 @@ do
     echo -e "\e[33mWorking on $(pwd)/$project"
     echo -e "\e[33m\tRemoving old publish output"
     pushd $(pwd)/$project
-    rm -rf obj/Docker/publish
+    sudo rm -rf obj/Docker/publish
     echo -e "\e[33m\tRestoring project"
-    dotnet restore
+    sudo /usr/local/bin/dotnet restore
     echo -e "\e[33m\tBuilding and publishing projects"
-    dotnet publish -o obj/Docker/publish
+    sudo /usr/local/bin/dotnet publish -o obj/Docker/publish
     popd
 done
 

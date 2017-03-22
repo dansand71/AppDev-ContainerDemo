@@ -1,4 +1,4 @@
-version: '2'
+: '2'
 
 services:
   basket.api:
@@ -32,16 +32,6 @@ services:
       - "com.microsoft.visualstudio.targetoperatingsystem=linux"
 
   ordering.api:
-    build:
-      args:
-        source: ${DOCKER_BUILD_SOURCE}
-    volumes:
-      - ~/clrdbg:/clrdbg:ro
-    entrypoint: tail -f /dev/null
-    labels:
-      - "com.microsoft.visualstudio.targetoperatingsystem=linux"
-
-  webspa:
     build:
       args:
         source: ${DOCKER_BUILD_SOURCE}

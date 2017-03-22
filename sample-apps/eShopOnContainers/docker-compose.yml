@@ -34,15 +34,6 @@ services:
     depends_on:
       - sql.data
 
-  webspa:
-    image: eshop/webspa
-    build:
-      context: ./src/Web/WebSPA
-      dockerfile: Dockerfile
-    depends_on:
-      - identity.api
-      - basket.api
-
   webmvc:
     image: eshop/webmvc
     build:

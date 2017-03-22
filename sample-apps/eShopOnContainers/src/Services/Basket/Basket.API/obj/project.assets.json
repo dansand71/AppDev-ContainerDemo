@@ -10223,6 +10223,9 @@
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "files": {
+        "lib/netcoreapp1.1/Basket.API.dll": "C:\\git\\AppDev-ContainerDemo\\sample-apps\\eShopOnContainers\\src\\Services\\Basket\\Basket.API\\bin\\placeholder\\netcoreapp1.1\\Basket.API.dll"
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
@@ -10232,6 +10235,30 @@
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "1.1.0"
+          },
+          "Microsoft.ApplicationInsights.AspNetCore": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "System.Threading": {
+            "target": "Package",
+            "version": "4.3.0"
+          },
+          "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "1.1.2"
+          },
+          "Microsoft.AspNetCore.Server.IISIntegration": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
+          "Microsoft.AspNetCore.Server.Kestrel": {
+            "target": "Package",
+            "version": "1.1.1"
+          },
           "Microsoft.Extensions.Configuration.EnvironmentVariables": {
             "target": "Package",
             "version": "1.1.1"
@@ -10240,40 +10267,11 @@
             "target": "Package",
             "version": "1.1.1"
           },
-          "Swashbuckle": {
-            "target": "Package",
-            "version": "6.0.0-beta902"
-          },
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.Extensions.Logging.Debug": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "Microsoft.AspNetCore.Server.Kestrel": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "IdentityServer4.AccessTokenValidation": {
-            "target": "Package",
-            "version": "1.0.1-rc3"
-          },
-          "Microsoft.AspNetCore.Server.IISIntegration": {
-            "target": "Package",
-            "version": "1.1.1"
-          },
-          "StackExchange.Redis": {
-            "target": "Package",
-            "version": "1.1.608"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "1.1.0",
-            "autoReferenced": true
-          },
-          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+          "Microsoft.Extensions.Logging": {
             "target": "Package",
             "version": "1.1.1"
           },
@@ -10281,25 +10279,29 @@
             "target": "Package",
             "version": "1.1.1"
           },
-          "Microsoft.AspNetCore.Mvc": {
-            "target": "Package",
-            "version": "1.1.2"
-          },
-          "Microsoft.ApplicationInsights.AspNetCore": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
-          "Microsoft.Extensions.Logging": {
+          "Microsoft.Extensions.Logging.Debug": {
             "target": "Package",
             "version": "1.1.1"
           },
-          "System.Threading": {
+          "Microsoft.Extensions.Options.ConfigurationExtensions": {
             "target": "Package",
-            "version": "4.3.0"
+            "version": "1.1.1"
+          },
+          "StackExchange.Redis": {
+            "target": "Package",
+            "version": "1.1.608"
           },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "9.0.1"
+          },
+          "IdentityServer4.AccessTokenValidation": {
+            "target": "Package",
+            "version": "1.0.1-rc3"
+          },
+          "Swashbuckle": {
+            "target": "Package",
+            "version": "6.0.0-beta902"
           }
         },
         "imports": [

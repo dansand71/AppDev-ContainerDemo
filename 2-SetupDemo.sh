@@ -131,6 +131,12 @@ sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
 sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
 
+#do we have the latest verion of .net?
+sudo yum install libunwind libicu
+curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
+sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+
 #ensure .net is setup correctly
 sudo yum install libunwind libicu
 cd /source
@@ -151,10 +157,14 @@ sudo chmod +x /source/AppDev-ContainerDemo/azscripts/newVM.sh
 sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
 sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
 
-
 #Install Docker Compose
 curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
 chmod +x ~/bin/docker-compose
+
+#Install Rimraf for Node Apps
+sudo npm install rimraf -g
+sudo npm install webpack -g
+sudo npm install node-sass -g
 
 
 #Create new worker VM's for the docker demo
