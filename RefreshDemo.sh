@@ -15,21 +15,22 @@ echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
 echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
-echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
+echo "The remainder of this script deletes the existing /source/AppDev-ContainerDemo directory, reclones and resets script executables."
 read -p "Press any key to continue or CTRL-C to exit... " startscript
 echo ""
 
-read -p "    Remove existing demo environment ./AppDev-ContainerDemo? [Y/n]:" rmdirectory
-if [[ $rmdirectory,, != "n" ]];then
-    sudo rm -rf /source/AppDev-ContainerDemo
-fi
-read -p "    Reclone github repository? [Y/n]:" reclone
-if [[ $reclone,, != "n" ]];then
-    cd /source
-    sudo git clone https://github.com/dansand71/AppDev-ContainerDemo 
-    sudo chmod +x /source/AppDev-ContainerDemo/1-CreateSettingsFile.sh
-    sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
-fi
+echo "    Remove existing demo environment ./AppDev-ContainerDemo" 
+sudo rm -rf /source/AppDev-ContainerDemo
+echo "    Reclone github repository https://github.com/dansand71/AppDev-ContainerDemo"
+
+cd /source
+sudo git clone https://github.com/dansand71/AppDev-ContainerDemo 
+sudo chmod +x /source/AppDev-ContainerDemo/1-CreateSettingsFile.sh
+sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/RefreshDemo.sh
+
+#Necessary for demos to build and restore .NET application
+sudo chmod -R 777 /source/AppDev-ContainerDemo
 
 #Leverage the existing public key for new VM creation script
 echo "--------------------------------------------"
