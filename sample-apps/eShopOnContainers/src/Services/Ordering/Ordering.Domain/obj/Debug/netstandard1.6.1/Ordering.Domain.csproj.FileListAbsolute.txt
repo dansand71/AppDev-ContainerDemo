@@ -1,0 +1,7 @@
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\bin\Debug\netstandard1.6.1\Ordering.Domain.deps.json
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\bin\Debug\netstandard1.6.1\Ordering.Domain.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\bin\Debug\netstandard1.6.1\Ordering.Domain.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\obj\Debug\netstandard1.6.1\Ordering.Domain.csprojResolveAssemblyReference.cache
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\obj\Debug\netstandard1.6.1\Ordering.Domain.AssemblyInfo.cs
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\obj\Debug\netstandard1.6.1\Ordering.Domain.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Domain\obj\Debug\netstandard1.6.1\Ordering.Domain.pdb

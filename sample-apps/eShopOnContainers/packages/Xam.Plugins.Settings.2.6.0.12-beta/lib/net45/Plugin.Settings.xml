@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Plugin.Settings</name>
+    </assembly>
+    <members>
+        <member name="T:Plugin.Settings.SettingsImplementation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Plugin.Settings.SettingsImplementation.AddOrUpdateValue``1(System.String,``0,System.String)">
+            <summary>
+            Add or Upate
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="fileName">Name of file for settings to be stored and retrieved (iOS = SuiteName, Android = Name, Windows Store/RT8.1/UWP = Container name, WinPhone 8 SL = Doesn't Apply)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Plugin.Settings.SettingsImplementation.GetValueOrDefault``1(System.String,``0,System.String)">
+            <summary>
+            Get Value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="defaultValue"></param>
+            <param name="fileName">Name of file for settings to be stored and retrieved (iOS = SuiteName, Android = Name, Windows Store/RT8.1/UWP = Container name, WinPhone 8 SL = Doesn't Apply)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Plugin.Settings.SettingsImplementation.Remove(System.String,System.String)">
+            <summary>
+            Remove key
+            </summary>
+            <param name="key">Key to remove</param>
+            <param name="fileName">Name of file for settings to be stored and retrieved (iOS = SuiteName, Android = Name, Windows Store/RT8.1/UWP = Container name, WinPhone 8 SL = Doesn't Apply)</param>
+        </member>
+        <member name="M:Plugin.Settings.SettingsImplementation.Clear(System.String)">
+            <summary>
+            Clear all keys from settings
+            </summary>
+            <param name="fileName">Name of file for settings to be stored and retrieved (iOS = SuiteName, Android = Name, Windows Store/RT8.1/UWP = Container name, WinPhone 8 SL = Doesn't Apply)</param>
+        </member>
+        <member name="M:Plugin.Settings.SettingsImplementation.Contains(System.String,System.String)">
+            <summary>
+            Checks to see if the key has been added.
+            </summary>
+            <param name="key">Key to check</param>
+            <param name="fileName">Name of file for settings to be stored and retrieved (iOS = SuiteName, Android = Name, Windows Store/RT8.1/UWP = Container name, WinPhone 8 SL = Doesn't Apply)</param>
+            <returns>True if contains key, else false</returns>
+        </member>
+        <member name="T:Plugin.Settings.CrossSettings">
+            <summary>
+            Cross Platform settings
+            </summary>
+        </member>
+        <member name="P:Plugin.Settings.CrossSettings.Current">
+            <summary>
+            Current settings to use
+            </summary>
+        </member>
+    </members>
+</doc>

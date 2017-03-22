@@ -1,0 +1,17 @@
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.API.deps.json
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.API.runtimeconfig.json
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.API.runtimeconfig.dev.json
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.Domain.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.Infrastructure.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\obj\Debug\netcoreapp1.1\Ordering.API.csprojResolveAssemblyReference.cache
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\obj\Debug\netcoreapp1.1\Ordering.API.AssemblyInfo.cs
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.x86.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.amd64.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Dockerfile
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.API.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.API.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.Domain.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\bin\Debug\netcoreapp1.1\Ordering.Infrastructure.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\obj\Debug\netcoreapp1.1\Ordering.API.dll
+C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.API\obj\Debug\netcoreapp1.1\Ordering.API.pdb
