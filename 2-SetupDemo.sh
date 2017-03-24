@@ -136,6 +136,9 @@ sudo yum install libunwind libicu
 curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
 sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
 sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+#set the dotnet path variables
+echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
+
 
 #ensure .net is setup correctly
 sudo yum install libunwind libicu

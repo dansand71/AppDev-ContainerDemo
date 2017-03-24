@@ -1902,12 +1902,6 @@
         "framework": ".NETStandard,Version=v1.6.1",
         "dependencies": {
           "NETStandard.Library": "1.6.1"
-        },
-        "compile": {
-          "bin/placeholder/netstandard1.6.1/Ordering.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/netstandard1.6.1/Ordering.Domain.dll": {}
         }
       }
     }
@@ -6091,9 +6085,6 @@
       "originalTargetFrameworks": [
         "netstandard1.6.1"
       ],
-      "files": {
-        "lib/netstandard1.6.1/Ordering.Infrastructure.dll": "C:\\git\\AppDev-ContainerDemo\\sample-apps\\eShopOnContainers\\src\\Services\\Ordering\\Ordering.Infrastructure\\bin\\placeholder\\netstandard1.6.1\\Ordering.Infrastructure.dll"
-      },
       "frameworks": {
         "netstandard1.6.1": {
           "projectReferences": {
@@ -6107,13 +6098,14 @@
     "frameworks": {
       "netstandard1.6.1": {
         "dependencies": {
-          "NETStandard.Library": {
-            "target": "Package",
-            "version": "1.6.1"
-          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "1.1.1"
+          },
+          "NETStandard.Library": {
+            "target": "Package",
+            "version": "1.6.1",
+            "autoReferenced": true
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

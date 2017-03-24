@@ -52,7 +52,7 @@ services:
       - CatalogUrl=http://catalog.api:5101
       - OrderingUrl=http://ordering.api:5102
       - BasketUrl=http://basket.api:5103
-      - IdentityUrl=http://10.0.75.1:5105        #Local:  Use 10.0.75.1 in a "Docker for Windows" environment, if using "localhost" from browser. 
+      - IdentityUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5105        #Local:  Use 10.0.75.1 in a "Docker for Windows" environment, if using "localhost" from browser. 
                                                  #Remote: Use ${ESHOP_EXTERNAL_DNS_NAME_OR_IP} if using external IP or DNS name from browser. 
     ports:
       - "5100:5100"

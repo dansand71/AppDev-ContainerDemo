@@ -13,7 +13,7 @@ echo "Create VM #1"
 az vm create -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr1-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr21-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS1_v2  --admin-username GBBOSSDemo \
+        --size Standard_DS2_v2  --admin-username GBBOSSDemo \
         --nsg 'NSG-ossdemo-appdev-iaas' \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --no-wait \
@@ -23,7 +23,7 @@ echo "Create VM #2"
 az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr22-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS1_v2 --admin-username GBBOSSDemo  \
+        --size Standard_DS2_v2 --admin-username GBBOSSDemo  \
         --nsg 'NSG-ossdemo-appdev-iaas' \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --no-wait \

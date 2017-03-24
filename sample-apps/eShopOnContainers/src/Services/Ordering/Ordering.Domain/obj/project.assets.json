@@ -4341,9 +4341,6 @@
       "originalTargetFrameworks": [
         "netstandard1.6.1"
       ],
-      "files": {
-        "lib/netstandard1.6.1/Ordering.Domain.dll": "C:\\git\\AppDev-ContainerDemo\\sample-apps\\eShopOnContainers\\src\\Services\\Ordering\\Ordering.Domain\\bin\\placeholder\\netstandard1.6.1\\Ordering.Domain.dll"
-      },
       "frameworks": {
         "netstandard1.6.1": {
           "projectReferences": {}
@@ -4355,7 +4352,8 @@
         "dependencies": {
           "NETStandard.Library": {
             "target": "Package",
-            "version": "1.6.1"
+            "version": "1.6.1",
+            "autoReferenced": true
           }
         },
         "imports": [
