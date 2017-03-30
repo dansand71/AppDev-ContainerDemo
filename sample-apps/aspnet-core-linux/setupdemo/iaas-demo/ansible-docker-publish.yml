@@ -7,17 +7,17 @@
   - name: Restore the requirements
     command: dotnet restore
     args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
   
   - name: .NET BUILD
     command: dotnet build
     args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
   
   - name: Publish the site
     command: dotnet publish
     args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
 
    #delete existing container, Build, Tag and Publish
   - name: Delete the existing DOCKER container
@@ -39,7 +39,7 @@
     command: docker build -t gbbossdemo/aspnet-core-linux .
     become: true
     args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
 
   - name: Tag the DOCKER image
     command: docker tag gbbossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
