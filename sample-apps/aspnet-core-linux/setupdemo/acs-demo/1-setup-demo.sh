@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Creating Kubernetes cluster for Demo #2."
 echo "Be sure to login to Azure prior to running this script."
 #az account set --subscription "Microsoft Azure Internal Consumption"
@@ -19,3 +21,16 @@ az acs create --orchestrator-type=kubernetes --resource-group=ossdemo-appdev-acs
 
 echo "Attempting to install the kubernetes client within the Azure CLI tools.  This can fail due to user rights.  Try to resolve and re-run: sudo az acs kubernetes install-cli"
 az acs kubernetes install-cli --install-location ~/bin/kubectl
+
+echo "Login to the K8S environment"
+#az account set --subscription "Microsoft Azure Internal Consumption"
+az acs kubernetes get-credentials \
+        --resource-group ossdemo-appdev-acs \
+        --name k8s-VALUEOF-UNIQUE-SERVER-PREFIX
+
+echo "create secret to login to the private registry"
+kubectl create secret docker-registry ossdemoregistrykey \
+        --docker-server=VALUEOF-REGISTRY-SERVER-NAME \
+        --docker-username=VALUEOF-REGISTRY-USER-NAME \
+        --docker-password=VALUEOF-REGISTRY-PASSWORD \
+        --docker-email=GBBOSS@microsoft.com

@@ -3,18 +3,19 @@ echo "Welcome to the OSS Demo for Simple app dev Containers.  This demo will con
 echo "    - Resource group - ossdemo-appdev-iaas"
 echo "    - Resource group - ossdemo-appdev-acs"
 echo "    - Resource group - ossdemo-appdev-paas"
+echo "    - Create a private Azure Container Registry - used across all demos"
+echo "    - Create an application insights instance - used across all demos"
+echo "    - Optionally create an OMS instance - used across all demos"
 echo ""
-echo "It will also modify scripts for the demo and download the GIT repository and create:"
-echo "     - Servers in ossdemo-appdev-iaas"
-echo "     - Kubernetes cluster in ossdemo-appdev-acs"
-echo "     - Azure app service in ossdemo-appdev-paas"
+echo "It will also modify scripts for the demo and create:"
+echo "     - 2 Servers in ossdemo-appdev-iaas - DEMO #1"
+echo "     - 1 Kubernetes cluster in ossdemo-appdev-acs - DEMO #2"
+echo "     - 1 Azure app service in ossdemo-appdev-paas - DEMO #3"
 echo ""
 echo "Installation & Configuration will require SU rights but pleae run this script as GBBOSSDemo."
 echo ""
-echo "This particular demo script will create a resource groups, K8S cluster and 2 docker hosts."
 echo ""
 echo ""
-
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
 echo "Current Template Values:"
@@ -27,6 +28,7 @@ echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
 echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
+
 echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
 read -p "Press any key to continue or CTRL-C to exit... " startscript
 
@@ -103,11 +105,18 @@ if [[ $continuescript != "n" ]];then
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 22
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
-        --nsg-name NSG-ossdemo-appdev-iaas --name http-rule \
+        --nsg-name NSG-ossdemo-appdev-iaas --name http-aspnetcoreDemo \
         --access Allow --protocol Tcp --direction Inbound --priority 120 \
         --source-address-prefix Internet \
         --source-port-range "*" --destination-address-prefix "*" \
         --destination-port-range 80
+
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name http-eShopContainerDemo \
+        --access Allow --protocol Tcp --direction Inbound --priority 130 \
+        --source-address-prefix Internet \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 5100-5105
 
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
      --nsg-name NSG-ossdemo-appdev-acs --name ssh-rule \
@@ -152,15 +161,34 @@ sudo npm install bower -g
 sudo npm install gulp -g
 
 #Set Scripts as executable
-sudo chmod +x /source/AppDev-ContainerDemo/kubernetes/configK8S.sh
-sudo chmod +x /source/AppDev-ContainerDemo/kubernetes/refreshK8S.sh
-sudo chmod +x /source/AppDev-ContainerDemo/kubernetes/deploy.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-docker-setup.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-OMS-agent.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-build-deploy-containers.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/x-reset-demo.sh
 
-sudo chmod +x /source/AppDev-ContainerDemo/azscripts/newVM.sh
-sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
-sudo chmod +x /source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/2-deploy-OMS-daemonset.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/3-deploy-expose-service.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/4-browse-k8s-cluster.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/5-republish.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/x-reset-demo.sh
 
-#Install Docker Compose
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
+
+#configure the jumpbox with the latest docker version CE
+sudo yum remove docker docker-common container-selinux docker-selinux docker-engine
+sudo yum update -y
+sudo yum upgrade -y
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum makecache fast
+sudo yum install docker-ce
+sudo systemctl start docker
+sudo systemctl enable docker
+
+#Install Docker Compose on the Jumpbox
 curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
 chmod +x ~/bin/docker-compose
 
@@ -169,12 +197,3 @@ sudo npm install rimraf -g
 sudo npm install webpack -g
 sudo npm install node-sass -g
 
-
-#Create new worker VM's for the docker demo
-/source/AppDev-ContainerDemo/azscripts/newVM.sh
-
-#Create Azure Registry
-#/source/AppDev-ContainerDemo/azscripts/createAzureRegistry.sh
-
-#Create K8S Cluster
-/source/AppDev-ContainerDemo/azscripts/createK8S-cluster.sh

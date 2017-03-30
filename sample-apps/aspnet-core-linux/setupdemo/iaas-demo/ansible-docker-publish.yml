@@ -8,10 +8,12 @@
     command: dotnet restore
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+  
   - name: .NET BUILD
     command: dotnet build
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux
+  
   - name: Publish the site
     command: dotnet publish
     args:

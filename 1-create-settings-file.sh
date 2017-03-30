@@ -25,8 +25,13 @@ if [ -f ~/bin/az ]
     curl -L https://aka.ms/InstallAzureCli | bash
 fi
 
+#update AZ Components
+az component update --add acr
+az component update
+
 #Necessary for demos to build and restore .NET application
 sudo chmod -R 777 /source/AppDev-ContainerDemo
+sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
 
 if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
   then

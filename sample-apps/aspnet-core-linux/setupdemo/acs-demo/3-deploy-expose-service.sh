@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Initial deployment & expose the service"
 #az account set --subscription "Microsoft Azure Internal Consumption"
-kubectl create -f /source/AppDev-ContainerDemo/kubernetes/aspnet-core-linux-deploy.yml
+echo "Deploy the app deployment"
+kubectl create -f K8S-deploy-file.yml
 
 echo "Initial deployment & expose the service"
 kubectl expose deployments aspnet-core-linux-deployment \
