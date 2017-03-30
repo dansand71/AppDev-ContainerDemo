@@ -45,24 +45,29 @@ if [[ $continuescript != "n" ]];then
         echo " Create network cards for servers:"
         echo "    running - az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr1-nic --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool "
         
-        az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr1-nic \
-                --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
-                --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool 
-
         echo "Create Public IP Address for Svr 1"
                 echo "    running - az network public-ip create -g ossdemo-appdev-iaas -n svr1-publicIP -l eastus --dns-name svr1-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static"
                 az network public-ip create -g ossdemo-appdev-iaas -n svr1-publicIP -l eastus --dns-name svr1-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static
         echo ""
+        echo "----------------------------------"
+        echo "Create NIC for Svr 1"
+        az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr1-nic \
+                --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
+                --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool \
+                --public-ip-address svr1-publicIP
         
-        echo "    running - az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr2-nic --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool "
+        echo "Create Public IP Address for Svr 2"
+        echo "    running - az network public-ip create -g ossdemo-appdev-iaas -n svr2-publicIP -l eastus --dns-name svr1-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static"
+        az network public-ip create -g ossdemo-appdev-iaas -n svr2-publicIP -l eastus --dns-name svr2-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static
+        
+        echo ""
+        echo "----------------------------------"
+        echo "Create NIC for Svr 2"
+        echo "    running - az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr2-nic --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool --public-ip-address svr2-publicIP"
         az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr2-nic \
                 --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
-                --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool 
-
-        echo "Create Public IP Address for Svr 2"
-                echo "    running - az network public-ip create -g ossdemo-appdev-iaas -n svr2-publicIP -l eastus --dns-name svr1-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static"
-                az network public-ip create -g ossdemo-appdev-iaas -n svr2-publicIP -l eastus --dns-name svr2-VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static
-        echo ""
+                --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool \
+                --public-ip-address svr2-publicIP
 fi
 
 echo ""
@@ -82,7 +87,7 @@ echo "Create VM #2 & add it to the availability set and vnet"
 az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr2-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS2_v2 --admin-username GBBOSSDemo  \        
+        --size Standard_DS2_v2 --admin-username GBBOSSDemo  \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr2-nic \
         --no-wait \
