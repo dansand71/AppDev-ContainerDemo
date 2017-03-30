@@ -12,15 +12,15 @@
 
     - name: upgrade
       command: yum upgrade -y
-      
+
     - name: remove existing docker components
-      yum: docker-common state=absent
+      command: yum remove docker-common -y
     - name: remove existing docker components
-      yum: container-selinux state=absent
+      command: yum remove container-selinux -y
     - name: remove existing docker components
-      yum: docker-selinux state=absent
+      command: yum remove docker-selinux -y
     - name: remove existing docker components
-      yum: docker-engine state=absent
+      command: yum remove docker-engine -y
 
    # This playbook installs and configures all the items necessary for building out the demo's'
     - name: enable the extras repo and install epel
