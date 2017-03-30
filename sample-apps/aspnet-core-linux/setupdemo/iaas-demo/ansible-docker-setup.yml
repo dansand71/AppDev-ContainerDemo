@@ -11,8 +11,8 @@
       yum: name=* state=latest
 
     - name: upgrade
-      command: yum upgrade -y 
-  
+      command: yum upgrade -y
+      
     - name: remove existing docker components
       yum: docker-common state=absent
     - name: remove existing docker components
