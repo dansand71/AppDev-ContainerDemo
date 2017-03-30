@@ -56,7 +56,7 @@ echo "--------------------------------------------"
 echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
 sshpubkey=$(< ~/.ssh/id_rsa.pub)
 echo "Using public key:" ${sshpubkey}
-sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude 1-SetupDemo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
+sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
 echo "--------------------------------------------"
 
 echo "Configure demo scripts"

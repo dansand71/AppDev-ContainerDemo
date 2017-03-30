@@ -56,11 +56,11 @@ echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
 
-read -p "    Would you like to edit the template file now? [y/n]:" changefile
+read -p "    Would you like to edit the template file now? [y/N]:" changefile
 if [[ $changefile =~ "y" ]];then
     sudo gedit /source/appdev-demo-EnvironmentTemplateValues   
 fi
-read -p "    Would you like to setup the Demo? [y/n]:" changefile
+read -p "    Would you like to setup the Demo? [y/N]:" changefile
 if [[ $changefile =~ "y" ]];then
     /source/AppDev-ContainerDemo/2-setup-demo.sh
 fi
