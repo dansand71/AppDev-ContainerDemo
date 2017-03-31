@@ -39,3 +39,14 @@ fi
 
 # No need to build the images, docker build or docker compose will
 # do that using the images and containers defined in the docker-compose.yml file.
+echo ""
+echo "-------------------------------------"
+echo "Build complete"
+echo "-------------------------------------"
+read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  continuescript
+#This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
+if [[ $continuescript != "n" ]];then
+    #we need to ensure .env is accurate
+    #UID for login is demouser@microsoft.com - Paas@word1
+    sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/docker-compose.prod.yml up
+fi
