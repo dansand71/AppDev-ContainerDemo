@@ -27,12 +27,14 @@ do
 done
 
 # remove old docker images:
-images=$(docker images --filter=reference="eshop/*" -q)
+echo ""
+echo "Remove any existing eShop docker images on the build box...."
+images=$(sudo docker images --filter=reference="eshop/*" -q)
 if [ -n "$images" ]; then
-    docker rm $(docker ps -a -q) -f
+    docker rm $(sudo docker ps -a -q) -f
     echo "Deleting eShop images in local Docker repo"
     echo $images
-    docker rmi $(docker images --filter=reference="eshop/*" -q) -f
+    docker rmi $(sudo docker images --filter=reference="eshop/*" -q) -f
 fi
 
 # No need to build the images, docker build or docker compose will

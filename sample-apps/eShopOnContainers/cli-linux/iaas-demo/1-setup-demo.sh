@@ -4,8 +4,15 @@ read -p "Create network rules for demo's? [y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
 
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
-     --nsg-name NSG-ossdemo-appdev-paas --name http-rule \
+     --nsg-name NSG-ossdemo-appdev-paas --name eShop-http-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 120 \
+     --source-address-prefix Internet \
+     --source-port-range "*" --destination-address-prefix "*" \
+     --destination-port-range 5100-5105
+
+~/bin/az network nsg rule create --resource-group ossdemo-appdev-utlity \
+     --nsg-name NSG-ossdemo-utility --name eShop-http-rule \
+     --access Allow --protocol Tcp --direction Inbound --priority 130 \
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 5100-5105
@@ -37,3 +44,7 @@ echo "Connecting to remote server"
 echo "ssh GBBOSSDemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}""
 outbound="$(ssh GBBOSSDemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}")"
 echo ${outbound}
+
+#install docker compose on the BUILD jumpbox
+sudo curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
