@@ -178,6 +178,10 @@ sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupde
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
 
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/1-setup-demo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/2-build-bits-linux.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/x-reset-demo.sh
+
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
 
 #configure the jumpbox with the latest docker version CE
@@ -199,5 +203,8 @@ chmod +x ~/bin/docker-compose
 sudo npm install rimraf -g
 sudo npm install webpack -g
 sudo npm install node-sass -g
+
+#reset file permissions
+sudo chmod 777 -R /source
 
 echo " Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS."

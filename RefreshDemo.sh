@@ -72,7 +72,14 @@ sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupde
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
 
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/1-setup-demo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/2-build-bits-linux.sh
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/x-reset-demo.sh
+
+
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
+
+sudo chmod 777 -R /source
 
 echo ""
 echo "Complete"
