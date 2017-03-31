@@ -1,10 +1,10 @@
 
 projectList=(
-    "../src/Services/Catalog/Catalog.API"
-    "../src/Services/Basket/Basket.API"
-    "../src/Services/Ordering/Ordering.API"
-    "../src/Services/Identity/Identity.API"
-    "../src/Web/WebMVC"
+    "../../src/Services/Catalog/Catalog.API"
+    "../../src/Services/Basket/Basket.API"
+    "../../src/Services/Ordering/Ordering.API"
+    "../../src/Services/Identity/Identity.API"
+    "../../src/Web/WebMVC"
     # "../src/Web/WebSPA"
 )
 
