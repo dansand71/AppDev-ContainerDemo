@@ -178,6 +178,8 @@ sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupde
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
 
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
+
 #configure the jumpbox with the latest docker version CE
 sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
 sudo yum update -y

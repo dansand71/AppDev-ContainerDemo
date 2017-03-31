@@ -21,7 +21,7 @@ if [[ $continuescript != "n" ]];then
                 az vm availability-set create -n ossdemo-appdev-iaas-availabilityset -g ossdemo-appdev-iaas --platform-update-domain-count 5 --platform-fault-domain-count 2
                 echo " Create public ip:"
                 echo "    running - az network public-ip create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicIP -l eastus --dns-name VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static"
-                az network public-ip create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicIP -l eastus --dns-name VALUEOF-UNIQUE-SERVER-PREFIX --allocation-method Static
+                az network public-ip create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicIP -l eastus --dns-name VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo --allocation-method Static
         echo ""
         echo "----------------------------------"
         echo " Create load balancer:"
