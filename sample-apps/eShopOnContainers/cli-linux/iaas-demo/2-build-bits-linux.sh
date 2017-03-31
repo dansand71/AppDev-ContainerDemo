@@ -48,5 +48,11 @@ read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #we need to ensure .env is accurate
     #UID for login is demouser@microsoft.com - Paas@word1
+    read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  editfile
+    #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
+    if [[ $editfile != "n" ]];then
+       gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
+    fi
+    echo " running command: sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up"    
     sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up
 fi
