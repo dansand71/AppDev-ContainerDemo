@@ -48,7 +48,7 @@ read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #we need to ensure .env is accurate
     #UID for login is demouser@microsoft.com - Paas@word1
-    read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  editfile
+    read -p "EDIT the .env file so you can run this locally?  You will replace the hostname with jumpbox-YOUR-SERVER-PREFIX.eastus.cloudapp.azure.com [y/n]:"  editfile
     #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
     if [[ $editfile != "n" ]];then
        gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
