@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Delete the service and deployment which will cleanup the pods and external IP's'"
+echo "Delete the IaaS docker hosts svr1 and svr2"
 #az account set --subscription "Microsoft Azure Internal Consumption"
 az vm delete -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX -y
 az network nic delete -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIXVMNic

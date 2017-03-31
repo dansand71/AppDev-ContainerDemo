@@ -12,21 +12,23 @@ To get started with these demo's:
 1. ensure you have a running jumpbox as outlined in the OSSonAzure repository
 2. clone this project from git
 3. mark the scripts as executable
-4. run the 1-CreateSettingsFile.sh environment template file creation script
-5. after editing the template file with your values run the 2-SetupDemo.sh script
+4. run the 1-create-settings-file.sh environment template file creation script
+5. after editing the template file with your values run the 2-setup-demo.sh script
 
 ## SCRIPT to Install
 ```
 sudo mkdir /source
 sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
-sudo chmod +x /source/AppDev-ContainerDemo/1-CreateSettingsFile.sh
-sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/1-create-settings-file.sh
+sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/RefreshDemo.sh
-/source/AppDev-ContainerDemo/1-CreateSettingsFile.sh
+/source/AppDev-ContainerDemo/1-create-settings-file.sh
 ```
 
 The script installs / updates:
 - Azure CLI v2 on the Jumpbox server
+- Docker CE 17
+- Docker compose
 
 Configures Azure:
 - Creates ossdemo-appdev-acs resource group, opens port 22
