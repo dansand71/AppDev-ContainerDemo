@@ -39,5 +39,30 @@ Creates:
 - 2 docker CENTOS servers in ossdemo-appdev-iaas RG
 - 1 kubernetes cluster with 1 master and 3 agents
 
+DEMO's Available:
+- template aspnetcore on linux mvc app.  Demonstrate IaaS deployment with Ansible, Private Registry, ACS with Kubernetes, Azure App Service with PaaS
+- eShopOnContainer demo - multi-tier application showing microservices and SQL On Linux
+
+
+## SCRIPT to Configure Demo 1.  Sample ASP.net core app in containers.
+```
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-docker-setup.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-OMS-agent.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-build-deploy-containers.sh
+```
+
+## SCRIPT to Configure Demo 2.  Sample ASP.net core app on ACS with Kubernetes.
+```
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-deploy-OMS-daemonset.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-expose-service.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-browse-k8s-cluster.sh
+```
+
+## SCRIPT to Configure Demo 3.  Sample ASP.net core app on App Service with Linux PaaS.
+```
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
+```
 
 
