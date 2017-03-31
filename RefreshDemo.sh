@@ -71,6 +71,8 @@ sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupde
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
 
+sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
+
 echo ""
 echo "Complete"
 echo ""
