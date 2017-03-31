@@ -24,14 +24,15 @@ sudo rm -rf /source/AppDev-ContainerDemo
 echo "    Reclone github repository https://github.com/dansand71/AppDev-ContainerDemo"
 
 cd /source
+#Necessary for demos to build and restore .NET application
+sudo chmod -R 777 /source
+
 sudo git clone https://github.com/dansand71/AppDev-ContainerDemo 
 sudo chmod +x /source/AppDev-ContainerDemo/1-create-settings-file.sh
 sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
-cp /source/AppDev-ContainerDemo/RefreshDemo.sh /source/RefreshDemo.sh
-sudo chmod +x /source/RefreshDemo.sh
+cp /source/AppDev-ContainerDemo/RefreshDemo.sh /source/refresh-appdev-container-demo.sh
+sudo chmod +x /source/refresh-appdev-container-demo.sh
 
-#Necessary for demos to build and restore .NET application
-sudo chmod -R 777 /source
 
 #Leverage the existing public key for new VM creation script
 echo "--------------------------------------------"
