@@ -15,7 +15,8 @@ if [[ $continuescript != "n" ]];then
         echo "----------------------------------"
         echo "Create Subnet - "
         ## BUG BUG BUG - Ron Abellera - we need to find the CLI method for associating a Subnet in one RG with an NSG in another
-        az network vnet subnet create -g ossdemo-utility --vnet-name ossdemos-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 192.168.1.0/24 
+        az network vnet create -n 'ossdemo-appdev-iaas-vnet' -g ossdemo-appdev-iaas --address-prefix 192.168.1.0/24
+        az network vnet subnet create -g ossdemo-appdev-iaas --vnet-name ossdemo-appdev-iaas-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 192.168.1.0/24 
         
         echo ""
         echo "----------------------------------"
@@ -62,7 +63,7 @@ if [[ $continuescript != "n" ]];then
         echo "----------------------------------"
         echo "Create NIC for Svr 1"
         az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr1-nic \
-                --vnet-name 'ossdemos-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
+                --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
                 --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool \
                 --public-ip-address svr1-publicIP
         
@@ -75,7 +76,7 @@ if [[ $continuescript != "n" ]];then
         echo "Create NIC for Svr 2"
         echo "    running - az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr2-nic --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool --public-ip-address svr2-publicIP"
         az network nic create --resource-group  ossdemo-appdev-iaas --location eastus --name svr2-nic \
-                --vnet-name 'ossdemos-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
+                --vnet-name 'ossdemo-appdev-iaas-vnet' --subnet ossdemo-appdev-iaas-subnet --network-security-group 'NSG-ossdemo-appdev-iaas' \
                 --lb-name ossdemo-appdev-iaas-publicLoadBalancer --lb-address-pools ossdemo-appdev-iaas-addresspool \
                 --public-ip-address svr2-publicIP
 fi

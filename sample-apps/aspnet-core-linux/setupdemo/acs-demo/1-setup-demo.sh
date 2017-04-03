@@ -14,6 +14,7 @@ echo " Create Subnet: 10.2.0.0/24"
 echo "    running - az network vnet subnet create -g ossdemo-appdev-acs --vnet-name ossdemo-appdev-acs-vnet -n ossdemo-appdev-acs-subnet --address-prefix 10.2.0.0/24 --network-security-group NSG-ossdemo-appdev-acs"
         #az network vnet subnet create -g ossdemo-appdev-acs --vnet-name ossdemo-appdev-acs-vnet -n ossdemo-appdev-acs-subnet --address-prefix 10.2.0.0/24 --network-security-group NSG-ossdemo-appdev-acs 
         ## BUG BUG BUG - Ron Abellera - we need to find the CLI method for associating a Subnet in one RG with an NSG in another
+        
         az network vnet subnet create -g ossdemo-utility --vnet-name ossdemos-vnet -n ossdemo-appdev-acs-subnet --address-prefix 10.0.0.0/8 
 echo "----------------------------------"
 
