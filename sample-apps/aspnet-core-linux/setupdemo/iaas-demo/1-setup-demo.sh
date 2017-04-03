@@ -7,7 +7,8 @@ if [[ $continuescript != "n" ]];then
         echo ""
         echo "----------------------------------"
         echo "Create Subnet - "
-        az network vnet subnet create -g ossdemo-appdev-iaas --vnet-name ossdemos-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 192.168.1.0/24 --network-security-group NSG-ossdemo-appdev-iaas
+        ## BUG BUG BUG - Ron Abellera - we need to find the CLI method for associating a Subnet in one RG with an NSG in another
+        az network vnet subnet create -g ossdemo-utility --vnet-name ossdemos-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 192.168.1.0/24 
         
         echo ""
         echo "----------------------------------"

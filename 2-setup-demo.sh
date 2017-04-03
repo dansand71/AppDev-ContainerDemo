@@ -12,7 +12,7 @@ echo "     - 2 Servers in ossdemo-appdev-iaas - DEMO #1"
 echo "     - 1 Kubernetes cluster in ossdemo-appdev-acs - DEMO #2"
 echo "     - 1 Azure app service in ossdemo-appdev-paas - DEMO #3"
 echo ""
-echo "Installation & Configuration will require SU rights but pleae run this script as gbbossdemo."
+echo "Installation & Configuration will require SU rights but pleae run this script as GBBOSSDemo."
 echo ""
 echo ""
 echo ""
@@ -122,7 +122,7 @@ if [[ $continuescript != "n" ]];then
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
      --nsg-name NSG-ossdemo-appdev-acs --name ssh-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 110 \
-     --source-address-prefix Internet \
+     --source-address-prefix "192.168.0.0/24" \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
      
@@ -136,10 +136,10 @@ fi
 
 
 #Copy the desktop icons
-sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/gbbossdemo/Desktop/
-sudo chmod +x /home/gbbossdemo/Desktop/code.desktop
-sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
-sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
+sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/
+sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
+sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
+sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
 sudo yum install libunwind libicu
