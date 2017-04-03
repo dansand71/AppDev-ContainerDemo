@@ -136,10 +136,10 @@ fi
 
 
 #Copy the desktop icons
-sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/
-sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
-sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
-sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
+sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/gbbossdemo/Desktop/
+sudo chmod +x /home/gbbossdemo/Desktop/code.desktop
+sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
+sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
 sudo yum install libunwind libicu

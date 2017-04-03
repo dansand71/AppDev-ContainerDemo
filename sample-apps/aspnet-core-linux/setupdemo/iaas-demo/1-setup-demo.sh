@@ -108,7 +108,7 @@ az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
 #az vm create -g 'ossdemo-appdev-iaas' -n svr3-VALUEOF-UNIQUE-SERVER-PREFIX \
 #        --public-ip-address-dns-name 'svr3-VALUEOF-UNIQUE-SERVER-PREFIX' \
 #        --os-disk-name 'svr3-disk' --image "RedHat:RHEL:7.2:latest" --os-type linux --storage-sku 'Premium_LRS' \
-#        --size Standard_DS1_v2 --admin-username GBBOSSDemo  \
+#        --size Standard_DS1_v2 --admin-username gbbossdemo  \
 #        --nsg 'NSG-ossdemo-appdev-iaas' --availability-set 'ossdemo-appdev-iaas-availabilityset' \
 #        --no-wait \
 #        --ssh-key-value 'REPLACE-SSH-KEY'
