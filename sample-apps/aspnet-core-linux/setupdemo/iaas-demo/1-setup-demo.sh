@@ -10,9 +10,9 @@ if [[ $continuescript != "n" ]];then
         az network vnet create -n 'ossdemo-appdev-iaas-vnet' -g ossdemo-appdev-iaas 
         echo ""
         echo "----------------------------------"
-        echo " Create Subnet: 10.0.0.0/24"
+        echo " Create Subnet: 10.1.0.0/24"
         echo "    running - az network vnet subnet create -g ossdemo-appdev-iaas --vnet-name ossdemo-appdev-iaas-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 10.0.0.0/24 --network-security-group NSG-ossdemo-appdev-iaas"
-        az network vnet subnet create -g ossdemo-appdev-iaas --vnet-name ossdemo-appdev-iaas-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 10.0.0.0/24 --network-security-group NSG-ossdemo-appdev-iaas 
+        az network vnet subnet create -g ossdemo-appdev-iaas --vnet-name ossdemo-appdev-iaas-vnet -n ossdemo-appdev-iaas-subnet --address-prefix 10.1.0.0/24 --network-security-group NSG-ossdemo-appdev-iaas 
         
         echo ""
         echo "----------------------------------"

@@ -10,6 +10,34 @@ if [[ $continuescript != "n" ]];then
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 5100-5105
 
+echo 'Allow DOCKER SWARM cluster manager to communicate (Jumpbox) '
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name dockerswarm-clustermgr-rule \
+        --access Allow --protocol Tcp --direction Inbound --priority 200 \
+        --source-address-prefix "10.0.0.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 2377
+echo 'Setup DOCKER SWARM between Jumpbox and docker worker nodes.'
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name docker-comms-TCP-rule \
+        --access Allow --protocol Tcp --direction Inbound --priority 210 \
+        --source-address-prefix "10.0.0.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 7946
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name docker-comms-UDP-rule \
+        --access Allow --protocol Udp --direction Inbound --priority 220 \
+        --source-address-prefix "10.0.0.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 7946
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
+        --nsg-name NSG-ossdemo-appdev-iaas --name docker-overlay-network-rule \
+        --access Allow --protocol TCP --direction Inbound --priority 230 \
+        --source-address-prefix "10.0.0.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" \
+        --destination-port-range 4789
+
+echo 'Setup HTTP rules for eShopOnContainerDemos.'
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-utlity \
      --nsg-name NSG-ossdemo-utility --name eShop-http-rule \
      --access Allow --protocol Tcp --direction Inbound --priority 130 \
