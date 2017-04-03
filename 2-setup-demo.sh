@@ -32,7 +32,7 @@ echo ""
 if [[ -z $DEMO_UNIQUE_SERVER_PREFIX  ]]; then
    echo "   Server PREFIX is null.  Please correct and re-run this script.."
    exit
-else
+fi
 echo "The remainder of this script requires the template values be filled in the /source/appdev-demo-EnvironmentTemplateValues file."
 read -p "Press any key to continue or CTRL-C to exit... " startscript
 
