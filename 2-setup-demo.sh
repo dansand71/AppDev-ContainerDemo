@@ -142,7 +142,9 @@ sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
 sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
+echo " Installing libunwind libicu"
 sudo yum install libunwind libicu
+echo " Downloading .NET"
 curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
 sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
 sudo ln -s /opt/dotnet/dotnet /usr/local/bin
@@ -151,14 +153,14 @@ echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
 
 
 #ensure .net is setup correctly
-sudo yum install libunwind libicu
 cd /source
-curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449
-sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
-sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+echo "installing gcc libffi-devel python-devel openssl-devel"
 sudo yum install -y gcc libffi-devel python-devel openssl-devel
+echo "installing npm"
 sudo yum install -y npm
+echo "installing bower"
 sudo npm install bower -g
+echo "installing gulp"
 sudo npm install gulp -g
 
 #Set Scripts as executable
@@ -185,26 +187,31 @@ sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-lin
 sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
 
 #configure the jumpbox with the latest docker version CE
+echo " Cleaning up older docker and now creating new version"
 sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
 sudo yum update -y
 sudo yum upgrade -y
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
+echo "  Installing Docker CE"
 sudo yum install docker-ce -y
 sudo systemctl start docker
 sudo systemctl enable docker
 
 #Install Docker Compose on the Jumpbox
+echo "  Installing Docker Compose"
 curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
 chmod +x ~/bin/docker-compose
 
 #Install Rimraf for Node Apps
+echo "  Installing rimfraf, webpack, node-saas"
 sudo npm install rimraf -g
 sudo npm install webpack -g
 sudo npm install node-sass -g
 
 #reset file permissions
+echo "  CHMOD for Users on /source"
 sudo chmod 777 -R /source
 
 echo " Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS."
