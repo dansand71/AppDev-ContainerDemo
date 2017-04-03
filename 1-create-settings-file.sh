@@ -30,7 +30,7 @@ az component update --add acr
 az component update
 
 #Necessary for demos to build and restore .NET application
-sudo chmod -R 777 /source
+
 sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
 
 if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
@@ -64,4 +64,6 @@ read -p "    Would you like to setup the Demo? [y/N]:" continueDemo
 if [[ $continueDemo =~ "y" ]];then
     /source/AppDev-ContainerDemo/2-setup-demo.sh
 fi
+
+sudo chmod -R 777 /source
 echo "    Script complete.  Please run ./2-SetupDemo.sh to prepare the demo"
