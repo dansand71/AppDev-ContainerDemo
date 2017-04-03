@@ -1,5 +1,12 @@
 echo "Be sure to login to Azure prior to running this script."
 #az account set --subscription "Microsoft Azure Internal Consumption"
+read -p "    Change default subscription? [y/n]:" changesubscription
+if [[ $changesubscription =~ "y" ]];then
+    read -p "      New Subscription Name:" newsubscription
+    ~/bin/az account set --subscription "$newsubscription"
+else
+    echo "    Using default existing subscription."
+fi
 
 echo "Creating Docker Runtime hosts for Demo #1"
 read -p "Create vnet, publicIP and loadbalancer?  Typically this is only needed the first time you run the demo. [y/n]:"  continuescript
