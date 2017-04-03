@@ -25,7 +25,7 @@ echo "CREATE K8S Cluster"
 az acs create --orchestrator-type=kubernetes --resource-group=ossdemo-appdev-acs \
         --name=k8s-VALUEOF-UNIQUE-SERVER-PREFIX --dns-prefix=k8s-VALUEOF-UNIQUE-SERVER-PREFIX \
         --agent-vm-size Standard_DS1_v2 \
-        --admin-username GBBOSSDemo --master-count 1 \
+        --admin-username gbbossdemo --master-count 1 \
         --ssh-key-value="REPLACE-SSH-KEY"
 
 echo "Attempting to install the kubernetes client within the Azure CLI tools.  This can fail due to user rights.  Try to resolve and re-run: sudo az acs kubernetes install-cli"

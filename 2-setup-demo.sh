@@ -12,7 +12,7 @@ echo "     - 2 Servers in ossdemo-appdev-iaas - DEMO #1"
 echo "     - 1 Kubernetes cluster in ossdemo-appdev-acs - DEMO #2"
 echo "     - 1 Azure app service in ossdemo-appdev-paas - DEMO #3"
 echo ""
-echo "Installation & Configuration will require SU rights but pleae run this script as GBBOSSDemo."
+echo "Installation & Configuration will require SU rights but pleae run this script as gbbossdemo."
 echo ""
 echo ""
 echo ""
@@ -136,10 +136,10 @@ fi
 
 
 #Copy the desktop icons
-sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/GBBOSSDemo/Desktop/
-sudo chmod +x /home/GBBOSSDemo/Desktop/code.desktop
-sudo chmod +x /home/GBBOSSDemo/Desktop/firefox.desktop
-sudo chmod +x /home/GBBOSSDemo/Desktop/gnome-terminal.desktop
+sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/gbbossdemo/Desktop/
+sudo chmod +x /home/gbbossdemo/Desktop/code.desktop
+sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
+sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
 sudo yum install libunwind libicu

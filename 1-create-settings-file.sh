@@ -60,8 +60,8 @@ read -p "    Would you like to edit the template file now? [y/N]:" changefile
 if [[ $changefile =~ "y" ]];then
     sudo gedit /source/appdev-demo-EnvironmentTemplateValues   
 fi
-read -p "    Would you like to setup the Demo? [y/N]:" changefile
-if [[ $changefile =~ "y" ]];then
+read -p "    Would you like to setup the Demo? [y/N]:" continueDemo
+if [[ $continueDemo =~ "y" ]];then
     /source/AppDev-ContainerDemo/2-setup-demo.sh
 fi
 echo "    Script complete.  Please run ./2-SetupDemo.sh to prepare the demo"
