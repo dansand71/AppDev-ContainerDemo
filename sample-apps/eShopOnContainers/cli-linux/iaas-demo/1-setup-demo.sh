@@ -71,7 +71,7 @@ fi
 #Create SWARM cluster.  For this demo the master is SVR1 and the worker is SVR2
 #masterip="$(/sbin/ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')"
 #sample if we make the master on SVR1 instead of the jumpbox
-masterip="$(ssh GBBOSSDemo@svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "/sbin/ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'")"
+masterip="$(ssh gbbossdemo@svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "/sbin/ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'")"
 echo "-------------------------"
 echo "Cluster masterip"
 echo ${masterip}
@@ -79,12 +79,12 @@ echo "-------------------------"
 echo ""
 echo "Create swarm on master"
 #echo "$(sudo docker swarm init --advertise-addr=${masterip})"
-echo "$(ssh GBBOSSDemo@svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "sudo docker swarm init --advertise-addr=${masterip}")"
+echo "$(ssh gbbossdemo@svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "sudo docker swarm init --advertise-addr=${masterip}")"
 echo "-------------------------"
 echo ""
 echo "Get Join token from the master to apply to the worker nodes"
 #jointoken="$(sudo docker swarm join-token worker --quiet)"
-jointoken="$(ssh GBBOSSDemo@svr1-daVALUEOF-UNIQUE-SERVER-PREFIXnsand.eastus.cloudapp.azure.com "sudo docker swarm join-token worker --quiet")"
+jointoken="$(ssh gbbossdemo@svr1-daVALUEOF-UNIQUE-SERVER-PREFIXnsand.eastus.cloudapp.azure.com "sudo docker swarm join-token worker --quiet")"
 echo ${jointoken}
 echo "-------------------------"
 echo ""
@@ -97,8 +97,8 @@ echo "Connecting to remote server 1"
 #outbound="$(ssh GBBOSSDemo@svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}")"
 #echo ${outbound}
 echo "Connecting to remote server 2"
-echo "ssh GBBOSSDemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}""
-outbound="$(ssh GBBOSSDemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}")"
+echo "ssh gbbossdemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}""
+outbound="$(ssh gbbossdemo@svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com "${sshcommand}")"
 echo ${outbound}
 
 #install docker compose on the BUILD jumpbox

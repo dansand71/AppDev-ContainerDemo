@@ -1,7 +1,7 @@
 ---
 # This playbook builds the .NET Website & creates a container --> pushes to the private repo and then pulls it down
 - hosts: buildbox
-  remote_user: GBBOSSDemo
+  remote_user: gbbossdemo
 
   tasks: 
   - name: Restore the requirements
