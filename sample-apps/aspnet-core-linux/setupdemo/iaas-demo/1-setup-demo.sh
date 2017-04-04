@@ -31,7 +31,7 @@ if [[ $continuescript != "n" ]];then
         echo ""
         echo "----------------------------------"
         echo " Create load balancer:"
-                
+                               
                 echo "    running - az network lb create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicLoadBalancer -l eastus --public-ip-address ossdemo-appdev-iaas-publicIP"
                 az network lb create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicLoadBalancer -l eastus --public-ip-address ossdemo-appdev-iaas-publicIP
                 
