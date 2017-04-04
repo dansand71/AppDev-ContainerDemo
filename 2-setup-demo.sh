@@ -148,13 +148,13 @@ sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
 #do we have the latest verion of .net?
 echo " Installing libunwind libicu"
 sudo yum install libunwind libicu
-#echo " Downloading .NET"
-#echo " curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449"
-#curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
-#sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
-#sudo ln -s /opt/dotnet/dotnet /usr/local/bin
-#set the dotnet path variables
-#echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
+echo " Downloading .NET"
+echo " curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449"
+curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
+sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
+sudo ln -s /opt/dotnet/dotnet /usr/local/bin
+set the dotnet path variables
+echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
 
 
 #ensure .net is setup correctly
