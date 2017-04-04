@@ -34,7 +34,7 @@ if [[ $continuescript != "n" ]];then
                                
                 echo "    running - az network lb create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicLoadBalancer -l eastus --public-ip-address ossdemo-appdev-iaas-publicIP"
                 az network lb create -g ossdemo-appdev-iaas -n ossdemo-appdev-iaas-publicLoadBalancer -l eastus --public-ip-address ossdemo-appdev-iaas-publicIP
-                
+
                 echo " Create backend address pool:"
                 echo "    running - az network lb address-pool create --lb-name ossdemo-appdev-iaas-publicLoadBalancer --name ossdemo-appdev-iaas-addresspool --resource-group ossdemo-appdev-iaas"
                 az network lb address-pool create --lb-name ossdemo-appdev-iaas-publicLoadBalancer --name ossdemo-appdev-iaas-addresspool --resource-group ossdemo-appdev-iaas
@@ -87,7 +87,7 @@ echo "Create VM #1 & add it to the availability set and vnet"
 az vm create -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr1-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr1-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS2_v2  --admin-username gbbossdemo \
+        --size Standard_DS1_v2  --admin-username gbbossdemo \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr1-nic \
         --no-wait \
@@ -98,7 +98,7 @@ echo "Create VM #2 & add it to the availability set and vnet"
 az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr2-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS2_v2 --admin-username gbbossdemo  \
+        --size Standard_DS1_v2 --admin-username gbbossdemo  \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr2-nic \
         --no-wait \
