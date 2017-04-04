@@ -16,6 +16,6 @@ spec:
         image: VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
+        - containerPort: 80
       imagePullSecrets:
       - name: ossdemoregistrykey

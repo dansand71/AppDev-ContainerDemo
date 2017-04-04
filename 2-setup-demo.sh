@@ -129,6 +129,13 @@ if [[ $continuescript != "n" ]];then
      --source-address-prefix Internet \
      --source-port-range "*" --destination-address-prefix "*" \
      --destination-port-range 22
+
+    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
+     --nsg-name NSG-ossdemo-appdev-acs --name http-rule \
+     --access Allow --protocol Tcp --direction Inbound --priority 120 \
+     --source-address-prefix Internet \
+     --source-port-range "*" --destination-address-prefix "*" \
+     --destination-port-range 80
      
     ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
      --nsg-name NSG-ossdemo-appdev-paas --name http-rule \
