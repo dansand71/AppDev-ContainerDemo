@@ -65,12 +65,12 @@
     become: true
 
   - name: Kill the existing DOCKER container
-    command: docker rm gbbossdemo/aspnet-core-linux -f
+    command: docker rm aspnet-core-linux -f
     become: true
     ignore_errors: true
 
   - name: Kill the existing DOCKER Image
-    command: docker rmi gbbossdemo/aspnet-core-linux -f
+    command: docker rmi aspnet-core-linux -f
     become: true
     ignore_errors: true
 
@@ -79,7 +79,7 @@
     become: true
 
   - name: Start the DOCKER container
-    command: docker run -d -p 80:80 --name=gbbossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker run -d -p 80:80 --name=aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
     become: true
 
   - name: Start the monitoring container for Application Insights if not already running
