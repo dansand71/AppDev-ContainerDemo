@@ -24,6 +24,11 @@
     command: docker image rm gbbossdemo/aspnet-core-linux
     become: true
     ignore_errors: true
+  
+  - name: Delete the existing DOCKER container from the local cache
+    command: docker image rm VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    become: true
+    ignore_errors: true
 
   - name: Delete the existing DOCKER image  - Save Space
     command: docker rmi gbbossdemo/aspnet-core-linux -f
