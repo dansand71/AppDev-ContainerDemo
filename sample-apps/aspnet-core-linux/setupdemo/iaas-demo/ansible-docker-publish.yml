@@ -56,7 +56,7 @@
 #Now deploy the containers on the worker nodes
 
 - hosts: dockerhosts
-  remote_user: GBBOSSDemo
+  remote_user: gbbossdemo
   sudo : true 
 
   tasks: 
