@@ -5,6 +5,6 @@ kubectl create -f K8S-deploy-file.yml
 
 echo "Initial deployment & expose the service"
 kubectl expose deployments aspnet-core-linux-deployment \
-        --port=80 --target-port=5000 \
+        --port=80 --target-port=80 \
         --type=LoadBalancer \
         --name=aspnet-core-linux
