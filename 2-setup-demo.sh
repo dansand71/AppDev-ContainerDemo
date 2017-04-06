@@ -46,7 +46,7 @@ else
    echo "    Logged in."
 fi
 echo -e "\e[7mConfirm Azure Subscription\e[0m"
-read -p "Change default subscription? [y/n]:" changesubscription
+read -p "Change default subscription? [y/N]:" changesubscription
 if [[ $changesubscription =~ "y" ]];then
     read -p "      New Subscription Name:" newsubscription
     ~/bin/az account set --subscription "$newsubscription"
@@ -63,30 +63,16 @@ echo "Using public key:" ${sshpubkey}
 sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
 echo "--------------------------------------------"
 
-#Create AZ Registry
-echo -e "\e[7mContainer Registry\e[0m"
-read -p "Create AZ Registry and apply Login, Server and Password details into Template file? [Y/n]:"  continuescript
-if [[ $continuescript != "n" ]];then
-    ./environment/create-az-registry.sh
-fi
-
 #RESET DEMO VALUES
 echo -e "\e[7mConfiguring demo scripts with defaults.\e[0m"
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo "---------------------------------------------"
 echo -e "\e[7mResource Group Creation\e[0m"
-read -p "Create resource groups, and network rules via template? [Y/n]:"  continuescript
+read -p "Apply JSON Templates for and network rules? [Y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #BUILD RESOURCE GROUPS
-    echo ""
-    echo "BUILDING RESOURCE GROUPS"
-    echo "--------------------------------------------"
-    echo 'create ossdemo-appdev-iaas, ossdemo-appdev-acs, ossdemo-appdev-paas resource groups'
-    ~/bin/az group create --name ossdemo-appdev-iaas --location eastus
-    ~/bin/az group create --name ossdemo-appdev-acs --location eastus
-    ~/bin/az group create --name ossdemo-appdev-paas --location eastus
-
+    
     #APPLY JSON TEMPLATES
     echo -e "\e[7mApply ./environment/ossdemo-appdev-iaas.json template.\e[0m"
     ~/bin/az group deployment create --resource-group ossdemo-appdev-iaas --name InitialDeployment \
@@ -111,10 +97,10 @@ fi
 echo -e "\e[7mJUMPBOX Environment Setup\e[0m"
 echo ".Copy desktop icons"
 #Copy the desktop icons
-sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/gbbossdemo/Desktop/
-sudo chmod +x /home/gbbossdemo/Desktop/code.desktop
-sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
-sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
+sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop ~/Desktop/
+sudo chmod +x ~/Desktop/code.desktop
+sudo chmod +x ~/Desktop/firefox.desktop
+sudo chmod +x ~/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
 echo ".Installing libunwind libicu"
@@ -135,8 +121,8 @@ sudo npm install gulp -g
 #configure the jumpbox with the latest docker version CE
 echo ".Cleaning up older docker and now creating new version"
 sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
-sudo yum update -y
-sudo yum upgrade -y
+sudo yum update -y -qq
+sudo yum upgrade -y -qq
 sudo yum install -qq -y yum-utils
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
