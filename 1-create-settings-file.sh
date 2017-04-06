@@ -121,8 +121,7 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       
       #Get the new server
       echo ".Get the registry server details and save it to the template file."
-      REGISTRYSERVER=~/bin/az resource show -g ossdemo-utility -n 'dansanddemoregistry' --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'
-      
+      REGISTRYSERVER=`~/bin/az resource show -g ossdemo-utility -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
       #Set the login server in the config file
       sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=${REGISTRYSERVER}@g" /source/appdev-demo-EnvironmentTemplateValues
 
@@ -140,8 +139,8 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-appinsights.json
       
       #Get the new instrumentation keys
-      ASPNETCOREKEY=~/bin/az resource show -g ossdemo-utility -n 'app Insight aspnet-core-linux' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'
-      ECONTAINERSHOPKEY=~/bin/az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'
+      ASPNETCOREKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight aspnet-core-linux' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
+      ECONTAINERSHOPKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
       
       #Set these values in the config file by default
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=${ASPNETCOREKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
