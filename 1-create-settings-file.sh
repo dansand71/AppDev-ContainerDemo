@@ -124,6 +124,7 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       REGISTRYSERVER=`~/bin/az resource show -g ossdemo-utility -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
       #Set the login server in the config file
       sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=${REGISTRYSERVER}@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_REGISTRY_USER_NAME==@DEMO_REGISTRY_USER_NAME=${REGISTRYSERVER}demoregistry@g" /source/appdev-demo-EnvironmentTemplateValues
 
   fi
 fi
