@@ -2,7 +2,7 @@
 DEMO_UNIQUE_SERVER_PREFIX=""
 
 #Value of your preferred ADMIN User Name for new VM's and clusters - example "dansand" or "timwalt" or "macdaddy71"
-DEMO_ADMIN_USER_NAME=""
+DEMO_ADMIN_USER=""
 
 #Name of your demo account for storage - this was created during jumpbox server creation and is the name of the storage within your UTILITY environment.  Please change as needed
 DEMO_STORAGE_ACCOUNT=""
