@@ -2,7 +2,7 @@ source /source/appdev-demo-EnvironmentTemplateValues
 
 #SET SUBSCRIPTIONID from LOGIN to TEMPLATES
 AZSUB=`~/bin/az account show | jq '.id'`
-$AZSUB=("${AZSUB[@]//\"/}")
+AZSUB=("${AZSUB[@]//\"/}")
 echo "Working with SubscriptionID:" $AZSUB
 
 cd /source/AppDev-ContainerDemo
