@@ -64,7 +64,7 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
     sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=""@DEMO_UNIQUE_SERVER_PREFIX="${DEMO_SERVER_PREFIX}"@g" /source/appdev-demo-EnvironmentTemplateValues
     sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=""@DEMO_STORAGE_ACCOUNT='"${DEMO_STORAGE_ACCOUNT}"'@g" /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_ADMIN_USER=""@DEMO_ADMIN_USER="$DEMO_ADMIN_USER"@g" /source/appdev-demo-EnvironmentTemplateValues
+    sudo sudo sed -i -e "s@DEMO_ADMIN_USER=""@DEMO_ADMIN_USER=$DEMO_ADMIN_USER@g" /source/appdev-demo-EnvironmentTemplateValues
     echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
       sudo gedit /source/appdev-demo-EnvironmentTemplateValues
     exit
