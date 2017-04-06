@@ -19,12 +19,14 @@ echo ""
 echo -e "\e[7mCurrent Template Values:\e[0m"
 echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
 echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
+echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
 echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
 echo "      DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
 echo "      DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
 echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
 echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
-echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
+echo "      DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY="$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY
+echo "      DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY="$DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY
 echo ""
 
 if [[ -z $DEMO_UNIQUE_SERVER_PREFIX  ]]; then
@@ -69,6 +71,7 @@ sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 sudo chmod 777 -R /source
 
 #RESET DEMO VALUES
+read -p "test pause - please remove"
 echo -e "\e[7mConfiguring demo scripts with defaults.\e[0m"
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
