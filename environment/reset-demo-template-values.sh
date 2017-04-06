@@ -2,13 +2,14 @@ source /source/appdev-demo-EnvironmentTemplateValues
 
 #SET SUBSCRIPTIONID from LOGIN to TEMPLATES
 AZJSONSUBSRIPTIONID=`~/bin/az account show | jq '.id'`
+echo "Working with SubscriptionID:" $AZJSONSUBSRIPTIONID
 cd /source/AppDev-ContainerDemo
 
 EXCLUDEFILE="*reset-demo-template-values.sh"
 echo "Excluding file:" $EXCLUDEFILE
 
 echo ".Editing SUBSCRIPTIONID"
-sudo grep -rl REPLACE-JSON-SUBSCRIPTIONID /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@REPLACE-JSON-SUBSCRIPTIONID@$AZJSONSUBSCRIPTIONID@g"
+sudo grep -rl REPLACE-JSON-SUBSCRIPTIONID /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@REPLACE-JSON-SUBSCRIPTIONID@$AZJSONSUBSRIPTIONID@g"
 echo ".Editing SERVER PREFIX"
 sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g"
 echo ".Editing DEMO ADMIN USER NAME"
