@@ -18,8 +18,8 @@ echo "Installation & Configuration will require SU rights but pleae run this scr
 echo ""
 echo "This particular demo script will create a settings file that can be reused and install pre-requisites."
 echo ".Setting scripts as executable"
-sudo chmod +x /source/AppDev-ContainerDemo/envrionment/set-scripts-executable.sh
-/source/AppDev-ContainerDemo/envrionment/set-scripts-executable.sh
+sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+/source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 echo ".Resetting rights on /source"
 sudo chmod -R 777 /source
 
