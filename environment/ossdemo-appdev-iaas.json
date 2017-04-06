@@ -1,0 +1,336 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "availabilitySets_ossdemo_appdev_iaas_availabilityset_name": {
+            "defaultValue": "ossdemo-appdev-iaas-availabilityset",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name": {
+            "defaultValue": "ossdemo-appdev-iaas-publicLoadBalancer",
+            "type": "String"
+        },
+        "networkInterfaces_svr1_nic_name": {
+            "defaultValue": "svr1-nic",
+            "type": "String"
+        },
+        "networkInterfaces_svr2_nic_name": {
+            "defaultValue": "svr2-nic",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_ossdemo_appdev_iaas_name": {
+            "defaultValue": "NSG-ossdemo-appdev-iaas",
+            "type": "String"
+        },
+        "publicIPAddresses_ossdemo_appdev_iaas_publicIP_name": {
+            "defaultValue": "ossdemo-appdev-iaas-publicIP",
+            "type": "String"
+        },
+        "publicIPAddresses_svr1_publicIP_name": {
+            "defaultValue": "svr1-publicIP",
+            "type": "String"
+        },
+        "publicIPAddresses_svr2_publicIP_name": {
+            "defaultValue": "svr2-publicIP",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_1": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/backendAddressPools/ossdemo-appdev-iaas-addresspool",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_2": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/probes/HealthProbe80",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_3": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/frontendIPConfigurations/LoadBalancerFrontEnd",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_4": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/backendAddressPools/ossdemo-appdev-iaas-addresspool",
+            "type": "String"
+        },
+        "loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_5": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-appdev-iaas/providers/Microsoft.Network/loadBalancers/ossdemo-appdev-iaas-publicLoadBalancer/probes/HealthProbe80",
+            "type": "String"
+        },
+        "networkInterfaces_svr1_nic_id": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-utility/providers/Microsoft.Network/virtualNetworks/ossdemos-vnet/subnets/ossdemo-appdev-iaas-subnet",
+            "type": "String"
+        },
+        "networkInterfaces_svr2_nic_id": {
+            "defaultValue": "/subscriptions/REPLACE-JSON-SUBSCRIPTIONID/resourceGroups/ossdemo-utility/providers/Microsoft.Network/virtualNetworks/ossdemos-vnet/subnets/ossdemo-appdev-iaas-subnet",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Compute/availabilitySets",
+            "sku": {
+                "name": "Aligned"
+            },
+            "name": "[parameters('availabilitySets_ossdemo_appdev_iaas_availabilityset_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 2,
+                "virtualMachines": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/loadBalancers",
+            "name": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ossdemo_appdev_iaas_publicIP_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "[concat(parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name'),'bepool')]"
+                    },
+                    {
+                        "name": "ossdemo-appdev-iaas-addresspool"
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "LoadBalancerRuleWeb",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id')]"
+                            },
+                            "frontendPort": 80,
+                            "backendPort": 80,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_1')]"
+                            },
+                            "probe": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_2')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerRuleWeb81",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_3')]"
+                            },
+                            "frontendPort": 81,
+                            "backendPort": 81,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_4')]"
+                            },
+                            "probe": {
+                                "id": "[parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_id_5')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "HealthProbe80",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 80,
+                            "intervalInSeconds": 15,
+                            "numberOfProbes": 4
+                        }
+                    }
+                ],
+                "inboundNatRules": [],
+                "outboundNatRules": [],
+                "inboundNatPools": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_ossdemo_appdev_iaas_publicIP_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_svr1_nic_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "192.168.1.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[parameters('networkInterfaces_svr1_nic_id')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_svr2_nic_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "192.168.1.5",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[parameters('networkInterfaces_svr2_nic_id')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "ssh-rule",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "192.168.0.0/24",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "http-aspnetcoreDemo",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 120,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "http-eShopContainerDemo",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "5100-5105",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 130,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_ossdemo_appdev_iaas_publicIP_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_svr1_publicIP_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "svr1-VALUEOF-UNIQUE-SERVER-PREFIX"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_svr2_publicIP_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "svr2-VALUEOF-UNIQUE-SERVER-PREFIX"
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}

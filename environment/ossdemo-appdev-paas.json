@@ -1,0 +1,102 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroups_NSG_ossdemo_appdev_paas_name": {
+            "defaultValue": "NSG-ossdemo-appdev-paas",
+            "type": "String"
+        },
+        "serverfarms_webtier_plan_name": {
+            "defaultValue": "webtier-plan",
+            "type": "String"
+        },
+        "sites_svrprefix_aspnet_core_linux_paas_name": {
+            "defaultValue": "VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_ossdemo_appdev_paas_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "http-rule",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 120,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[parameters('serverfarms_webtier_plan_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West US",
+            "properties": {
+                "name": "[parameters('serverfarms_webtier_plan_name')]",
+                "numberOfWorkers": 1
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource",
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[parameters('sites_svrprefix_aspnet_core_linux_paas_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West US",
+            "properties": {
+                "name": "[parameters('sites_svrprefix_aspnet_core_linux_paas_name')]",
+                "hostNames": [
+                    "VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas.azurewebsites.net",
+                    "VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_svrprefix_aspnet_core_linux_paas_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_svrprefix_aspnet_core_linux_paas_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_webtier_plan_name'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_webtier_plan_name'))]"
+            ]
+        }
+    ]
+}

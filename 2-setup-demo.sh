@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Welcome to the OSS Demo for Simple app dev Containers.  This demo will configure:"
+echo -e "\e[7mWelcome to the OSS Demo for Simple app dev Containers.  This demo will configure:\e[0m"
 echo "    - Resource group - ossdemo-appdev-iaas"
 echo "    - Resource group - ossdemo-appdev-acs"
 echo "    - Resource group - ossdemo-appdev-paas"
@@ -14,11 +14,9 @@ echo "     - 1 Azure app service in ossdemo-appdev-paas - DEMO #3"
 echo ""
 echo "Installation & Configuration will require SU rights but pleae run this script as GBBOSSDemo."
 echo ""
-echo ""
-echo ""
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
-echo "Current Template Values:"
+echo -e "\e[7mCurrent Template Values:\e[0m"
 echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
 echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
 echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
@@ -47,13 +45,18 @@ if [[ $azstatus =~ "Please run 'az login' to setup account." ]]; then
 else
    echo "    Logged in."
 fi
-read -p "    Change default subscription? [y/n]:" changesubscription
+echo -e "\e[7mConfirm Azure Subscription\e[0m"
+read -p "Change default subscription? [y/n]:" changesubscription
 if [[ $changesubscription =~ "y" ]];then
     read -p "      New Subscription Name:" newsubscription
     ~/bin/az account set --subscription "$newsubscription"
 else
     echo "    Using default existing subscription."
 fi
+
+#Install JQ so we can parse JSON results in BASH
+sudo yum install -qq jq -y
+
 cd /source
 #Leverage the existing public key for new VM creation script
 echo "--------------------------------------------"
@@ -63,27 +66,21 @@ echo "Using public key:" ${sshpubkey}
 sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
 echo "--------------------------------------------"
 
-echo "Configure demo scripts"
-sudo echo "export ANSIBLE_HOST_KEY_CHECKING=false" >> ~/.bashrc
-export ANSIBLE_HOST_KEY_CHECKING=false
-cd /source
-sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g"
-sudo grep -rl VALUEOF-UNIQUE-STORAGE-ACCOUNT /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-STORAGE-ACCOUNT@$DEMO_STORAGE_ACCOUNT@g" 
-sudo grep -rl VALUEOF-REGISTRY-SERVER-NAME /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-SERVER-NAME@$DEMO_REGISTRY_SERVER_NAME@g" 
-sudo grep -rl VALUEOF-REGISTRY-USER-NAME /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-USER-NAME@$DEMO_REGISTRY_USER_NAME@g" 
-sudo grep -rl VALUEOF-REGISTRY-PASSWORD /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-PASSWORD@$DEMO_REGISTRY_PASSWORD@g" 
-sudo grep -rl VALUEOF-REPLACE-OMS-WORKSPACE /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REPLACE-OMS-WORKSPACE@$DEMO_OMS_WORKSPACE@g" 
-sudo grep -rl VALUEOF-REPLACE-OMS-PRIMARYKEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REPLACE-OMS-PRIMARYKEY@$DEMO_OMS_PRIMARYKEY@g" 
-sudo grep -rl VALUEOF-APPLICATION-INSIGHTS-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-KEY@$DEMO_APPLICATION_INSIGHTS_KEY@g"
-
-echo ""
-echo "---------------------------------------------"
-echo ""
-echo "Set values for creation of resource groups for container demo"
-echo ""
-read -p "Create resource group, and network rules? [y/n]:"  continuescript
+#Create AZ Registry
+echo -e "\e[7mContainer Registry\e[0m"
+read -p "Create AZ Registry and apply Login, Server and Password details into Template file? [Y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
+    ./environment/create-az-registry.sh
+fi
 
+#RESET DEMO VALUES
+echo -e "\e[7mConfiguring demo scripts with defaults.\e[0m"
+/source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
+
+echo "---------------------------------------------"
+echo -e "\e[7mResource Group Creation\e[0m"
+read -p "Create resource groups, and network rules via template? [Y/n]:"  continuescript
+if [[ $continuescript != "n" ]];then
     #BUILD RESOURCE GROUPS
     echo ""
     echo "BUILDING RESOURCE GROUPS"
@@ -93,59 +90,29 @@ if [[ $continuescript != "n" ]];then
     ~/bin/az group create --name ossdemo-appdev-acs --location eastus
     ~/bin/az group create --name ossdemo-appdev-paas --location eastus
 
-    #BUILD NETWORKS SECURTIY GROUPS and RULES
-    echo ""
-    echo "BUILDING NETWORKS SECURTIY GROUPS and RULES"
-    echo "--------------------------------------------"
-    echo 'Network Security Groups (NSGs) for Resource Groups'
-    ~/bin/az network nsg create --resource-group ossdemo-appdev-iaas --name NSG-ossdemo-appdev-iaas --location eastus
-    ~/bin/az network nsg create --resource-group ossdemo-appdev-acs --name NSG-ossdemo-appdev-acs --location eastus
-    ~/bin/az network nsg create --resource-group ossdemo-appdev-paas --name NSG-ossdemo-appdev-paas --location eastus
+    #APPLY JSON TEMPLATES
+    echo -e "\e[7mApply ./environment/ossdemo-appdev-iaas.json template.\e[0m"
+    ~/bin/az group deployment create --resource-group ossdemo-appdev-iaas --name InitialDeployment \
+        --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-iaas.json
+    
+    echo -e "\e[7mApply ./environment/ossdemo-appdev-paas.json template.\e[0m"
+    ~/bin/az group deployment create --resource-group ossdemo-appdev-paas --name InitialDeployment \
+        --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-paas.json
 
-    echo 'Allow SSH inbound to iaas, acs and paas resource groups'
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
-        --nsg-name NSG-ossdemo-appdev-iaas --name ssh-rule \
-        --access Allow --protocol Tcp --direction Inbound --priority 110 \
-        --source-address-prefix Internet \
-        --source-port-range "*" --destination-address-prefix "*" \
-        --destination-port-range 22
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
-        --nsg-name NSG-ossdemo-appdev-iaas --name http-aspnetcoreDemo \
-        --access Allow --protocol Tcp --direction Inbound --priority 120 \
-        --source-address-prefix Internet \
-        --source-port-range "*" --destination-address-prefix "*" \
-        --destination-port-range 80
+    echo -e "\e[7mApply ./environment/ossdemo-utility-update-subnetNSG.json template.\e[0m"
+    ~/bin/az group deployment create --resource-group ossdemo-utility --name UpdateVNETwithNewSubnetandNSG \
+        --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-update-subnetNSG.json
 
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas \
-        --nsg-name NSG-ossdemo-appdev-iaas --name http-eShopContainerDemo \
-        --access Allow --protocol Tcp --direction Inbound --priority 130 \
-        --source-address-prefix Internet \
-        --source-port-range "*" --destination-address-prefix "*" \
-        --destination-port-range 5100-5105
-
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
-     --nsg-name NSG-ossdemo-appdev-acs --name ssh-rule \
-     --access Allow --protocol Tcp --direction Inbound --priority 110 \
-     --source-address-prefix Internet \
-     --source-port-range "*" --destination-address-prefix "*" \
-     --destination-port-range 22
-
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-acs \
-     --nsg-name NSG-ossdemo-appdev-acs --name http-rule \
-     --access Allow --protocol Tcp --direction Inbound --priority 120 \
-     --source-address-prefix Internet \
-     --source-port-range "*" --destination-address-prefix "*" \
-     --destination-port-range 80
-     
-    ~/bin/az network nsg rule create --resource-group ossdemo-appdev-paas \
-     --nsg-name NSG-ossdemo-appdev-paas --name http-rule \
-     --access Allow --protocol Tcp --direction Inbound --priority 120 \
-     --source-address-prefix Internet \
-     --source-port-range "*" --destination-address-prefix "*" \
-     --destination-port-range 80
+fi
+echo -e "\e[7mCreate Demo Machines\e[0m"
+read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]'"  precreate
+if [[ $precreate != "n" ]];then
+  ./sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
+  ./sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
 fi
 
-
+echo -e "\e[7mJUMPBOX Environment Setup\e[0m"
+echo ".Copy desktop icons"
 #Copy the desktop icons
 sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop /home/gbbossdemo/Desktop/
 sudo chmod +x /home/gbbossdemo/Desktop/code.desktop
@@ -153,77 +120,47 @@ sudo chmod +x /home/gbbossdemo/Desktop/firefox.desktop
 sudo chmod +x /home/gbbossdemo/Desktop/gnome-terminal.desktop
 
 #do we have the latest verion of .net?
-echo " Installing libunwind libicu"
-sudo yum install libunwind libicu
-echo " Downloading .NET"
-echo " curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449"
-curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=843449 
-sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet
-sudo ln -s /opt/dotnet/dotnet /usr/local/bin
-set the dotnet path variables
+echo ".Installing libunwind libicu"
+sudo yum install -qq libunwind libicu -y
+echo ".Set the dotnet path variables"
 echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
 
-
 #ensure .net is setup correctly
-cd /source
-echo "installing gcc libffi-devel python-devel openssl-devel"
-sudo yum install -y gcc libffi-devel python-devel openssl-devel
-echo "installing npm"
-sudo yum install -y npm
-echo "installing bower"
-sudo npm install bower -g
-echo "installing gulp"
-sudo npm install gulp -g
-
-#Set Scripts as executable
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-docker-setup.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-OMS-agent.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-build-deploy-containers.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/x-reset-demo.sh
-
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/2-deploy-OMS-daemonset.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/3-deploy-expose-service.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/4-browse-k8s-cluster.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/5-republish.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/x-reset-demo.sh
-
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/x-reset-demo.sh
-
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/1-setup-demo.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/2-build-bits-linux.sh
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/x-reset-demo.sh
-
-sudo chmod +x /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/x-reset-all-demos.sh
+echo ".installing gcc libffi-devel python-devel openssl-devel"
+sudo yum install -y -qq gcc libffi-devel python-devel openssl-devel
+echo ".installing npm"
+sudo yum install -qq -y npm
+echo ".installing bower"
+sudo npm install bower -g 
+echo ".installing gulp"
+sudo npm install gulp -g 
 
 #configure the jumpbox with the latest docker version CE
-echo " Cleaning up older docker and now creating new version"
+echo ".Cleaning up older docker and now creating new version"
 sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
 sudo yum update -y
 sudo yum upgrade -y
-sudo yum install -y yum-utils
+sudo yum install -qq -y yum-utils
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
-echo "  Installing Docker CE"
-sudo yum install docker-ce -y
+echo ".Installing Docker CE"
+sudo yum install -qq docker-ce -y
 sudo systemctl start docker
 sudo systemctl enable docker
 
 #Install Docker Compose on the Jumpbox
-echo "  Installing Docker Compose"
+echo ".Installing Docker Compose"
 curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
 chmod +x ~/bin/docker-compose
 
 #Install Rimraf for Node Apps
-echo "  Installing rimfraf, webpack, node-saas"
+echo ".Installing rimfraf, webpack, node-saas"
 sudo npm install rimraf -g
 sudo npm install webpack -g
 sudo npm install node-sass -g
 
 #reset file permissions
-echo "  CHMOD for Users on /source"
+echo "CHMOD for Users on /source"
 sudo chmod 777 -R /source
 
-echo " Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS."
+echo "Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS."

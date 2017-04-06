@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: gbbossdemo
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
   sudo: true
 
   tasks:

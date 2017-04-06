@@ -7,3 +7,12 @@ c:\users\dansand\documents\visual studio 2017\Projects\aspnet-core-linux\aspnet-
 c:\users\dansand\documents\visual studio 2017\Projects\aspnet-core-linux\aspnet-core-linux\obj\Debug\netcoreapp1.1\aspnet-core-linux.AssemblyInfo.cs
 c:\users\dansand\documents\visual studio 2017\Projects\aspnet-core-linux\aspnet-core-linux\obj\Debug\netcoreapp1.1\aspnet-core-linux.dll
 c:\users\dansand\documents\visual studio 2017\Projects\aspnet-core-linux\aspnet-core-linux\obj\Debug\netcoreapp1.1\aspnet-core-linux.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\bin\Debug\netcoreapp1.1\aspnet-core-linux.deps.json
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\bin\Debug\netcoreapp1.1\aspnet-core-linux.runtimeconfig.json
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\bin\Debug\netcoreapp1.1\aspnet-core-linux.runtimeconfig.dev.json
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\bin\Debug\netcoreapp1.1\aspnet-core-linux.dll
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\bin\Debug\netcoreapp1.1\aspnet-core-linux.pdb
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\obj\Debug\netcoreapp1.1\aspnet-core-linux.csprojResolveAssemblyReference.cache
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\obj\Debug\netcoreapp1.1\aspnet-core-linux.AssemblyInfo.cs
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\obj\Debug\netcoreapp1.1\aspnet-core-linux.dll
+C:\git\AppDev-ContainerDemo\sample-apps\aspnet-core-linux\src\obj\Debug\netcoreapp1.1\aspnet-core-linux.pdb

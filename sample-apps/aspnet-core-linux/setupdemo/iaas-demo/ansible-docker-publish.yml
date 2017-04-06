@@ -1,7 +1,7 @@
 ---
 # This playbook builds the .NET Website & creates a container --> pushes to the private repo and then pulls it down
 - hosts: buildbox
-  remote_user: gbbossdemo
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
 
   tasks: 
   - name: Restore the requirements
@@ -21,33 +21,33 @@
 
    #delete existing container, Build, Tag and Publish
   - name: Delete the existing DOCKER container
-    command: docker image rm gbbossdemo/aspnet-core-linux
+    command: docker image rm ossdemo/aspnet-core-linux
     become: true
     ignore_errors: true
   
   - name: Delete the existing DOCKER container from the local cache
-    command: docker image rm VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker image rm VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
     ignore_errors: true
 
   - name: Delete the existing DOCKER image  - Save Space
-    command: docker rmi gbbossdemo/aspnet-core-linux -f
+    command: docker rmi ossdemo/aspnet-core-linux -f
     become: true
     ignore_errors: true
     
   - name: Delete the existing DOCKER registry image  - Save Space
-    command: docker rmi gbbossdemo/aspnet-core-linux -f
+    command: docker rmi ossdemo/aspnet-core-linux -f
     become: true
     ignore_errors: true
 
   - name: Build the DOCKER image
-    command: docker build -t gbbossdemo/aspnet-core-linux .
+    command: docker build -t ossdemo/aspnet-core-linux .
     become: true
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
 
   - name: Tag the DOCKER image
-    command: docker tag gbbossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker tag ossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
 
   - name: Log into private registry and force re-authorization
@@ -55,13 +55,13 @@
     become: true
 
   - name: Push to the Azure Private Registry
-    command: docker push VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
 
 #Now deploy the containers on the worker nodes
 
 - hosts: dockerhosts
-  remote_user: gbbossdemo
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
   sudo : true 
 
   tasks: 
@@ -80,11 +80,11 @@
     ignore_errors: true
 
   - name: Pull the new DOCKER container
-    command: docker pull VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker pull VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
 
   - name: Start the DOCKER container
-    command: docker run -d -p 80:80 --name=aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux
+    command: docker run -d -p 80:80 --name=aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
 
   - name: Start the monitoring container for Application Insights if not already running
