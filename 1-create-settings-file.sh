@@ -88,7 +88,7 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     #Do we have an existing variables file?
     if [ -f /source/DemoEnvironmentValues ];
     then
-      echo ".No existing settings file found.  Trying to pull values from original jumpbox setup to prepopulate"
+      echo ".No existing settings file found.  But there is a template from the JUMPBOX SETUP.  Trying to pull values from original jumpbox setup to prepopulate."
       source /source/DemoEnvironmentValues
       echo ".Pre-populating with original demo settings"
       echo "...JUMPBOX_SERVER_NAME="$JUMPBOX_SERVER_NAME
@@ -96,16 +96,17 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
       echo "...DEMO_SERVER_PREFIX="$DEMO_SERVER_PREFIX
       echo "...DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
       echo "...DEMO_STORAGE_PREFIX="$DEMO_STORAGE_PREFIX
+    
+      #No Settings file found - can we copy in a couple defaults to make the editing process easier?
+      echo ".Copying the template file for your additional edits - /source/appdev-demo-EnvironmentTemplateValues"
+      sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
+      sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=@DEMO_UNIQUE_SERVER_PREFIX=${DEMO_SERVER_PREFIX}@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=@DEMO_STORAGE_ACCOUNT=${DEMO_STORAGE_ACCOUNT}@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sudo sed -i -e "s@DEMO_ADMIN_USER=@DEMO_ADMIN_USER=${DEMO_ADMIN_USER}@g" /source/appdev-demo-EnvironmentTemplateValues
+      # echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
+      #   sudo gedit /source/appdev-demo-EnvironmentTemplateValues
+      # exit
     fi
-    #No Settings file found - can we copy in a couple defaults to make the editing process easier?
-    echo ".Copying the template file for your additional edits - /source/appdev-demo-EnvironmentTemplateValues"
-    sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=@DEMO_UNIQUE_SERVER_PREFIX=${DEMO_SERVER_PREFIX}@g" /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=@DEMO_STORAGE_ACCOUNT=${DEMO_STORAGE_ACCOUNT}@g" /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_ADMIN_USER=@DEMO_ADMIN_USER=${DEMO_ADMIN_USER}@g" /source/appdev-demo-EnvironmentTemplateValues
-    # echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
-    #   sudo gedit /source/appdev-demo-EnvironmentTemplateValues
-    # exit
 fi
 
 source /source/appdev-demo-EnvironmentTemplateValues
@@ -119,10 +120,11 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       /source/AppDev-ContainerDemo/environment/create-az-registry.sh
       
       #Get the new server
-      REGISTRYSERVER=dansand@DANSAND-BOOK:~$ az resource show -g ossdemo-utility -n 'dansanddemoregistry' --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'
+      echo ".Get the registry server details and save it to the template file."
+      REGISTRYSERVER=az resource show -g ossdemo-utility -n 'dansanddemoregistry' --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'
       
       #Set the login server in the config file
-      sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=$REGISTRYSERVER@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=${REGISTRYSERVER}@g" /source/appdev-demo-EnvironmentTemplateValues
 
   fi
 fi
@@ -142,8 +144,8 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
       ECONTAINERSHOPKEY=az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'
       
       #Set these values in the config file by default
-      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=$ASPNETCOREKEY@g" /source/appdev-demo-EnvironmentTemplateValues
-      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=$ECONTAINERSHOPKEY@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=${ASPNETCOREKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=${ECONTAINERSHOPKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
   fi
 fi
 
