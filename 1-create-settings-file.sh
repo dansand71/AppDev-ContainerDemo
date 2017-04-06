@@ -38,6 +38,10 @@ echo ".Checking for AZ CLI updates and adding in ACR components"
 az component update --add acr
 az component update
 
+#Install JQ so we can parse JSON results in BASH
+sudo yum install -q jq -y
+
+
 echo ".Logging in to Azure"
 #Checking to see if we are logged into Azure
 echo "..Checking if we are logged in to Azure."

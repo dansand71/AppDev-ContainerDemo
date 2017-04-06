@@ -54,9 +54,6 @@ else
     echo "    Using default existing subscription."
 fi
 
-#Install JQ so we can parse JSON results in BASH
-sudo yum install -qq jq -y
-
 cd /source
 #Leverage the existing public key for new VM creation script
 echo "--------------------------------------------"
