@@ -4,7 +4,7 @@ source /source/appdev-demo-EnvironmentTemplateValues
 AZJSONSUBSRIPTIONID=`~/bin/az account show | jq '.id'`
 cd /source/AppDev-ContainerDemo
 
-EXCLUDEFILE="'{reset-demo-template-values.sh}'"
+EXCLUDEFILE="*reset-demo-template-values.sh"
 echo "Excluding file:" $EXCLUDEFILE
 
 echo ".Editing SUBSCRIPTIONID"
