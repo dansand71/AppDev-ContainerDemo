@@ -51,7 +51,7 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     if [ -f /source/DemoEnvironmentValues ];
     then
       echo ".No existing settings file found.  Trying to pull values from original jumpbox setup to prepopulate"
-      source /source/DemoEnvironmentValue
+      source /source/DemoEnvironmentValues
       echo ".Pre-populating with original demo settings"
       echo "...JUMPBOX_SERVER_NAME="$JUMPBOX_SERVER_NAME
       echo "...DEMO_ADMIN_USER_NAME="$DEMO_ADMIN_USER_NAME
