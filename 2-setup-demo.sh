@@ -63,9 +63,10 @@ echo "Using public key:" ${sshpubkey}
 sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
 echo "--------------------------------------------"
 
-#Set Scripts as executable
+#Set Scripts as executable & ensure everything is writeable
 sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+sudo chmod 777 -R /source
 
 #RESET DEMO VALUES
 echo -e "\e[7mConfiguring demo scripts with defaults.\e[0m"

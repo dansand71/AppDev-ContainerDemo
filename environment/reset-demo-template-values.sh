@@ -2,6 +2,7 @@ source /source/appdev-demo-EnvironmentTemplateValues
 
 #SET SUBSCRIPTIONID from LOGIN to TEMPLATES
 AZJSONSUBSRIPTIONID=`~/bin/az account show | jq '.id'`
+cd /source/AppDev-ContainerDemo
 
 sudo grep -rl @REPLACE-JSON-SUBSCRIPTIONID /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@REPLACE-JSON-SUBSCRIPTIONID@$AZJSONSUBSCRIPTIONID@g"
 
@@ -24,3 +25,5 @@ sudo grep -rl VALUEOF-REPLACE-OMS-PRIMARYKEY /source/AppDev-ContainerDemo --excl
 sudo grep -rl VALUEOF-APPLICATION-INSIGHTS-ESHOPONCONTAINER-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-ESHOPONCONTAINER-KEY@$DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY@g"
 
 sudo grep -rl ALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY@$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY@g"
+
+cd /source
