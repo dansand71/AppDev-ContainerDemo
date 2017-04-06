@@ -64,7 +64,7 @@ fi
 
 #Necessary for demos to build and restore .NET application
 
-sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
+sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
 
 echo "---------------------------------------------"
 echo -e "\e[7mResource Group Creation\e[0m"

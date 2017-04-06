@@ -1,5 +1,6 @@
 #Set Scripts as executable
 echo ".setting scripts as executables"
+sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
 sudo chmod +x /source/AppDev-ContainerDemo/environment/create-az-registry.sh
 sudo chmod +x /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
