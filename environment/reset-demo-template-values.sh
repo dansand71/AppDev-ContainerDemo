@@ -9,7 +9,7 @@ sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclud
     | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g"
 
 sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  /
-    | sudo xargs sed -i -e "s@VALUEOF-DEMO-ADMIN-USER-NAME@$DEMO_ADMIN_USER_NAME@g"
+    | sudo xargs sed -i -e "s@VALUEOF-DEMO-ADMIN-USER-NAME@$DEMO_ADMIN_USER@g"
 
 sudo grep -rl VALUEOF-UNIQUE-STORAGE-ACCOUNT /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  /
     | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-STORAGE-ACCOUNT@$DEMO_STORAGE_ACCOUNT@g" 

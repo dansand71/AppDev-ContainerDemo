@@ -4,7 +4,7 @@ BOLD="\e[4m"
 INPUT="\e[7m"
 YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
-echo -e "${BOLD}mWelcome to the OSS Demo for Simple app dev Containers.  This demo will configure:${RESET}"
+echo -e "${BOLD}Welcome to the OSS Demo for Simple app dev Containers.  This demo will configure:${RESET}"
 echo "    - Resource group - ossdemo-appdev-iaas"
 echo "    - Resource group - ossdemo-appdev-acs"
 echo "    - Resource group - ossdemo-appdev-paas"
@@ -63,8 +63,8 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     echo ".Copying the template file for your additional edits - /source/appdev-demo-EnvironmentTemplateValues"
     sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
     sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=""@DEMO_UNIQUE_SERVER_PREFIX="${DEMO_SERVER_PREFIX}"@g" /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=""@DEMO_STORAGE_ACCOUNT="${DEMO_STORAGE_ACCOUNT}"@g" /source/appdev-demo-EnvironmentTemplateValues
-    sudo sudo sed -i -e "s@DEMO_ADMIN_USER=""@DEMO_STORAGE_ACCOUNT="${DEMO_ADMIN_USER_NAME}"@g" /source/appdev-demo-EnvironmentTemplateValues
+    sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=""@DEMO_STORAGE_ACCOUNT='"${DEMO_STORAGE_ACCOUNT}"'@g" /source/appdev-demo-EnvironmentTemplateValues
+    sudo sudo sed -i -e "s@DEMO_ADMIN_USER=""@DEMO_ADMIN_USER="${DEMO_ADMIN_USER}"@g" /source/appdev-demo-EnvironmentTemplateValues
     echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
       sudo gedit /source/appdev-demo-EnvironmentTemplateValues
     exit
