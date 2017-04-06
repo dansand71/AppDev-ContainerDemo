@@ -42,6 +42,20 @@ az component update
 
 sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
 
+echo "---------------------------------------------"
+echo -e "\e[7mResource Group Creation\e[0m"
+read -p "Create resource groups required for demo? [Y/n]:"  continuescript
+if [[ $continuescript != "n" ]];then
+    #BUILD RESOURCE GROUPS
+    echo ""
+    echo "BUILDING RESOURCE GROUPS"
+    echo "--------------------------------------------"
+    echo 'create ossdemo-appdev-iaas, ossdemo-appdev-acs, ossdemo-appdev-paas resource groups'
+    ~/bin/az group create --name ossdemo-appdev-iaas --location eastus
+    ~/bin/az group create --name ossdemo-appdev-acs --location eastus
+    ~/bin/az group create --name ossdemo-appdev-paas --location eastus
+fi
+
 echo -e "${BOLD}Checking for an existing settings file.  If found we will pull values from /source/appdev-demo-EnvironmentTemplateValues${RESET}"
 if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
   then
@@ -65,9 +79,9 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
     sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=@DEMO_UNIQUE_SERVER_PREFIX=$DEMO_SERVER_PREFIX@g" /source/appdev-demo-EnvironmentTemplateValues
     sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=@DEMO_STORAGE_ACCOUNT=$DEMO_STORAGE_ACCOUNT@g" /source/appdev-demo-EnvironmentTemplateValues
     sudo sudo sed -i -e "s@DEMO_ADMIN_USER=@DEMO_ADMIN_USER=$DEMO_ADMIN_USER@g" /source/appdev-demo-EnvironmentTemplateValues
-    echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
-      sudo gedit /source/appdev-demo-EnvironmentTemplateValues
-    exit
+    # echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
+    #   sudo gedit /source/appdev-demo-EnvironmentTemplateValues
+    # exit
 fi
 
 source /source/appdev-demo-EnvironmentTemplateValues
@@ -83,8 +97,46 @@ echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
 echo ""
 
+if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
+  # Create a new DEMO_REGISTRY_PASSWORD
+  echo "---------------------------------------------"
+  echo -e "\e[7mAzure Registry\e[0m"
+  read -p "Create azure registry needed for the demo? [Y/n]:"  continuescript
+  if [[ $continuescript != "n" ]];then
+      #Create Azure Registry
+      /source/AppDev-ContainerDemo/environment/create-az-registry.sh
+      
+      #Get the new server
+      REGISTRYSERVER=dansand@DANSAND-BOOK:~$ az resource show -g ossdemo-utility -n 'dansanddemoregistry' --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'
+      
+      #Set the login server in the config file
+      sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=$REGISTRYSERVER@g" /source/appdev-demo-EnvironmentTemplateValues
+
+  fi
+fi
+
+if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
+  # Create new app insights 
+  echo "---------------------------------------------"
+  echo -e "\e[7mApp Insights\e[0m"
+  read -p "Create app insights resources needed for the demo? [Y/n]:"  continuescript
+  if [[ $continuescript != "n" ]];then
+      #Create App Insights
+      ~/bin/az group deployment create --resource-group ossdemo-utility --name InitialDeployment \
+        --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-appinsights.json
+      
+      #Get the new instrumentation keys
+      ASPNETCOREKEY=az resource show -g ossdemo-utility -n 'app Insight aspnet-core-linux' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'
+      ECONTAINERSHOPKEY=az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'
+      
+      #Set these values in the config file by default
+      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=$ASPNETCOREKEY@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=$ECONTAINERSHOPKEY@g" /source/appdev-demo-EnvironmentTemplateValues
+  fi
+fi
+
 echo -e "${BOLD}Template Edit${RESET}"
-read -p "Would you like to edit the template file now? [y/N]:" changefile
+read -p "Would you like to edit the template file now to add in the Registry Username and Password values? [y/N]:" changefile
 if [[ $changefile =~ "y" ]];then
     sudo gedit /source/appdev-demo-EnvironmentTemplateValues   
 fi

@@ -25,5 +25,8 @@ DEMO_OMS_WORKSPACE=8db382ab-1870-4ae0-bc1d-d258c4b947a4
 DEMO_OMS_PRIMARYKEY=l1X4hDSPK4HtdQ/OdqnqvWRdScgymqgUGrKCEshJMrT6ODaqiSAc3e98A1Fu0mP/7hYAdUA9xciutTnNdI8BfQ==
 
 #This is gathered from your Azure Portal.  Resource Groups --> ossdemo-utility --> Azure Application Insights item --> Properties -->Instrumentation Key.  Example value APPLICATION-INSIGHTS-KEY=d8f672ed-fd97-4877-a421-f93779998b3a
-DEMO_APPLICATION_INSIGHTS_KEY=
+DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=
+
+#This is gathered from your Azure Portal.  Resource Groups --> ossdemo-utility --> Azure Application Insights item --> Properties -->Instrumentation Key.  Example value APPLICATION-INSIGHTS-KEY=d8f672ed-fd97-4877-a421-f93779998b3a
+DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=
 
