@@ -109,18 +109,6 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
 fi
 
 source /source/appdev-demo-EnvironmentTemplateValues
-echo -e "${BOLD}Current Template file values:${RESET}"
-echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
-echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
-echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
-echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
-echo "      DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
-echo "      DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
-echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
-echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
-echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
-echo ""
-
 if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
   # Create a new DEMO_REGISTRY_PASSWORD
   echo "---------------------------------------------"
@@ -158,6 +146,20 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=$ECONTAINERSHOPKEY@g" /source/appdev-demo-EnvironmentTemplateValues
   fi
 fi
+
+source /source/appdev-demo-EnvironmentTemplateValues
+echo -e "${BOLD}Current Template file values:${RESET}"
+echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
+echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
+echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
+echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
+echo "      DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
+echo "      DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
+echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
+echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
+echo "      DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY="$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY
+echo "      DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY="$DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY
+echo ""
 
 echo -e "${BOLD}Template Edit${RESET}"
 read -p "Would you like to edit the template file now to add in the Registry Username and Password values? [y/N]:" changefile
