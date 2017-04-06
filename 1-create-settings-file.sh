@@ -38,6 +38,26 @@ echo ".Checking for AZ CLI updates and adding in ACR components"
 az component update --add acr
 az component update
 
+echo ".Logging in to Azure"
+#Checking to see if we are logged into Azure
+echo "..Checking if we are logged in to Azure."
+#We need to redirect the output streams to stdout
+azstatus=`~/bin/az group list 2>&1` 
+if [[ $azstatus =~ "..Please run 'az login' to setup account." ]]; then
+        echo "...We need to login to azure.."
+        ~/bin/az login
+    else
+        echo "...Logged in."
+fi
+
+read -p "$(echo -e -n "${INPUT}..Change default subscription? [y/N]${RESET}")" changesubscription
+if [[ $changesubscription =~ "y" ]];then
+        read -p "...New Subscription Name:" newsubscription
+        ~/bin/az account set --subscription "$newsubscription"
+    else
+        echo "..Using default existing subscription."
+fi
+
 #Necessary for demos to build and restore .NET application
 
 sudo chmod +x /source/AppDev-ContainerDemo/2-SetupDemo.sh
