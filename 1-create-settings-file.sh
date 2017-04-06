@@ -177,4 +177,4 @@ if [[ $continueDemo =~ "y" ]];then
     /source/AppDev-ContainerDemo/2-setup-demo.sh
 fi
 
-echo "    Script complete.  Please run ./2-SetupDemo.sh to prepare the demo"
+echo "    Script complete.  Please run ./2-setup-demo.sh to prepare the demo"
