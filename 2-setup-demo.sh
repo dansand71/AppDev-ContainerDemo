@@ -110,9 +110,9 @@ if [[ $continuescript != "n" ]];then
     
 fi
 echo -e "${INPUT}Create Demo Machines${RESET}"
-read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]'"  precreate
+read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]"  precreate
 if [[ $precreate != "n" ]];then
-  echo ".calling server creation script for iaas VM's'"
+  echo ".calling server creation script for iaas VMs"
   /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
   /source/AppDev-ContainerDemo/environment/iaas/deploy-docker-engine.sh
   /source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
