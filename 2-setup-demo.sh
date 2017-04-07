@@ -63,13 +63,6 @@ else
 fi
 
 cd /source
-#Leverage the existing public key for new VM creation script
-echo "--------------------------------------------"
-echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
-sshpubkey=$(< ~/.ssh/id_rsa.pub)
-echo "Using public key:" ${sshpubkey}
-sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
-echo "--------------------------------------------"
 
 #Set Scripts as executable & ensure everything is writeable
 echo ".setting scripts as executables"

@@ -36,13 +36,7 @@ cp /source/AppDev-ContainerDemo/RefreshDemo.sh /source/refresh-appdev-container-
 sudo chmod +x /source/refresh-appdev-container-demo.sh
 
 
-#Leverage the existing public key for new VM creation script
-echo "--------------------------------------------"
-echo "Reading ~/.ssh/id_rsa.pub and writing values to /source/AppDev-ContainerDemo/*"
-sshpubkey=$(< ~/.ssh/id_rsa.pub)
-echo "Using public key:" ${sshpubkey}
-sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude 1-SetupDemo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
-echo "--------------------------------------------"
+
 
 #Set Scripts as executable & ensure everything is writeable
 echo ".setting scripts as executables"
@@ -50,7 +44,7 @@ find /source/AppDev-ContainerDemo  -type f -name "*.sh" -exec sudo chmod +x {} \
 sudo chmod 777 -R /source
 
 #Reset DEMO Values
-/sourceAppDev-ContainerDemo/environment/reset-demo-template-values.sh
+/source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo ""
 echo "Complete"

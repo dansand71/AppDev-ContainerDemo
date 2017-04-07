@@ -44,3 +44,7 @@ echo ".Editing APP INSIGHTS ASPNETCORE DEMO"
 sudo grep -rl VALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY@$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY@g"
 
 cd /source
+
+#Leverage the existing public key for new VM creation script
+sshpubkey=$(< ~/.ssh/id_rsa.pub)
+sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
