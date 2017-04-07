@@ -5,7 +5,7 @@ echo "Create VM #1 & add it to the availability set and vnet"
 ~/bin/az vm create -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr1-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr1-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS1_v2  --admin-username gbbossdemo \
+        --size Standard_DS1_v2  --admin-username VALUEOF-DEMO-ADMIN-USER-NAME \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr1-nic \
         #--no-wait \
@@ -16,7 +16,7 @@ echo "Create VM #2 & add it to the availability set and vnet"
 ~/bin/az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \
         --os-disk-name 'svr2-disk' --image "OpenLogic:CentOS:7.2:latest" --storage-sku 'Premium_LRS' \
-        --size Standard_DS1_v2 --admin-username gbbossdemo  \
+        --size Standard_DS1_v2 --admin-username VALUEOF-DEMO-ADMIN-USER-NAME  \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr2-nic \
         #--no-wait \
