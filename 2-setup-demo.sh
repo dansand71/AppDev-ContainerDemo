@@ -76,31 +76,39 @@ find /source/AppDev-ContainerDemo  -type f -name "*.sh" -exec sudo chmod +x {} \
 sudo chmod 777 -R /source
 
 #RESET DEMO VALUES
-read -p "test pause - please remove"
 echo -e "${BOLD}Configuring demo scripts with defaults.${RESET}"
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo "---------------------------------------------"
-echo -e "${BOLD}Resource Group Creation${RESET}"
+echo -e "${INPUT}Resource Group Creation${RESET}"
 read -p "Apply JSON Templates for and network rules? [Y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #BUILD RESOURCE GROUPS
     
     #APPLY JSON TEMPLATES
-    echo -e "${BOLD}Apply ./environment/ossdemo-appdev-iaas.json template.${RESET}"
+    echo ".create ossdemo-appdev-iaas in case it doesnt exist."
+    ~/bin/az group create --name ossdemo-appdev-iaas --location eastus
+    echo -e ".apply ./environment/ossdemo-appdev-iaas.json template."
     ~/bin/az group deployment create --resource-group ossdemo-appdev-iaas --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-iaas.json
+    ~/bin/az group create --name ossdemo-appdev-acs --location eastus
+    ~/bin/az group create --name ossdemo-appdev-paas --location eastus
     
-    echo -e "${BOLD}Apply ./environment/ossdemo-appdev-paas.json template.${RESET}"
+    echo ".create ossdemo-appdev-paas in case it doesnt exist."
+    ~/bin/az group create --name ossdemo-appdev-paas --location eastus
+    echo -e ".Apply ./environment/ossdemo-appdev-paas.json template."
     ~/bin/az group deployment create --resource-group ossdemo-appdev-paas --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-paas.json
 
-    echo -e "${BOLD}Apply ./environment/ossdemo-utility-update-subnetNSG.json template.${RESET}"
+    echo -e ".Apply ./environment/ossdemo-utility-update-subnetNSG.json template."
     ~/bin/az group deployment create --resource-group ossdemo-utility --name UpdateVNETwithNewSubnetandNSG \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-update-subnetNSG.json
 
+    echo ".create ossdemo-appdev-acs in case it doesnt exist."
+    ~/bin/az group create --name ossdemo-appdev-acs --location eastus
+    
 fi
-echo -e "${BOLD}Create Demo Machines${RESET}"
+echo -e "${INPUT}Create Demo Machines${RESET}"
 read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]'"  precreate
 if [[ $precreate != "n" ]];then
   echo ".calling server creation script for iaas VM's'"
