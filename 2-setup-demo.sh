@@ -33,7 +33,8 @@ echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
 echo "      DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY="$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY
 echo "      DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY="$DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY
 echo ""
-
+#ensure we are in the root of the demo directory
+cd /source/AppDev-ContainerDemo
 if [[ -z $DEMO_UNIQUE_SERVER_PREFIX  ]]; then
    echo "   Server PREFIX is null.  Please correct and re-run this script.."
    exit
