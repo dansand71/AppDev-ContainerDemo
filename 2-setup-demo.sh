@@ -141,9 +141,9 @@ echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
 
 #ensure .net is setup correctly
 echo ".installing gcc libffi-devel python-devel openssl-devel"
-sudo yum install -y -qq gcc libffi-devel python-devel openssl-devel
+sudo yum install -y -q gcc libffi-devel python-devel openssl-devel
 echo ".installing npm"
-sudo yum install -qq -y npm
+sudo yum install -q -y npm
 echo ".installing bower"
 sudo npm install bower -g -silent
 echo ".installing gulp"
@@ -154,11 +154,11 @@ echo ".Cleaning up older docker and now creating new version"
 sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
 sudo yum update -y -qq
 sudo yum upgrade -y -qq
-sudo yum install -qq -y yum-utils
+sudo yum install -q -y yum-utils
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
 echo ".Installing Docker CE"
-sudo yum install -qq docker-ce -y
+sudo yum install -q docker-ce -y
 sudo systemctl start docker
 sudo systemctl enable docker
 
