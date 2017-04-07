@@ -30,8 +30,15 @@
     become: true
 
   - name: Log into private registry and force re-authorization
-    command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
-    become: true
+    docker_login:
+      registry: VALUEOF-REGISTRY-SERVER-NAME
+      username: VALUEOF-REGISTRY-USER-NAME
+      password: VALUEOF-REGISTRY-PASSWORD
+      reauthorize: yes
+  
+  # - name: Log into private registry and force re-authorization
+  #   command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+  #   become: true
 
   - name: Push to the Azure Private Registry
     command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
@@ -65,13 +72,3 @@
       pull: always
       ports:
         - "80:80"
-
-  - name: Pull the newest image if avialable and run
-    docker:
-      name: aspnet-core-linux
-      image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
-      state: reloaded
-      pull: always
-      ports:
-        - "80:80"
-
