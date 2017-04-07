@@ -57,11 +57,15 @@
       password: VALUEOF-REGISTRY-PASSWORD
       reauthorize: yes
 
-  - name: Pull the newest image if avialable and run
-    docker:
-      name: aspnet-core-linux
-      image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
-      state: reloaded
-      pull: always
-      ports:
-        - "80:80"
+ - name: Kill the existing DOCKER Image
+    command: docker rmi aspnet-core-linux -f
+    become: true
+    ignore_errors: true
+
+  - name: Pull the new DOCKER container
+    command: docker pull VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+    become: true
+
+  - name: Start the DOCKER container
+    command: docker run -d -p 80:80 --name=aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+    become: true

@@ -144,6 +144,9 @@ echo ".installing bower"
 sudo npm install bower -g -silent
 echo ".installing gulp"
 sudo npm install gulp -g -silent
+echo ".installing python 35 and pip"
+sudo yum install -y -q python35u python35u-pip 
+
 
 #configure the jumpbox with the latest docker version CE
 echo ".Cleaning up older docker and now creating new version"
