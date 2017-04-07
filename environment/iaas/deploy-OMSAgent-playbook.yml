@@ -24,3 +24,14 @@
     - name: Install and Configure OMS Service Mapping Tool
       command: /etc/InstallDependencyAgent-Linux64.bin -s
 
+#Run the OMS VM
+    - name: Pull the newest OMS image if avialable and run
+      docker:
+        name: AppInsightMonitoring
+        image: microsoft/applicationinsights
+        state: reloaded
+        devices:
+          - "/var/run/docker.sock:/docker.sock"
+        pull: always
+        env:
+          ikey: VALUEOF-APPLICATION-INSIGHTS-KEY 

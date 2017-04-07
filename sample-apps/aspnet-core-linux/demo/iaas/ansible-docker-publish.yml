@@ -66,7 +66,12 @@
       ports:
         - "80:80"
 
-  - name: Start the monitoring container for Application Insights if not already running
-    command: docker run -v /var/run/docker.sock:/docker.sock --name=AppInsightMonitoring -d microsoft/applicationinsights ikey=VALUEOF-APPLICATION-INSIGHTS-KEY 
-    become: true
-    ignore_errors: true
+  - name: Pull the newest image if avialable and run
+    docker:
+      name: aspnet-core-linux
+      image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+      state: reloaded
+      pull: always
+      ports:
+        - "80:80"
+
