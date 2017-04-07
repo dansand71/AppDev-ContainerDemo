@@ -1,5 +1,10 @@
 #!/bin/bash
-echo -e "\e[7mWelcome to the OSS Demo for Simple app dev Containers.  This demo will configure:\e[0m"
+RESET="\e[0m"
+BOLD="\e[4m"
+INPUT="\e[7m"
+YELLOW="\033[38;5;11m"
+RED="\033[0;31m"
+echo -e "${BOLD}Welcome to the OSS Demo for Simple app dev Containers.  This demo will configure:${RESET}"
 echo "    - Resource group - ossdemo-appdev-iaas"
 echo "    - Resource group - ossdemo-appdev-acs"
 echo "    - Resource group - ossdemo-appdev-paas"
@@ -16,7 +21,7 @@ echo "Installation & Configuration will require SU rights but pleae run this scr
 echo ""
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
-echo -e "\e[7mCurrent Template Values:\e[0m"
+echo -e "${BOLD}Current Template Values:${RESET}"
 echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
 echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
 echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
@@ -47,7 +52,7 @@ if [[ $azstatus =~ "Please run 'az login' to setup account." ]]; then
 else
    echo "    Logged in."
 fi
-echo -e "\e[7mConfirm Azure Subscription\e[0m"
+echo -e "${BOLD}Confirm Azure Subscription${RESET}"
 read -p "Change default subscription? [y/N]:" changesubscription
 if [[ $changesubscription =~ "y" ]];then
     read -p "      New Subscription Name:" newsubscription
@@ -66,43 +71,53 @@ sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude /source/App
 echo "--------------------------------------------"
 
 #Set Scripts as executable & ensure everything is writeable
-sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
-/source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+echo ".setting scripts as executables"
+find /source/AppDev-ContainerDemo  -type f -name "*.sh" -exec sudo chmod +x {} \;
 sudo chmod 777 -R /source
 
 #RESET DEMO VALUES
 read -p "test pause - please remove"
-echo -e "\e[7mConfiguring demo scripts with defaults.\e[0m"
+echo -e "${BOLD}Configuring demo scripts with defaults.${RESET}"
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo "---------------------------------------------"
-echo -e "\e[7mResource Group Creation\e[0m"
+echo -e "${BOLD}Resource Group Creation${RESET}"
 read -p "Apply JSON Templates for and network rules? [Y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #BUILD RESOURCE GROUPS
     
     #APPLY JSON TEMPLATES
-    echo -e "\e[7mApply ./environment/ossdemo-appdev-iaas.json template.\e[0m"
+    echo -e "${BOLD}Apply ./environment/ossdemo-appdev-iaas.json template.${RESET}"
     ~/bin/az group deployment create --resource-group ossdemo-appdev-iaas --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-iaas.json
     
-    echo -e "\e[7mApply ./environment/ossdemo-appdev-paas.json template.\e[0m"
+    echo -e "${BOLD}Apply ./environment/ossdemo-appdev-paas.json template.${RESET}"
     ~/bin/az group deployment create --resource-group ossdemo-appdev-paas --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-appdev-paas.json
 
-    echo -e "\e[7mApply ./environment/ossdemo-utility-update-subnetNSG.json template.\e[0m"
+    echo -e "${BOLD}Apply ./environment/ossdemo-utility-update-subnetNSG.json template.${RESET}"
     ~/bin/az group deployment create --resource-group ossdemo-utility --name UpdateVNETwithNewSubnetandNSG \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-update-subnetNSG.json
 
 fi
-echo -e "\e[7mCreate Demo Machines\e[0m"
+echo -e "${BOLD}Create Demo Machines${RESET}"
 read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]'"  precreate
 if [[ $precreate != "n" ]];then
-  ./sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
-  ./sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
+  echo ".calling server creation script for iaas VM's'"
+  /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
+  /source/AppDev-ContainerDemo/environment/iaas/deploy-docker-engine.sh
+  /source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
+  
+  echo ".calling acs creation script"
+  /source/AppDev-ContainerDemo/environment/acs/create-k8s-cluster.sh
+  /source/AppDev-ContainerDemo/environment/acs/deploy-k8s-OMSDaemonset.sh
+
+  echo ".calling paas server creation"
+  /source/AppDev-ContainerDemo/environment/paas/create-webplan-linux-service.sh
+
 fi
 
-echo -e "\e[7mJUMPBOX Environment Setup\e[0m"
+echo -e "${BOLD}JUMPBOX Environment Setup${RESET}"
 echo ".Copy desktop icons"
 #Copy the desktop icons
 sudo cp /source/AppDev-ContainerDemo/vm-assets/*.desktop ~/Desktop/
@@ -122,9 +137,9 @@ sudo yum install -y -qq gcc libffi-devel python-devel openssl-devel
 echo ".installing npm"
 sudo yum install -qq -y npm
 echo ".installing bower"
-sudo npm install bower -g 
+sudo npm install bower -g -silent
 echo ".installing gulp"
-sudo npm install gulp -g 
+sudo npm install gulp -g -silent
 
 #configure the jumpbox with the latest docker version CE
 echo ".Cleaning up older docker and now creating new version"
@@ -146,12 +161,12 @@ chmod +x ~/bin/docker-compose
 
 #Install Rimraf for Node Apps
 echo ".Installing rimfraf, webpack, node-saas"
-sudo npm install rimraf -g
-sudo npm install webpack -g
-sudo npm install node-sass -g
+sudo npm install rimraf -g -silent
+sudo npm install webpack -g -silent
+sudo npm install node-sass -g -silent
 
 #reset file permissions
 echo "CHMOD for Users on /source"
 sudo chmod 777 -R /source
 
-echo "Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS."
+echo "${BOLD}Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS.${RESET}"

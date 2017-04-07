@@ -8,12 +8,14 @@ echo ""
 echo "Current Template Values:"
 echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
 echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
+echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
 echo "      DEMO_REGISTRY_SERVER-NAME="$DEMO_REGISTRY_SERVER_NAME
 echo "      DEMO_REGISTRY_USER_NAME="$DEMO_REGISTRY_USER_NAME
 echo "      DEMO_REGISTRY_PASSWORD="$DEMO_REGISTRY_PASSWORD
 echo "      DEMO_OMS_WORKSPACE="$DEMO_OMS_WORKSPACE
 echo "      DEMO_OMS_PRIMARYKEY="$DEMO_OMS_PRIMARYKEY
-echo "      DEMO_APPLICATION_INSIGHTS_KEY="$DEMO_APPLICATION_INSIGHTS_KEY
+echo "      DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY="$DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY
+echo "      DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY="$DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY
 echo ""
 echo "The remainder of this script deletes the existing /source/AppDev-ContainerDemo directory, reclones and resets script executables."
 read -p "Press any key to continue or CTRL-C to exit... " startscript
@@ -42,27 +44,13 @@ echo "Using public key:" ${sshpubkey}
 sudo grep -rl REPLACE-SSH-KEY /source/AppDev-ContainerDemo --exclude 1-SetupDemo.sh | sudo xargs sed -i -e "s#REPLACE-SSH-KEY#$sshpubkey#g" 
 echo "--------------------------------------------"
 
-echo "Configuring demo scripts"
-sudo echo "export ANSIBLE_HOST_KEY_CHECKING=false" >> ~/.bashrc
-export ANSIBLE_HOST_KEY_CHECKING=false
-cd /source
-sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g"
-sudo grep -rl VALUEOF-UNIQUE-STORAGE-ACCOUNT /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-STORAGE-ACCOUNT@$DEMO_STORAGE_ACCOUNT@g" 
-sudo grep -rl VALUEOF-REGISTRY-SERVER-NAME /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-SERVER-NAME@$DEMO_REGISTRY_SERVER_NAME@g" 
-sudo grep -rl VALUEOF-REGISTRY-USER-NAME /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-USER-NAME@$DEMO_REGISTRY_USER_NAME@g" 
-sudo grep -rl VALUEOF-REGISTRY-PASSWORD /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REGISTRY-PASSWORD@$DEMO_REGISTRY_PASSWORD@g" 
-sudo grep -rl VALUEOF-REPLACE-OMS-WORKSPACE /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REPLACE-OMS-WORKSPACE@$DEMO_OMS_WORKSPACE@g" 
-sudo grep -rl VALUEOF-REPLACE-OMS-PRIMARYKEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-REPLACE-OMS-PRIMARYKEY@$DEMO_OMS_PRIMARYKEY@g" 
-sudo grep -rl VALUEOF-APPLICATION-INSIGHTS-KEY /source/AppDev-ContainerDemo --exclude /source/AppDev-ContainerDemo/2-setup-demo.sh  | sudo xargs sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-KEY@$DEMO_APPLICATION_INSIGHTS_KEY@g"
-
-#Set Scripts as executable
-echo ".Setting scripts as executable"
-sudo chmod +x /source/AppDev-ContainerDemo/envrionment/set-scripts-executable.sh
-/source/AppDev-ContainerDemo/envrionment/set-scripts-executable.sh
-
-
-
+#Set Scripts as executable & ensure everything is writeable
+echo ".setting scripts as executables"
+find /source/AppDev-ContainerDemo  -type f -name "*.sh" -exec sudo chmod +x {} \;
 sudo chmod 777 -R /source
+
+#Reset DEMO Values
+/sourceAppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo ""
 echo "Complete"
