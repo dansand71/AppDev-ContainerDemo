@@ -114,6 +114,8 @@ read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]"  precreate
 if [[ $precreate != "n" ]];then
   echo ".calling server creation script for iaas VMs"
   /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
+  # we need to make sure we run the ansible playbook from this directory to pick up the cfg file
+  cd /source/AppDev-ContainerDemo/environment/iaas/ 
   /source/AppDev-ContainerDemo/environment/iaas/deploy-docker-engine.sh
   /source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
   
