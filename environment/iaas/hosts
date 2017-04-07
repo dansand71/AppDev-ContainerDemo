@@ -9,8 +9,8 @@
 #   - A hostname/ip can be a member of multiple groups
 
 [dockerhosts]
-svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
-svr2-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com
+svr1-VALUEOF-UNIQUE-SERVER-PREFIX
+svr2-VALUEOF-UNIQUE-SERVER-PREFIX
 
 [buildbox]
 localhost
