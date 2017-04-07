@@ -57,8 +57,8 @@
       password: VALUEOF-REGISTRY-PASSWORD
       reauthorize: yes
 
- - name: Kill the existing DOCKER Image
-    command: docker rmi aspnet-core-linux -f
+  - name: Kill the existing DOCKER Image
+    command: docker rm aspnet-core-linux -f
     become: true
     ignore_errors: true
 
