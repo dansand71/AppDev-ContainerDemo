@@ -128,7 +128,7 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       echo ".Get the registry server details and save it to the template file."
       REGISTRYSERVER=`~/bin/az resource show -g ossdemo-utility -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
       REGISTRYSERVER=("${REGISTRYSERVER[@]//\"/}")  #REMOVE Quotes
-      REGISTRYPASSWORD=`~/bin/az acr acr credential show -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --query passwords[0].value`
+      REGISTRYPASSWORD=`~/bin/az acr credential show -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --query passwords[0].value`
       REGISTRYPASSWORD=("${REGISTRYPASSWORD[@]//\"/}")
       #Set the login server in the config file
       sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=${REGISTRYSERVER}@g" /source/appdev-demo-EnvironmentTemplateValues
