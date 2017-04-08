@@ -101,7 +101,7 @@ if [ -f /source/appdev-demo-EnvironmentTemplateValues ];
       #No Settings file found - can we copy in a couple defaults to make the editing process easier?
       echo ".Copying the template file for your additional edits - /source/appdev-demo-EnvironmentTemplateValues"
       sudo cp /source/AppDev-ContainerDemo/vm-assets/DemoEnvironmentTemplateValues /source/appdev-demo-EnvironmentTemplateValues
-      sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=@DEMO_UNIQUE_SERVER_PREFIX=${DEMO_SERVER_PREFIX}@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sudo sed -i -e "s@DEMO_UNIQUE_SERVER_PREFIX=@DEMO_UNIQUE_SERVER_PREFIX=${DEMO_UNIQUE_SERVER_PREFIX}@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sudo sed -i -e "s@DEMO_STORAGE_ACCOUNT=@DEMO_STORAGE_ACCOUNT=${DEMO_STORAGE_ACCOUNT}@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sudo sed -i -e "s@DEMO_ADMIN_USER=@DEMO_ADMIN_USER=${DEMO_ADMIN_USER}@g" /source/appdev-demo-EnvironmentTemplateValues
       # echo ".Please update /source/appdev-demo-EnvironmentTemplateValues with your values and re-run this script."
@@ -117,7 +117,7 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
   echo -e "\e[7mAzure Registry\e[0m"
   read -p "Create azure registry needed for the demo? [Y/n]:"  continuescript
   if [[ $continuescript != "n" ]];then
-      sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g" /source/AppDev-ContainerDemo/environment/create-az-registry.sh
+      
       #Create Azure Registry
       /source/AppDev-ContainerDemo/environment/create-az-registry.sh
       
