@@ -1,4 +1,6 @@
 #Read in the demo default template values and crate a new registry with that name and a new storage account
+#Add ACR if it isnt there
+~/bin/az component update --add acr
 
 source /source/appdev-demo-EnvironmentTemplateValues
 echo ""
