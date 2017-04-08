@@ -123,9 +123,13 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       #Get the new server
       echo ".Get the registry server details and save it to the template file."
       REGISTRYSERVER=`~/bin/az resource show -g ossdemo-utility -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
+      REGISTRYSERVER=("${REGISTRYSERVER[@]//\"/}")  #REMOVE Quotes
+      REGISTRYPASSWORD=`~/bin/az acr acr credential show -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --query passwords[0].value`
+      REGISTRYPASSWORD=("${REGISTRYPASSWORD[@]//\"/}")
       #Set the login server in the config file
       sudo sed -i -e "s@DEMO_REGISTRY_SERVER_NAME=@DEMO_REGISTRY_SERVER_NAME=${REGISTRYSERVER}@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sed -i -e "s@DEMO_REGISTRY_USER_NAME=@DEMO_REGISTRY_USER_NAME=${DEMO_UNIQUE_SERVER_PREFIX}demoregistry@g" /source/appdev-demo-EnvironmentTemplateValues
+      sudo sed -i -e "s@DEMO_REGISTRY_PASSWORD=@DEMO_REGISTRY_PASSWORD=${REGISTRYPASSWORD}@g" /source/appdev-demo-EnvironmentTemplateValues
 
   fi
 fi
@@ -142,8 +146,10 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
       
       #Get the new instrumentation keys
       ASPNETCOREKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight aspnet-core-linux' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
+      ASPNETCOREKEY=("${ASPNETCOREKEY[@]//\"/}")  #REMOVE Quotes
       ECONTAINERSHOPKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
-      
+      ECONTAINERSHOPKEY=("${ECONTAINERSHOPKEY[@]//\"/}")  #REMOVE Quotes
+
       #Set these values in the config file by default
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=${ASPNETCOREKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=${ECONTAINERSHOPKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
