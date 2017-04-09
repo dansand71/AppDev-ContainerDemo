@@ -19,13 +19,13 @@ echo ""
 echo "This particular demo script will create a settings file that can be reused and install pre-requisites."
 echo ".Resetting rights on /source"
 sudo chmod -R 777 /source
-echo ".Setting scripts as executable"
+echo ".Setting scripts as executable and ensuring file format is unix and not dos"
+sudo yum install -y -q dos2unix
 sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
 #BUG install dos2unix for files that have been updated on windows boxes
-sudo yum install -y -q dos2unix
-dos2unix /source/DemoEnvironmentVariables
+dos2unix /source/DemoEnvironmentValues
 
 echo -e "${BOLD}Checking to ensure AZ CLI is installed.  If not we will install and ask for defaults.${RESET}"
 #Check to see if Azure is installed if not do it.  You will have to rerun the setup script after...
