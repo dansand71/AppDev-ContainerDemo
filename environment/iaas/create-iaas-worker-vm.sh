@@ -8,8 +8,8 @@ echo "Create VM #1 & add it to the availability set and vnet"
         --size Standard_DS1_v2  --admin-username VALUEOF-DEMO-ADMIN-USER-NAME \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr1-nic \
-        #--no-wait \
         --ssh-key-value 'REPLACE-SSH-KEY' 
+        #--no-wait \
 echo ""
 echo "----------------------------------"
 echo "Create VM #2 & add it to the availability set and vnet"
@@ -19,8 +19,8 @@ echo "Create VM #2 & add it to the availability set and vnet"
         --size Standard_DS1_v2 --admin-username VALUEOF-DEMO-ADMIN-USER-NAME  \
         --availability-set 'ossdemo-appdev-iaas-availabilityset' \
         --nics svr2-nic \
-        #--no-wait \
         --ssh-key-value 'REPLACE-SSH-KEY'
+        #--no-wait \
 
 
 #echo "Create VM #RHEL"
@@ -31,4 +31,3 @@ echo "Create VM #2 & add it to the availability set and vnet"
 #        --nsg 'NSG-ossdemo-appdev-iaas' --availability-set 'ossdemo-appdev-iaas-availabilityset' \
 #        --no-wait \
 #        --ssh-key-value 'REPLACE-SSH-KEY'
-        
