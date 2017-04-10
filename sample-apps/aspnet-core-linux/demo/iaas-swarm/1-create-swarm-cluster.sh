@@ -10,7 +10,7 @@ DEBUG="no"
 #Open up ports UDP 4789 in ossdemo-utility and ossdemo-appdev-iaas
 
 read -p "$(echo -e -n "${INPUT}Create NSG rules? [Y/n]${RESET}")" moveforward
-if [[ $moveforward,, != "n" ]];then   
+if [[ ${moveforward,,} != "n" ]];then   
 
 #UTILITY GROUP
  ~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-mgmt \
