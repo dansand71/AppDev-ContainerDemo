@@ -39,7 +39,6 @@ sudo chmod +x /source/refresh-appdev-container-demo.sh
 
 
 #Set Scripts as executable & ensure everything is writeable
-echo ".setting scripts as executables"
 sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
