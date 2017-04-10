@@ -40,8 +40,8 @@ sudo chmod +x /source/refresh-appdev-container-demo.sh
 
 #Set Scripts as executable & ensure everything is writeable
 echo ".setting scripts as executables"
-find /source/AppDev-ContainerDemo  -type f -name "*.sh" -exec sudo chmod +x {} \;
-sudo chmod 777 -R /source
+sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+/source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
 #Reset DEMO Values
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
