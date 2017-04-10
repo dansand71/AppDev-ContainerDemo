@@ -2,5 +2,5 @@
 echo "Force a refresh of the containers"
 #az account set --subscription "Microsoft Azure Internal Consumption"
 
-kubectl set image deployment/aspnet-core-linux-deployment \
-        aspnet-core-linux=VALUEOF-REGISTRY-SERVER-NAME/gbbossdemo/aspnet-core-linux:latest
+cd /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs
+ansible-playbook -i /source/AppDev-ContainerDemo/environment/iaas/hosts ansible-docker-publish.yml
