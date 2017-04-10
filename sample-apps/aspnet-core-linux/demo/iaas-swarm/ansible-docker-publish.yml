@@ -25,10 +25,6 @@
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm/
 
-  - name: Tag the DOCKER image
-    command: docker tag ossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
-    become: true
-
   - name: Log into private registry and force re-authorization
     command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
     become: true

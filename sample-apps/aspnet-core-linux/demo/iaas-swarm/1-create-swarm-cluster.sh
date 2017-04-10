@@ -38,6 +38,10 @@ if [[ ${moveforward,,} != "n" ]];then
         --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.1.0/24" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4789
 
+~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name http81-docker-swarm-demo \
+        --access Allow --protocol Tcp --direction Inbound --priority 240 --source-address-prefix "*" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 81
+
 fi
 
 #masterip="$(/sbin/ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')"
