@@ -1,17 +1,44 @@
+RESET="\e[0m"
+INPUT="\e[7m"
+BOLD="\e[4m"
+YELLOW="\033[38;5;11m"
+RED="\033[0;31m"
+DEBUG="no"
 #Create SWARM cluster.  For this demo the master is SVR1 and the worker is SVR2
 #Open up ports TCP 2377 in ossdemo-utility and ossdemo-appdev-iaas
 #Open up ports TCP & UDP 7946 in ossdemo-utility and ossdemo-appdev-iaas
 #Open up ports UDP 4789 in ossdemo-utility and ossdemo-appdev-iaas
 
-#Apply NSG Rules
-echo -e ".Apply ossdemo-appdev-iaas JSON NSG template."
-~/bin/az group deployment create --resource-group ossdemo-appdev-iaas --name DockerNSGRules \
-  --template-file /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm/ossdemo-appdev-iaas-NSG.json
+read -p "$(echo -e -n "${INPUT}Create NSG rules? [Y/n]${RESET}")" moveforward
+if [[ $moveforward =~ "y" ]];then   
 
-echo -e ".Apply ossdemo-utility JSON NSG template."
-~/bin/az group deployment create --resource-group ossdemo-utility --name DockerNSGRules \
-  --template-file /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm/ossdemo-utility-NSG.json
+#UTILITY GROUP
+ ~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-mgmt \
+        --access Allow --protocol Tcp --direction Inbound --priority 210 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 2377
 
+~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-node-comms \
+        --access Allow --protocol "*" --direction Inbound --priority 220 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 7946
+
+~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-mgmt \
+        --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4789
+
+#IAAS GROUP
+~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \
+        --access Allow --protocol Tcp --direction Inbound --priority 210 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 2377
+
+~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-node-comms \
+        --access Allow --protocol "*" --direction Inbound --priority 220 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 7946
+
+~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \
+        --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4789
+
+fi
 
 #masterip="$(/sbin/ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')"
 #sample if we make the master on SVR1 instead of the jumpbox
