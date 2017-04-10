@@ -20,7 +20,7 @@
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
 
   - name: Build the DOCKER image
-    command: docker-compose -f docker-stack.yml build
+    command: ~/bin/docker-compose -f docker-stack.yml build
     become: true
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm/
