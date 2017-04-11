@@ -1,6 +1,8 @@
 echo "Creating Docker Runtime hosts for Demo #1 in ossdemo-iaas resource group."
 echo ""
 echo "----------------------------------"
+#remove this server in case we have seen it before on the jumpbox
+ssh-keygen -R "svr1-VALUEOF-UNIQUE-SERVER-PREFIX"
 echo "Create VM #1 & add it to the availability set and vnet"
 ~/bin/az vm create -g 'ossdemo-appdev-iaas' -n svr1-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr1-VALUEOF-UNIQUE-SERVER-PREFIX' \
@@ -12,6 +14,7 @@ echo "Create VM #1 & add it to the availability set and vnet"
         #--no-wait \
 echo ""
 echo "----------------------------------"
+ssh-keygen -R "svr2-VALUEOF-UNIQUE-SERVER-PREFIX"
 echo "Create VM #2 & add it to the availability set and vnet"
 ~/bin/az vm create -g 'ossdemo-appdev-iaas' -n svr2-VALUEOF-UNIQUE-SERVER-PREFIX \
         --public-ip-address-dns-name 'svr2-VALUEOF-UNIQUE-SERVER-PREFIX' \

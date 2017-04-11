@@ -26,4 +26,5 @@ echo ".running sudo docker service ps aspnet_web"
 sudo docker service ps aspnet_web
 
 echo -e ".you can now browse the application at http://svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com:81 for individual servers."
+echo -e ".you can now monitor the application at http://jumpbox-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com:8180 for individual servers."
 echo -e ". or at http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:81 for a loadbalanced IP."
