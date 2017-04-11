@@ -14,7 +14,7 @@ fi
 echo -e "${BOLD}Deploy containers via ansible to worker iaas servers...${RESET}"
 #change into the directory where the Ansible CFG is located
 cd /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/ansible
-ansible-playbook -i hosts /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas/ansible-docker-publish.yml
+ansible-playbook -i /source/AppDev-ContainerDemo/environment/iaas/hosts /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas/ansible-docker-publish.yml
 
 echo ""
 echo -e "${BOLD}Browse application...${RESET}"
