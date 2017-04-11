@@ -107,6 +107,10 @@ read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]"  precreate
 if [[ $precreate != "n" ]];then
   echo ".calling server creation script for iaas VMs"
   /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
+  echo "----------------------------------------------"
+  read -p "$(echo -e -n "${INPUT}Please confirm the IaaS servers are running in the Azure portal before continuing. [press any key to continue]:${RESET}")"
+  echo ".configuring iaas docker hosts with the new docker engine adn OMS agent"
+  echo "----------------------------------------------"
   # we need to make sure we run the ansible playbook from this directory to pick up the cfg file
   cd /source/AppDev-ContainerDemo/environment/iaas/ 
   /source/AppDev-ContainerDemo/environment/iaas/deploy-docker-engine.sh
