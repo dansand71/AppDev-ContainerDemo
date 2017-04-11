@@ -19,4 +19,6 @@ sudo docker stack deploy --compose-file docker-stack.yml aspnet
 
 echo "Current status of the cluster:"
 echo ".running sudo docker service list"
-sudo docker serivce list
+sudo docker service list
+echo ".running sudo docker service ps aspnet_web"
+sudo docker service ps aspnet_web
