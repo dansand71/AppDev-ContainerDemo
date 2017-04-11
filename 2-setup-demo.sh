@@ -75,7 +75,7 @@ echo -e "${BOLD}Configuring demo scripts with defaults.${RESET}"
 
 echo "---------------------------------------------"
 echo -e "${INPUT}Resource Group Creation${RESET}"
-read -p "Apply JSON Templates for and network rules? [Y/n]:"  continuescript
+read -p "Apply JSON Templates for and network rules and create IaaS, K8S and PaaS resources? [Y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     #BUILD RESOURCE GROUPS
     
@@ -101,10 +101,6 @@ if [[ $continuescript != "n" ]];then
     echo ".create ossdemo-appdev-acs in case it doesnt exist."
     ~/bin/az group create --name ossdemo-appdev-acs --location eastus
     
-fi
-echo -e "${INPUT}Create Demo Machines${RESET}"
-read -p "Create AZ IAAS VM's & K8S Cluster? [Y/n]"  precreate
-if [[ $precreate != "n" ]];then
   echo ".calling server creation script for iaas VMs"
   /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
   echo "----------------------------------------------"
