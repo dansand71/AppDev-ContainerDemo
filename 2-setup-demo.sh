@@ -55,7 +55,7 @@ else
 fi
 echo -e "${BOLD}Confirm Azure Subscription${RESET}"
 read -p "Change default subscription? [y/N]:" changesubscription
-if [[ $changesubscription =~ "y" ]];then
+if [[ ${changesubscription,,} =~ "y" ]];then
     read -p "      New Subscription Name:" newsubscription
     ~/bin/az account set --subscription "$newsubscription"
 else
@@ -104,7 +104,9 @@ if [[ $continuescript != "n" ]];then
   echo ".calling server creation script for iaas VMs"
   /source/AppDev-ContainerDemo/environment/iaas/create-iaas-worker-vm.sh
   echo "----------------------------------------------"
-  read -p "$(echo -e -n "${INPUT}Please confirm the IaaS servers are running in the Azure portal before continuing. [press any key to continue]:${RESET}")"
+  echo -e "${INPUT}Sleeping for 30 seconds while the last server gets ready...${RESET}"
+  sudo pip install termdown
+  termdown 30
   echo ".configuring iaas docker hosts with the new docker engine adn OMS agent"
   echo "----------------------------------------------"
   # we need to make sure we run the ansible playbook from this directory to pick up the cfg file

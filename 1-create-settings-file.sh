@@ -59,7 +59,7 @@ if [[ $azstatus =~ "Please run 'az login' to setup account." ]]; then
 fi
 
 read -p "$(echo -e -n "${INPUT}..Change default subscription? [y/N]${RESET}")" changesubscription
-if [[ $changesubscription =~ "y" ]];then
+if [[ ${changesubscription,,} =~ "y" ]];then
         read -p "...New Subscription Name:" newsubscription
         ~/bin/az account set --subscription "$newsubscription"
     else
@@ -73,7 +73,7 @@ sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
 echo "---------------------------------------------"
 echo -e "\e[7mResource Group Creation\e[0m"
 read -p "Create resource groups required for demo? [Y/n]:"  continuescript
-if [[ $continuescript != "n" ]];then
+if [[ ${continuescript,,} != "n" ]];then
     #BUILD RESOURCE GROUPS
     echo ""
     echo "BUILDING RESOURCE GROUPS"
@@ -117,9 +117,7 @@ source /source/appdev-demo-EnvironmentTemplateValues
 if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
   # Create a new DEMO_REGISTRY_PASSWORD
   echo "---------------------------------------------"
-  echo -e "\e[7mAzure Registry\e[0m"
-  read -p "Create azure registry needed for the demo? [Y/n]:"  continuescript
-  if [[ $continuescript != "n" ]];then
+  echo -e "\e[7mCreating new Azure Registry\e[0m"
       
       #Create Azure Registry
       /source/AppDev-ContainerDemo/environment/create-az-registry.sh
@@ -135,15 +133,12 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       sudo sed -i -e "s@DEMO_REGISTRY_USER_NAME=@DEMO_REGISTRY_USER_NAME=${DEMO_UNIQUE_SERVER_PREFIX}demoregistry@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sed -i -e "s@DEMO_REGISTRY_PASSWORD=@DEMO_REGISTRY_PASSWORD=${REGISTRYPASSWORD}@g" /source/appdev-demo-EnvironmentTemplateValues
 
-  fi
 fi
 
 if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
   # Create new app insights 
   echo "---------------------------------------------"
-  echo -e "\e[7mApp Insights\e[0m"
-  read -p "Create app insights resources needed for the demo? [Y/n]:"  continuescript
-  if [[ $continuescript != "n" ]];then
+  echo -e "\e[7mCreating App Insights Resources\e[0m"
       #Create App Insights
       ~/bin/az group deployment create --resource-group ossdemo-utility --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/ossdemo-utility-appinsights.json
@@ -157,11 +152,10 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
       #Set these values in the config file by default
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=${ASPNETCOREKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=@DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=${ECONTAINERSHOPKEY}@g" /source/appdev-demo-EnvironmentTemplateValues
-  fi
 fi
 
 source /source/appdev-demo-EnvironmentTemplateValues
-echo -e "${BOLD}Current Template file values:${RESET}"
+echo -e "${BOLD}New Template file values:${RESET}"
 echo "      DEMO_UNIQUE_SERVER_PREFIX="$DEMO_UNIQUE_SERVER_PREFIX
 echo "      DEMO_STORAGE_ACCOUNT="$DEMO_STORAGE_ACCOUNT
 echo "      DEMO_ADMIN_USER="$DEMO_ADMIN_USER
@@ -176,16 +170,14 @@ echo ""
 
 echo -e "${BOLD}Template Edit${RESET}"
 read -p "Would you like to edit the template file now to add in the Registry Username and Password values? [y/N]:" changefile
-if [[ $changefile =~ "y" ]];then
+if [[ ${changefile,,} =~ "y" ]];then
     sudo gedit /source/appdev-demo-EnvironmentTemplateValues   
 fi
 #Check once more that we have rights on all files that were copied or moved...
 sudo chmod -R 777 /source
 
 echo -e "${BOLD}Environment Setup${RESET}"
-read -p "Would you like to setup the Demo? [y/N]:" continueDemo
-if [[ $continueDemo =~ "y" ]];then
+read -p "Would you like to setup the Demo? [Y/n]:" continueDemo
+if [[ ${continueDemo,,} != "n" ]];then
     /source/AppDev-ContainerDemo/2-setup-demo.sh
 fi
-
-echo "    Script complete.  Please run ./2-setup-demo.sh to prepare the demo"
