@@ -31,15 +31,15 @@ if [[ ${moveforward,,} != "n" ]];then
 
 #IAAS GROUP
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \
-        --access Allow --protocol Tcp --direction Inbound --priority 210 --source-address-prefix "192.168.1.0/24" \
+        --access Allow --protocol Tcp --direction Inbound --priority 210 --source-address-prefix "192.168.0.0/24" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 2377
 
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-node-comms \
-        --access Allow --protocol "*" --direction Inbound --priority 220 --source-address-prefix "192.168.1.0/24" \
+        --access Allow --protocol "*" --direction Inbound --priority 220 --source-address-prefix "192.168.0.0/24" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 7946
 
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-ntwrk \
-        --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.1.0/24" \
+        --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.0.0/24" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4789
 
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name http81-docker-swarm-demo \
