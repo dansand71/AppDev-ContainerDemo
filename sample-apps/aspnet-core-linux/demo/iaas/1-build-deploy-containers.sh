@@ -19,4 +19,4 @@ ansible-playbook -i /source/AppDev-ContainerDemo/environment/iaas/hosts /source/
 echo ""
 echo -e "${BOLD}Browse application...${RESET}"
 echo -e ".you can now browse the application at http://svr1-VALUEOF-UNIQUE-SERVER-PREFIX.eastus.cloudapp.azure.com for individual servers."
-echo -e ". or at http://xxx.eastus.cloudapp.azure.com for a loadbalanced IP."
+echo -e ". or at http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com for a loadbalanced IP."

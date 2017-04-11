@@ -107,9 +107,6 @@
                 ],
                 "backendAddressPools": [
                     {
-                        "name": "[concat(parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name'),'bepool')]"
-                    },
-                    {
                         "name": "ossdemo-appdev-iaas-addresspool"
                     }
                 ],
@@ -192,7 +189,12 @@
                             },
                             "subnet": {
                                 "id": "[parameters('networkInterfaces_svr1_nic_id')]"
-                            }
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                 {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name')), '/backendAddressPools/ossdemo-appdev-iaas-addresspool')]"
+                                }
+                            ]
                         }
                     }
                 ],
@@ -227,7 +229,12 @@
                             },
                             "subnet": {
                                 "id": "[parameters('networkInterfaces_svr2_nic_id')]"
-                            }
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                 {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name')), '/backendAddressPools/ossdemo-appdev-iaas-addresspool')]"
+                                }
+                            ]
                         }
                     }
                 ],
