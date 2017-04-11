@@ -1,7 +1,7 @@
 ---
 # This playbook installs docker on all the hosts
 - name: Install Docker
-  hosts: dockerhosts
+  hosts: all
   remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
   sudo : true 
 

@@ -149,25 +149,6 @@ sudo npm install gulp -g -silent
 echo ".installing python 35 and pip"
 sudo yum install -y -q python35u python35u-pip 
 
-
-#configure the jumpbox with the latest docker version CE
-echo ".Cleaning up older docker and now creating new version"
-sudo yum remove docker docker-common container-selinux docker-selinux docker-engine -y
-sudo yum update -y -qq
-sudo yum upgrade -y -qq
-sudo yum install -q -y yum-utils
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum makecache fast
-echo ".Installing Docker CE"
-sudo yum install -q docker-ce -y
-sudo systemctl start docker
-sudo systemctl enable docker
-
-#Install Docker Compose on the Jumpbox
-echo ".Installing Docker Compose"
-curl -L https://github.com/docker/compose/releases/download/1.12.0-rc1/docker-compose-`uname -s`-`uname -m` > ~/bin/docker-compose
-chmod +x ~/bin/docker-compose
-
 #Install Rimraf for Node Apps
 echo ".Installing rimfraf, webpack, node-saas"
 sudo npm install rimraf -g -silent
