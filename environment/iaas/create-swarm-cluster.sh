@@ -71,12 +71,12 @@ sshcommand="sudo docker swarm join --token ${jointoken} ${masterip}:2377"
 echo ${sshcommand}
 echo ""
 echo "Connecting to remote server 1"
-echo "ssh VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}"
-outbound=`ssh VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}`
+echo "ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}"
+outbound=`ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}`
 echo ${outbound}
 echo "Connecting to remote server 2"
-echo "ssh VALUEOF-DEMO-ADMIN-USER-NAME@svr2-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}"
-outbound=`ssh VALUEOF-DEMO-ADMIN-USER-NAME@svr2-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}`
+echo "ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr2-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}"
+outbound=`ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr2-VALUEOF-UNIQUE-SERVER-PREFIX ${sshcommand}`
 echo ${outbound}
 
 #install docker compose on the BUILD jumpbox

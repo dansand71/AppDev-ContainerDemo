@@ -16,3 +16,7 @@ sudo docker service rm aspnet_web
 echo -e "${BOLD}Deploy containers...${RESET}"
 echo "Deploy the application on the SWARM cluster."
 sudo docker stack deploy --compose-file docker-stack.yml aspnet
+
+echo "Current status of the cluster:"
+echo ".running sudo docker service list"
+sudo docker serivce list

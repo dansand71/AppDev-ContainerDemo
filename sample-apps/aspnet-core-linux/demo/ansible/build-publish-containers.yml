@@ -20,10 +20,14 @@
       chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
 
   - name: Build the DOCKER image
-    command: /etc/docker-compose -f docker-stack.yml build
+    command: docker build -t ossdemo/aspnet-core-linux .
     become: true
     args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm/
+      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src
+
+  - name: Tag the DOCKER image
+    command: docker tag ossdemo/aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+    become: true
 
   - name: Log into private registry and force re-authorization
     command: docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
@@ -32,11 +36,3 @@
   - name: Push to the Azure Private Registry
     command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
-
-#Now deploy the containers on the SWARM CLUSTER
-
-  - name: Push to the SWARM cluster
-    command: docker stack deploy --compose-file docker-stack.yml aspnet --with-registry-auth
-    become: true
-    args:
-      chdir: /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas-swarm
