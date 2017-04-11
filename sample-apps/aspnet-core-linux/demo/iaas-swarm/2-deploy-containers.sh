@@ -1,4 +1,3 @@
-#!/bin/bash
 RESET="\e[0m"
 INPUT="\e[7m"
 BOLD="\e[4m"
@@ -11,12 +10,9 @@ read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private 
 if [[ ${continuescript,,} != "n" ]]; then
     /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/ansible/build-containers.sh
 fi
-echo "-------------------------"
-echo "Deploy the app deployment"
-kubectl create -f K8S-deploy-file.yml
-echo "-------------------------"
-
-echo "Initial deployment & expose the service"
-kubectl expose deployments aspnet-core-linux-deployment --port=80 --target-port=80 --type=LoadBalancer --name=aspnet-core-linux
-
-echo "Deployment complete."
+echo "Remove the aspnet_web application if it already exists on the SWARM cluster."
+#az account set --subscription "Microsoft Azure Internal Consumption"
+sudo docker service rm aspnet_web
+echo -e "${BOLD}Deploy containers...${RESET}"
+echo "Deploy the application on the SWARM cluster."
+sudo docker stack deploy --compose-file docker-stack.yml aspnet

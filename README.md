@@ -17,11 +17,9 @@ To get started with these demo's:
 
 ## SCRIPT to Install
 ```
-sudo mkdir /source
-sudo git clone https://github.com/dansand71/AppDev-ContainerDemo
+cd /source
+git clone https://github.com/dansand71/AppDev-ContainerDemo
 sudo chmod +x /source/AppDev-ContainerDemo/1-create-settings-file.sh
-sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
-sudo chmod +x /source/AppDev-ContainerDemo/RefreshDemo.sh
 /source/AppDev-ContainerDemo/1-create-settings-file.sh
 ```
 
@@ -46,23 +44,19 @@ DEMO's Available:
 
 ## SCRIPT to Configure Demo 1.  Sample ASP.net core app in containers.
 ```
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/1-setup-demo.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-docker-setup.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-OMS-agent.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-build-deploy-containers.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas/1-build-deploy-containers
 ```
 
 ## SCRIPT to Configure Demo 2.  Sample ASP.net core app on ACS with Kubernetes.
 ```
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/acs-demo/1-setup-demo.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/2-deploy-OMS-daemonset.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/3-deploy-expose-service.sh
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/iaas-demo/4-browse-k8s-cluster.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/1-deploy-expose-service.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/2-browse-k8s-cluster.sh
+/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/3-republish.sh
 ```
 
 ## SCRIPT to Configure Demo 3.  Sample ASP.net core app on App Service with Linux PaaS.
 ```
-/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/setupdemo/paas-demo/1-setup-demo.sh
+
 ```
 
 
