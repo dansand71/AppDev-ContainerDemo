@@ -20,6 +20,10 @@ read -p "$(echo -e -n "${INPUT}Recreate and publish containers into Azure Privat
 if [[ ${continuescript,,} != "n" ]]; then
     /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/ansible/build-containers.sh
 fi
-echo -e "${BOLD}Force a rolling update with Kubernetes...${RESET}"
+echo -e "${BOLD}Force a update with Kubernetes...${RESET}"
 echo "Trigger a K8S refresh"
-kubectl rolling-update aspnet-core-linux --image VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux:latest --image-pull-policy Always
+kubectl apply -f K8S-deploy-file.yml
+
+echo ""
+echo ".kubectl get pods"
+kubectl get pods
