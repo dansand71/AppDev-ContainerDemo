@@ -27,7 +27,7 @@ if [[ ${moveforward,,} != "n" ]];then
 
         ~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-visualizer \
         --access Allow --protocol Udp --direction Inbound --priority 240 --source-address-prefix "*" \
-        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 8180
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 8081
 
 #IAAS GROUP
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \
