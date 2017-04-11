@@ -15,7 +15,9 @@ echo "Remove the aspnet_web application if it already exists on the SWARM cluste
 sudo docker service rm aspnet_web
 echo -e "${BOLD}Deploy containers...${RESET}"
 echo "Deploy the application on the SWARM cluster."
-sudo docker stack deploy --compose-file docker-stack.yml aspnet
+echo "login to Docker registry and then pass the credentials to the swarm nodes"
+sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+sudo docker stack deploy --compose-file docker-stack.yml --with-registry-auth aspnet
 
 echo "Current status of the cluster:"
 echo ".running sudo docker service list"
