@@ -20,3 +20,11 @@ echo "Initial deployment & expose the service"
 kubectl expose deployments aspnet-core-linux-deployment --port=80 --target-port=80 --type=LoadBalancer --name=aspnet-core-linux
 
 echo "Deployment complete."
+
+echo ".kubectl get services"
+kubectl get services
+
+echo ".kubectl get pods"
+kubectl get pods
+
+
