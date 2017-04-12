@@ -27,6 +27,8 @@ if [[ ${continuescript,,} != "n" ]];then
     ~/bin/az group create --name ossdemo-appdev-oshift --location eastus
     echo 'create openshift key vault'
     ~/bin/az keyvault create -n oshiftvault -g ossdemo-appdev-oshift -l eastus --enabled-for-template-deployment true
+    #Sleep 30 seconds while Vault gets setup
+    sleep 30
     echo 'create openshift secret ~/.ssh/id_rsa private key'
     ~/bin/az keyvault secret set --vault-name oshiftvault -n oshiftsecret --file ~/.ssh/id_rsa
 fi
@@ -58,3 +60,6 @@ sed -i -e "s|REPLACE-RSA-PUB-KEY|$sshpubkey|g" /source/AppDev-ContainerDemo/envi
 read -p "$(echo -e -n "${INPUT}Deployments can take up to 30 minutes and requires up to 8 CPU in the default configuration.${RESET} \e[5m[press any key to continue]:${RESET}")"
 ~/bin/az group deployment create --resource-group ossdemo-appdev-oshift --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
+
+echo "complete..."
+echo "Please access the web console @ https://VALUEOF-UNIQUE-SERVER-PREFIX-ossdemo-oshift-master.eastus.cloudapp.azure.com:8443/console"
