@@ -14,10 +14,10 @@ echo ".Editing SUBSCRIPTIONID"
 sudo grep -rl REPLACE-JSON-SUBSCRIPTIONID /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@REPLACE-JSON-SUBSCRIPTIONID@$AZSUB@g"
 
 echo ".Editing SERVER PREFIX"
-sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@$DEMO_UNIQUE_SERVER_PREFIX@g"
+sudo grep -rl VALUEOF-UNIQUE-SERVER-PREFIX /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-SERVER-PREFIX@${DEMO_UNIQUE_SERVER_PREFIX,,}@g"
 
 echo ".Editing DEMO ADMIN USER NAME"
-sudo grep -rl VALUEOF-DEMO-ADMIN-USER-NAME /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-DEMO-ADMIN-USER-NAME@$DEMO_ADMIN_USER@g"
+sudo grep -rl VALUEOF-DEMO-ADMIN-USER-NAME /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE  | sudo xargs sed -i -e "s@VALUEOF-DEMO-ADMIN-USER-NAME@${DEMO_ADMIN_USER,,}@g"
 
 echo ".Editing STORAGE ACCOUNT"
 sudo grep -rl VALUEOF-UNIQUE-STORAGE-ACCOUNT /source/AppDev-ContainerDemo --exclude=$EXCLUDEFILE | sudo xargs sed -i -e "s@VALUEOF-UNIQUE-STORAGE-ACCOUNT@$DEMO_STORAGE_ACCOUNT@g" 

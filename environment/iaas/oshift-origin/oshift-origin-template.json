@@ -18,7 +18,7 @@
             }
         },
         "nodeVmSize": {
-            "defaultValue": "Standard_DS1_v2",
+            "defaultValue": "Standard_DS2_v2",
             "type": "String",
             "metadata": {
                 "description": "OpenShift Node VM(s) size"
@@ -36,7 +36,7 @@
             }
         },
         "openshiftMasterHostname": {
-            "defaultValue" : "VALUEOF-UNIQUE-SERVER-PREFIX-oshift-master",
+            "defaultValue" : "VALUEOF-UNIQUE-SERVER-PREFIX",
             "minLength": 1,
             "type": "String",
             "metadata": {
@@ -68,7 +68,7 @@
             }
         },
         "nodeInstanceCount": {
-            "defaultValue": "2",
+            "defaultValue": 2,
             "minValue": 1,
             "type": "Int",
             "metadata": {
@@ -123,7 +123,7 @@
             }
         },
         "keyVaultSecret": {
-            "defaultValue": "ossdemo-appdev-oshift",
+            "defaultValue": "oshiftsecret",
             "minLength": 1,
             "type": "SecureString",
             "metadata": {

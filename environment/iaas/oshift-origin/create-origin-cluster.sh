@@ -52,8 +52,9 @@ done
 sed -i -e "s@REPLACE-ADMIN-PASSWORD@$clusterPassword@g" /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
 echo ".reading in existing RSA PUBLIC key from ~/.ssh/id_rsa.pub"
 sshpubkey=$(< ~/.ssh/id_rsa.pub)
-sed -i -e "s@REPLACE-RSA-PUB-KEY@$sshpubkey@g" /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
+#this could error out if "|" is present in the key
+sed -i -e "s|REPLACE-RSA-PUB-KEY|$sshpubkey|g" /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
 
 read -p "$(echo -e -n "${INPUT}Deployments can take up to 30 minutes and requires up to 8 CPU in the default configuration.${RESET} \e[5m[press any key to continue]:${RESET}")"
 ~/bin/az group deployment create --resource-group ossdemo-appdev-oshift --name InitialDeployment \
-        --template-file /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin.json
+        --template-file /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
