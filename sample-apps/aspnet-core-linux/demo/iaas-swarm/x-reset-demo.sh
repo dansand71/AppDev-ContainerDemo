@@ -1,4 +1,4 @@
-RESET="\e[0m"
+cd ..RESET="\e[0m"
 INPUT="\e[7m"
 BOLD="\e[4m"
 YELLOW="\033[38;5;11m"
@@ -16,7 +16,7 @@ if [[ ${moveforward,,} != "n" ]];then
 ~/bin/az network nsg rule delete --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-mgmt 
 ~/bin/az network nsg rule delete --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-node-comms       
 ~/bin/az network nsg rule delete --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-ntwrk 
-~/bin/az network nsg rule delte --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-visualizer 
+~/bin/az network nsg rule delete --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-visualizer 
 
 #IAAS GROUP
 ~/bin/az network nsg rule delete --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt 
