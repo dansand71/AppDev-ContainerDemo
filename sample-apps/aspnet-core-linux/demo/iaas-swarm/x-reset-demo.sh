@@ -9,7 +9,7 @@ DEBUG="no"
 #Open up ports TCP & UDP 7946 in ossdemo-utility and ossdemo-appdev-iaas
 #Open up ports UDP 4789 in ossdemo-utility and ossdemo-appdev-iaas
 
-read -p "$(echo -e -n "${INPUT}Create NSG rules? [Y/n]${RESET}")" moveforward
+read -p "$(echo -e -n "${INPUT}Delete NSG rules? [Y/n]${RESET}")" moveforward
 if [[ ${moveforward,,} != "n" ]];then   
 
 #UTILITY GROUP
@@ -26,13 +26,13 @@ if [[ ${moveforward,,} != "n" ]];then
 
 fi
 
-echo "Leave swarm on svr1 & 2"
+echo "Leaving swarm on svr1 & 2"
 echo "ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX 'sudo docker swarm leave'"
 outbound=`ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr1-VALUEOF-UNIQUE-SERVER-PREFIX "sudo docker swarm leave"`
 echo ${outbound}
 outbound=`ssh -t -o BatchMode=yes -o StrictHostKeyChecking=no VALUEOF-DEMO-ADMIN-USER-NAME@svr2-VALUEOF-UNIQUE-SERVER-PREFIX "sudo docker swarm leave"`
 echo ${outbound}
 
-echo "Leave swarm on jumpbox"
+echo "Leave & Destroy swarm on jumpbox"
 sudo docker swarm leave --force
 
