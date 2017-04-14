@@ -37,5 +37,10 @@ namespace aspnet_core_linux.Controllers
         {
             return View();
         }
+        public IActionResult throwException()
+        {
+            throw new HttpException(404,"Wow a big exception here...");
+            return View();
+        }
     }
 }

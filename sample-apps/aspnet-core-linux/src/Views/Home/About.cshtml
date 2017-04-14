@@ -17,3 +17,17 @@
 
 <h3>Environmental Variables:</h3>
 @Html.Raw(ViewData["ENV_VARS"])
+
+<p>  Generate exception for Application insights to capture.... </p>
+<inputid=”Button1″type=”button”value=”Throw Exception”/>
+
+
+
+<scripttype=”text/javascript”>
+    $(‘#Button1’).unbind(‘click’).click(function () {
+       $.ajax({
+         url: ‘/Home/MyAction’,
+         type: “POST”,
+       });
+    });
+</script>
