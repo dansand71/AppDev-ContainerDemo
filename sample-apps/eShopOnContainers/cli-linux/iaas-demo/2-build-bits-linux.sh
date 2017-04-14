@@ -12,7 +12,9 @@ projectList=(
 #pushd $(pwd)/src/Web/WebSPA
 #npm rebuild node-sass
 #npm run build:prod
-
+read -p "Build bits? [Y/n]:"  continuescript
+#This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
+if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
     echo -e "\e[33mWorking on $(pwd)/$project"
@@ -25,6 +27,7 @@ do
     /usr/local/bin/dotnet publish -o obj/Docker/publish
     popd
 done
+fi
 
 # remove old docker images:
 echo ""
