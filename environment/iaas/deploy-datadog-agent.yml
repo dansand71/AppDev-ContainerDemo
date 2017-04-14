@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
+  sudo: true
+
+  tasks:
+#Start the monitoring container - your APIKEY needs to be updated if using the NON MSFT Key
+    - name: Start the monitoring container for Application Insights if not already running
+      command: sudo docker run -d --name dd-agent -v /var/run/docker.sock:/var/run/docker.sock:ro -v /proc/:/host/proc/:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e API_KEY=fe449c75da2b32ffd9af4c2ccd7a821e -e SD_BACKEND=docker datadog/docker-dd-agent:latest 
+      become: true
+      ignore_errors: true
