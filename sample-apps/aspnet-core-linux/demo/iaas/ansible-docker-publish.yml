@@ -27,3 +27,7 @@
   - name: Pull the new DOCKER container
     command: docker pull VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
     become: true
+
+  - name: Start the DOCKER container
+    command: docker run -d -p 80:80 --name=aspnet-core-linux VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+    become: true
