@@ -20,14 +20,7 @@
 
 <p>  Generate exception for Application insights to capture.... </p>
 
-<button type="button" name="Button1" value="Throw Exception" >
+<form asp-controller="home" asp-action="throwException">
+    <button name="btnOne" type="submit" class="btn btn-default">Click Me for a free exception!</button>
+</form>
 
-
-<scripttype=”text/javascript”>
-    $(‘#Button1’).unbind(‘click’).click(function () {
-       $.ajax({
-         url: ‘/Home/throwException’,
-         type: “POST”,
-       });
-    });
-</script>
