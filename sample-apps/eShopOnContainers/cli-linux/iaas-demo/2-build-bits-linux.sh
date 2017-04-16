@@ -59,3 +59,10 @@ if [[ $continuescript != "n" ]];then
     echo " running command: sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up"    
     sudo docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up
 fi
+echo "-------------------------------------"
+read -p "Deploy to Docker SWARM? [y/n]:"  continuescript
+#This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
+if [[ $continuescript != "n" ]];then
+    echo ".running command: sudo docker stack deploy --compose-file docker-stack.yml eshop"    
+    sudo docker stack deploy --compose-file docker-stack.yml eshop
+fi

@@ -25,9 +25,15 @@ if [[ ${moveforward,,} != "n" ]];then
         --access Allow --protocol Udp --direction Inbound --priority 230 --source-address-prefix "192.168.1.0/24" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 4789
 
-        ~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-visualizer \
+~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name docker-cluster-visualizer \
         --access Allow --protocol Tcp --direction Inbound --priority 240 --source-address-prefix "*" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 8081
+
+#This is for the eshop sql server to run on the master
+~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name eShopSQLBox \
+        --access Allow --protocol Tcp --direction Inbound --priority 250 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 5433
+        
 
 #IAAS GROUP
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \
@@ -86,4 +92,13 @@ echo ${outbound}
 #install docker compose on the BUILD jumpbox
 sudo curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose
 sudo chmod +x /bin/docker-compose
+
+#Create shared storage for docker swarm https://forums.docker.com/t/cloudstor-volume-plugin-missing/29080/12
+echo ".Installing CLOUDSTOR Azure driver for shared storage."
+STORAGEKEY=~/bin/az storage account keys list -g ossdemo-utility -n dansanddemostorage --query "[?keyName=='key1'] | [0].value" -o tsv
+source /source/appdev-demo-EnvironmentTemplateValues
+sudo docker plugin install --alias cloudstor:azure --grant-all-permissions docker4x/cloudstor:azure-v17.03.0-ce \
+        CLOUD_PLATFORM=AZURE AZURE_STORAGE_ACCOUNT_KEY=$STORAGEKEY \
+        AZURE_STORAGE_ACCOUNT=$DEMO_STORAGE_ACCOUNT
+
 
