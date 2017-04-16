@@ -1,93 +1,44 @@
 version: '3'
 
 services:
-  basket.api:
+  basketapi:
     image: eshop/basket.api
     build:
-      context: ./src/Services/Basket/Basket.API
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Basket/Basket.API
       dockerfile: Dockerfile
-    depends_on:
-      - basket.data
-      - identity.api
-    deploy:
-      mode: replicated
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
-
-  catalog.api:
+    
+  catalogapi:
     image: eshop/catalog.api
     build:
-      context: ./src/Services/Catalog/Catalog.API
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Catalog/Catalog.API
       dockerfile: Dockerfile
-    depends_on:
-      - sql.data
-    deploy:
-      mode: replicated
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
-
-  identity.api:
+    
+  identityapi:
     image: eshop/identity.api
     build:
-      context: ./src/Services/Identity/Identity.API
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Identity/Identity.API
       dockerfile: Dockerfile
-    depends_on:
-      - sql.data
-    deploy:
-      mode: replicated
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
-
-  ordering.api:
+    
+  orderingapi:
     image: eshop/ordering.api
     build:
-      context: ./src/Services/Ordering/Ordering.API
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Ordering/Ordering.API
       dockerfile: Dockerfile
-    depends_on:
-      - sql.data
-    deploy:
-      mode: replicated
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
 
   webmvc:
     image: eshop/webmvc
     build:
-      context: ./src/Web/WebMVC
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Web/WebMVC
       dockerfile: Dockerfile
-    depends_on:
-      - catalog.api
-      - ordering.api
-      - identity.api
-      - basket.api
-    deploy:
-      mode: replicated
-      replicas: 2
-      placement:
-        constraints: [node.role == worker]
-
-  sql.data:
+    
+  sqldata:
     image: microsoft/mssql-server-linux
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints: [node.role == manager]
-
-  basket.data:
+    
+  basketdata:
     image: redis
     ports:
       - "6379:6379"
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints: [node.role == worker]
-
+    
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -95,6 +46,3 @@ services:
     stop_grace_period: 1m30s
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints: [node.role == manager]

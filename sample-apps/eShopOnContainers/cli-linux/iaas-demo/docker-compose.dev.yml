@@ -13,40 +13,40 @@ version: '2'
 
 services:
 
-  basket.api:
+  basketapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5103
-      - ConnectionString=basket.data
-      - identityUrl=http://identity.api:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+      - ConnectionString=basketdata
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
     ports:
       - "5103:5103"
 
-  catalog.api:
+  catalogapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5101
-      - ConnectionString=Server=sql.data;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
       - ExternalCatalogBaseUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5101    #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105.
     ports:
       - "5101:5101"
 
-  identity.api:
+  identityapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5105
       - SpaClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5104
-      - ConnectionStrings__DefaultConnection=Server=sql.data;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word 
+      - ConnectionStrings__DefaultConnection=Server=sqldata;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word 
       - MvcClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5100              #Local: You need to open your host's firewall at range 5100-5105.  
     ports:
       - "5105:5105"
 
-  ordering.api:
+  orderingapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5102
-      - ConnectionString=Server=sql.data;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sa;Password=Pass@word
-      - identityUrl=http://identity.api:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sa;Password=Pass@word
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
     ports:
       - "5102:5102"
 
@@ -54,14 +54,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5100
-      - CatalogUrl=http://catalog.api:5101
-      - OrderingUrl=http://ordering.api:5102
+      - CatalogUrl=http://catalogapi:5101
+      - OrderingUrl=http://orderingapi:5102
       - IdentityUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5105     #Local: Use VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com, if using external IP or DNS name from browser.          
-      - BasketUrl=http://basket.api:5103
+      - BasketUrl=http://basketapi:5103
     ports:
       - "5100:5100"
 
-  sql.data:
+  sqldata:
     environment:
       - SA_PASSWORD=Pass@word
       - ACCEPT_EULA=Y
