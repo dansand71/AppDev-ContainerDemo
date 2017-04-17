@@ -71,20 +71,20 @@ if [[ $continuescript != "n" ]];then
     sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
     images=$(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q)
     if [ -n "$images" ]; then
-        sudo docker images --filter=reference="eshop/*" -q | while read IMAGE_ID; 
+        sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q | while read IMAGE_ID; 
             do 
                 IMAGENAME=$(sudo docker inspect -format='{{.RepoTags}}' --type=image ${IMAGE_ID} | sed "s/ormat=\[//" | sed "s/:latest\]//")
                 echo "-------------------------------"
                 echo ".working with:${IMAGENAME} image"
                 #echo ".tagging ${IMAGENAME}"
                 #sudo docker tag $IMAGENAME VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME
-                echo ".pushing ${IMAGENAME} to VALUEOF-REGISTRY-SERVER-NAME/${IMAGENAME}"
-                sudo docker push VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME;
+                echo ".pushing ${IMAGENAME} to VALUEOF-REGISTRY-SERVER-NAME"
+                sudo docker push $IMAGENAME;
             done
     fi
 fi
 echo "-------------------------------------"
-read -p "Deploy to Docker SWARM? [y/n]:"  continuescript
+read -p "Deploy to Docker SWARM? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
     echo ".removing any existing SWARM services for eshop"
