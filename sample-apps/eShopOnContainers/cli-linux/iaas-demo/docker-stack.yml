@@ -5,7 +5,7 @@ services:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Basket/Basket.API
       dockerfile: Dockerfile
-    image: eshop/basket.api
+    image: eshop/basketapi
     depends_on:
       - basketdata
       - identityapi
@@ -19,7 +19,7 @@ services:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Catalog/Catalog.API
       dockerfile: Dockerfile
-    image: eshop/catalog.api
+    image: eshop/catalogapi
     depends_on:
       - sqldata
     deploy:
@@ -32,7 +32,7 @@ services:
     build:
         context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Identity/Identity.API
         dockerfile: Dockerfile
-    image: eshop/identity.api
+    image: eshop/identityapi
     depends_on:
       - sqldata
     deploy:
@@ -45,7 +45,7 @@ services:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Ordering/Ordering.API
       dockerfile: Dockerfile
-    image: eshop/ordering.api
+    image: eshop/orderingapi
     depends_on:
       - sqldata
     deploy:
