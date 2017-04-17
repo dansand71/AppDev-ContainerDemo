@@ -14,12 +14,6 @@ projectList=(
 #npm run build:prod
 read -p "Build bits? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
-sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
-
-  - name: Push to the Azure Private Registry
-    command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
-    become: true
-
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
@@ -54,7 +48,7 @@ echo ""
 echo "-------------------------------------"
 echo "Build complete"
 echo "-------------------------------------"
-read -p "Test Docker Images and run COMPOSE UP locally? [y/n]:"  continuescript
+read -p "Build Docker Images and run COMPOSE BUILD locally? [y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
     #we need to ensure .env is accurate
@@ -65,7 +59,7 @@ if [[ $continuescript != "n" ]];then
        gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
     fi
     echo ".running command: sudo /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose.dev.yml build"    
-    sudo docker-compose -f docker-stack.yml -f docker-compose.dev.yml build
+    sudo docker-compose -f docker-stack.yml build
     echo ".logging into Azure Docker Registry"
     sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
     images=$(sudo docker images --filter=reference="eshop/*" -q)
@@ -74,7 +68,7 @@ if [[ $continuescript != "n" ]];then
             do 
                 IMAGENAME=$(sudo docker inspect -format='{{.RepoTags}}' --type=image ${IMAGE_ID} | sed "s/ormat=\[//" | sed "s/:latest\]//")
                 echo "-------------------------------"
-                echo "Working with:${IMAGENAME} image"
+                echo ".working with:${IMAGENAME} image"
                 echo ".tagging ${IMAGENAME}"
                 sudo docker tag $IMAGENAME VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME
                 echo ".pushing ${IMAGENAME} to VALUEOF-REGISTRY-SERVER-NAME/${IMAGENAME}"
@@ -88,6 +82,8 @@ read -p "Deploy to Docker SWARM? [y/n]:"  continuescript
 if [[ $continuescript != "n" ]];then
     echo ".logging into the docker registry"    
     sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+    echo ".removing any existing SWARM services for eshop"
+    sudo docker stack rm eshop
     echo ".running command: sudo docker stack deploy --compose-file docker-stack.yml eshop"
     sudo docker stack deploy --compose-file docker-stack.yml --with-registry-auth eshop 
 fi

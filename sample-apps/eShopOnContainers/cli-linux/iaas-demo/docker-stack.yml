@@ -6,6 +6,13 @@ services:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Basket/Basket.API
       dockerfile: Dockerfile
     image: VALUEOF-REGISTRY-SERVER-NAME/eshop/basketapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5103
+      - ConnectionString=basketdata
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+    ports:
+      - "5103:5103"
     depends_on:
       - basketdata
       - identityapi
@@ -13,52 +20,83 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   catalogapi:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Catalog/Catalog.API
       dockerfile: Dockerfile
     image: VALUEOF-REGISTRY-SERVER-NAME/eshop/catalogapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5101
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
+      - ExternalCatalogBaseUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5101    #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105.
+    ports:
+      - "5101:5101"
     depends_on:
       - sqldata
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   identityapi:
     build:
         context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Identity/Identity.API
         dockerfile: Dockerfile
     image: VALUEOF-REGISTRY-SERVER-NAME/eshop/identityapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5105
+      - SpaClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5104
+      - ConnectionStrings__DefaultConnection=Server=sqldata;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word 
+      - MvcClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5100              #Local: You need to open your host's firewall at range 5100-5105.  
+    ports:
+      - "5105:5105"
     depends_on:
       - sqldata
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   orderingapi:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Ordering/Ordering.API
       dockerfile: Dockerfile
     image: VALUEOF-REGISTRY-SERVER-NAME/eshop/orderingapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5102
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sa;Password=Pass@word
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+    ports:
+      - "5102:5102"
     depends_on:
       - sqldata
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   webmvc:
     build:
       context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Web/WebMVC
       dockerfile: Dockerfile
     image: VALUEOF-REGISTRY-SERVER-NAME/eshop/webmvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5100
+      - CatalogUrl=http://catalogapi:5101
+      - OrderingUrl=http://orderingapi:5102
+      - IdentityUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5105     #Local: Use VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com, if using external IP or DNS name from browser.          
+      - BasketUrl=http://basketapi:5103
+    ports:
+      - "5100:5100"
     depends_on:
       - catalogapi
       - orderingapi
@@ -68,7 +106,7 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   sqldata:
     image: microsoft/mssql-server-linux
@@ -77,6 +115,11 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
 
   basketdata:
     image: redis
@@ -86,7 +129,7 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == worker]
+        constraints: [node.role == manager]
 
   visualizer:
     image: dockersamples/visualizer:stable
