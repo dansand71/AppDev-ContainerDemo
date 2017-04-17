@@ -14,6 +14,12 @@ projectList=(
 #npm run build:prod
 read -p "Build bits? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
+sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+
+  - name: Push to the Azure Private Registry
+    command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+    become: true
+
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
@@ -31,14 +37,16 @@ fi
 
 # remove old docker images:
 echo ""
-echo "Remove any existing eShop docker images on the build box...."
+echo "Remove existing eShop docker images on the build box...."
 images=$(sudo docker images --filter=reference="eshop/*" -q)
 if [ -n "$images" ]; then
-    sudo docker rm $(sudo docker ps -a -q) -f
-    echo "Deleting eShop images in local Docker repo"
+    echo ".removing images"
     echo $images
     sudo docker rmi $(sudo docker images --filter=reference="eshop/*" -q) -f
+    sudo docker rmi $(sudo docker images --filter=reference="dansanddemoregistry.azurecr.io/eshop/*" -q) -f
 fi
+
+
 
 # No need to build the images, docker build or docker compose will
 # do that using the images and containers defined in the docker-compose.yml file.
@@ -57,12 +65,27 @@ if [[ $continuescript != "n" ]];then
        gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
     fi
     echo " running command: sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up"    
-    sudo docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up
+    sudo docker-compose -f docker-stack.yml -f docker-compose.dev.yml build
+    images=$(sudo docker images --filter=reference="eshop/*" -q)
+    if [ -n "$images" ]; then
+        sudo docker images --filter=reference="eshop/*" -q | while read IMAGE_ID; 
+            do 
+                IMAGENAME=$(sudo docker inspect -format='{{.RepoTags}}' --type=image ${IMAGE_ID} | sed "s/ormat=\[//" | sed "s/:latest\]//")
+                echo "-------------------------------"
+                echo "Working with:${IMAGENAME} image"
+                echo ".tagging ${IMAGENAME}"
+                sudo docker tag $IMAGENAME VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME
+                echo ".pushing ${IMAGENAME} to VALUEOF-REGISTRY-SERVER-NAME/${IMAGENAME}"
+                sudo docker push VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME; 
+            done
+    fi
 fi
 echo "-------------------------------------"
 read -p "Deploy to Docker SWARM? [y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
-    echo ".running command: sudo docker stack deploy --compose-file docker-stack.yml eshop"    
-    sudo docker stack deploy --compose-file docker-stack.yml eshop
+    echo ".logging into the docker registry"    
+    sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
+    echo ".running command: sudo docker stack deploy --compose-file docker-stack.yml eshop"
+    sudo docker stack deploy --compose-file docker-stack.yml --with-registry-auth eshop 
 fi
