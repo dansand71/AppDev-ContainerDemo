@@ -115,7 +115,10 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-    volumes: ["sqldata_vol:/var/opt/mssql"]
+    #Pinning to a local directory on the jumpbox - to show file level recovery in LINUX on Azure
+    volumes: ["/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/cli-linux/iaas-demo/sqldata:/var/opt/mssql"]
+    #This is what the cloudstor mount point will look like
+    #volumes: ["sqldata_vol:/var/opt/mssql"]
     environment:
       - SA_PASSWORD=Pass@word
       - ACCEPT_EULA=Y
@@ -131,7 +134,8 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-        
-volumes:
-   sqldata_vol:
-     driver: "cloudstor:azure"
+
+#Ideally we would like to demo cloudstor but the performance as of 4/17 is too slow for SQL on the demo.  Instead we are pinning SQL Server to a local mount point on the jumpbox server
+#volumes:
+#   sqldata_vol:
+#     driver: "cloudstor:azure"
