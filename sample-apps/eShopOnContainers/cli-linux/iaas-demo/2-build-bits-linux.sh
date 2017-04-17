@@ -64,8 +64,10 @@ if [[ $continuescript != "n" ]];then
     if [[ $editfile != "n" ]];then
        gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
     fi
-    echo " running command: sudo /usr/local/bin/docker-compose -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.yml -f /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/docker-compose.prod.yml up"    
+    echo ".running command: sudo /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose.dev.yml build"    
     sudo docker-compose -f docker-stack.yml -f docker-compose.dev.yml build
+    echo ".logging into Azure Docker Registry"
+    sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
     images=$(sudo docker images --filter=reference="eshop/*" -q)
     if [ -n "$images" ]; then
         sudo docker images --filter=reference="eshop/*" -q | while read IMAGE_ID; 
