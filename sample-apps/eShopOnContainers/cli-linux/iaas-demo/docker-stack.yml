@@ -115,8 +115,7 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-    volumes:
-      - "sqldata_vol:/var/opt/mssql"
+    #volumes: ["sqldata_vol:/var/opt/mssql"]
     environment:
       - SA_PASSWORD=Pass@word
       - ACCEPT_EULA=Y
@@ -144,6 +143,6 @@ services:
       placement:
         constraints: [node.role == manager]
         
-volumes:
-  sqldata_vol:
-    driver: "cloudstor:azure"
+# volumes:
+#   sqldata_vol:
+#     driver: "cloudstor:azure"
