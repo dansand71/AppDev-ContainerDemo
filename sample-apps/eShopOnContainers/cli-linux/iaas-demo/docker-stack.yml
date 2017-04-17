@@ -18,9 +18,9 @@ services:
       - identityapi
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   catalogapi:
     build:
@@ -38,9 +38,9 @@ services:
       - sqldata
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   identityapi:
     build:
@@ -59,9 +59,9 @@ services:
       - sqldata
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   orderingapi:
     build:
@@ -79,9 +79,9 @@ services:
       - sqldata
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   webmvc:
     build:
@@ -104,9 +104,9 @@ services:
       - basketapi
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   sqldata:
     image: microsoft/mssql-server-linux

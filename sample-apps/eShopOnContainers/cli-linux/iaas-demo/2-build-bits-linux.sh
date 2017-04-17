@@ -28,33 +28,35 @@ do
     popd
 done
 fi
-
-# remove old docker images:
-echo ""
-echo "Remove existing eShop docker images on the build box...."
-images=$(sudo docker images --filter=reference="eshop/*" -q)
-if [ -n "$images" ]; then
-    echo ".removing images"
-    echo $images
-    sudo docker rmi $(sudo docker images --filter=reference="eshop/*" -q) -f
+read -p "Remove old images & rebuild? [Y/n]:"  continuescript
+if [[ ${continuescript,,} != "n" ]];then
+    # remove old docker images:
+    echo ""
+    echo "Remove existing eShop docker images on the build box...."
+    images=$(sudo docker images --filter=reference="eshop/*" -q)
+    if [ -n "$images" ]; then
+        echo ".removing images"
+        echo $images
+        sudo docker rmi $(sudo docker images --filter=reference="eshop/*" -q) -f
+    fi
+    echo "Remove existing VALUEOF-REGISTRY-SERVER-NAME/eshop docker images on the build box...."
+    images=$(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q)
+    if [ -n "$images" ]; then
+        echo ".removing images"
+        echo $images
+        sudo docker rmi $(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q) -f
+    fi
+    echo ".running command: sudo /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose.dev.yml build"    
+    sudo docker-compose -f docker-stack.yml build
 fi
-echo "Remove existing VALUEOF-REGISTRY-SERVER-NAME/eshop docker images on the build box...."
-images=$(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q)
-if [ -n "$images" ]; then
-    echo ".removing images"
-    echo $images
-    sudo docker rmi $(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q) -f
-fi
-
-
 
 # No need to build the images, docker build or docker compose will
 # do that using the images and containers defined in the docker-compose.yml file.
 echo ""
 echo "-------------------------------------"
-echo "Build complete"
+echo "Push to Registry"
 echo "-------------------------------------"
-read -p "Build Docker Images and run COMPOSE BUILD locally? [y/n]:"  continuescript
+read -p "Push eshop images to registry? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
     #we need to ensure .env is accurate
@@ -64,8 +66,7 @@ if [[ $continuescript != "n" ]];then
     #if [[ $editfile != "n" ]];then
     #   gedit /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/.env    
     #fi
-    echo ".running command: sudo /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose.dev.yml build"    
-    sudo docker-compose -f docker-stack.yml build
+    
     echo ".logging into Azure Docker Registry"
     sudo docker login VALUEOF-REGISTRY-SERVER-NAME -u VALUEOF-REGISTRY-USER-NAME -p VALUEOF-REGISTRY-PASSWORD
     images=$(sudo docker images --filter=reference="VALUEOF-REGISTRY-SERVER-NAME/eshop/*" -q)
@@ -78,8 +79,7 @@ if [[ $continuescript != "n" ]];then
                 #echo ".tagging ${IMAGENAME}"
                 #sudo docker tag $IMAGENAME VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME
                 echo ".pushing ${IMAGENAME} to VALUEOF-REGISTRY-SERVER-NAME/${IMAGENAME}"
-                sudo docker push VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME
-                ;
+                sudo docker push VALUEOF-REGISTRY-SERVER-NAME/$IMAGENAME;
             done
     fi
 fi
