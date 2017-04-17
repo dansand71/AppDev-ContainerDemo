@@ -29,11 +29,7 @@ if [[ ${moveforward,,} != "n" ]];then
         --access Allow --protocol Tcp --direction Inbound --priority 240 --source-address-prefix "*" \
         --source-port-range "*" --destination-address-prefix "*" --destination-port-range 8081
 
-#This is for the eshop sql server to run on the master
-~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name eShopSQLBox \
-        --access Allow --protocol Tcp --direction Inbound --priority 250 --source-address-prefix "192.168.1.0/24" \
-        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 5433
-        
+       
 
 #IAAS GROUP
 ~/bin/az network nsg rule create --resource-group ossdemo-appdev-iaas --nsg-name NSG-ossdemo-appdev-iaas --name docker-cluster-mgmt \

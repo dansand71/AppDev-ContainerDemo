@@ -2,6 +2,9 @@ version: '3'
 
 services:
   basketapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Basket/Basket.API
+      dockerfile: Dockerfile
     image: eshop/basket.api
     depends_on:
       - basketdata
@@ -13,6 +16,9 @@ services:
         constraints: [node.role == worker]
 
   catalogapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Catalog/Catalog.API
+      dockerfile: Dockerfile
     image: eshop/catalog.api
     depends_on:
       - sqldata
@@ -23,6 +29,9 @@ services:
         constraints: [node.role == worker]
 
   identityapi:
+    build:
+        context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Identity/Identity.API
+        dockerfile: Dockerfile
     image: eshop/identity.api
     depends_on:
       - sqldata
@@ -33,6 +42,9 @@ services:
         constraints: [node.role == worker]
 
   orderingapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Services/Ordering/Ordering.API
+      dockerfile: Dockerfile
     image: eshop/ordering.api
     depends_on:
       - sqldata
@@ -43,6 +55,9 @@ services:
         constraints: [node.role == worker]
 
   webmvc:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/Web/WebMVC
+      dockerfile: Dockerfile
     image: eshop/webmvc
     depends_on:
       - catalogapi

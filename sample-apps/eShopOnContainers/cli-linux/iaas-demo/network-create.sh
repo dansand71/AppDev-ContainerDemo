@@ -28,3 +28,8 @@ echo "    running - az network lb rule create --resource-group ossdemo-appdev-ia
      --name LBeShop5105 --protocol tcp --frontend-port 5105 --backend-port 5105 \
      --frontend-ip-name LoadBalancerFrontEnd --backend-pool-name ossdemo-appdev-iaas-addresspool \
      --probe-name HealthProbe80
+
+#This is for the eshop sql server to run on the master
+~/bin/az network nsg rule create --resource-group ossdemo-utility --nsg-name NSG-ossdemo-utility --name eShopSQLBox \
+        --access Allow --protocol Tcp --direction Inbound --priority 250 --source-address-prefix "192.168.1.0/24" \
+        --source-port-range "*" --destination-address-prefix "*" --destination-port-range 5433
