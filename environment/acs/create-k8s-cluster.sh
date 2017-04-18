@@ -4,7 +4,7 @@ echo "Creating Kubernetes cluster."
 ~/bin/az acs create --orchestrator-type=kubernetes --resource-group=ossdemo-appdev-acs \
         --name=k8s-VALUEOF-UNIQUE-SERVER-PREFIX --dns-prefix=k8s-VALUEOF-UNIQUE-SERVER-PREFIX \
         --agent-vm-size Standard_DS1_v2 \
-        --admin-username gbbossdemo --master-count 1 \
+        --admin-username VALUEOF-DEMO-ADMIN-USER-NAME --master-count 1 \
         --ssh-key-value="REPLACE-SSH-KEY"
 
 echo "Attempting to install the kubernetes client within the Azure CLI tools.  This can fail due to user rights.  Try to resolve and re-run: sudo az acs kubernetes install-cli"
@@ -22,3 +22,10 @@ echo "create secret to login to the private registry"
         --docker-username=VALUEOF-REGISTRY-USER-NAME \
         --docker-password=VALUEOF-REGISTRY-PASSWORD \
         --docker-email=GBBOSS@microsoft.com
+
+echo "create storage account for persistent volumes"
+~/bin/az storage account create --location eastus \
+        --name ossdemok8sVALUEOF-UNIQUE-SERVER-PREFIX \
+        --resource-group ossdemo-appdev-acs \
+        --sku Premium_LRS
+                          

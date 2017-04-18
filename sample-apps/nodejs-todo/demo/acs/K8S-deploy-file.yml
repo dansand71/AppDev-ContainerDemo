@@ -36,4 +36,33 @@ spec:
         image: mongo:3
         ports:
         - containerPort: 27017
-      
+        volumeMounts:
+        - mountPath: /var/lib/mongodb
+          name: nosql-home
+      volumes:
+      - name: nosql-home
+        persistentVolumeClaim:
+          claimName: nosql-pv
+
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: slow
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "nosql-pv"
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "slow"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"
+---

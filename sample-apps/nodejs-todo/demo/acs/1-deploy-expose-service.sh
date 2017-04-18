@@ -17,7 +17,8 @@ kubectl create -f K8S-deploy-file.yml
 echo "-------------------------"
 
 echo "Initial deployment & expose the service"
-kubectl expose deployments nodejs-todo-deployment --port=3000 --target-port=8080 --type=LoadBalancer --name=nodejs-todo
+kubectl expose deployments nosqlsvc-deployment --port=27017 --target-port=27017 --name=nosqlsvc
+kubectl expose deployments nodejs-todo-deployment --port=80 --target-port=8080 --type=LoadBalancer --name=nodejs-todo
 
 echo "Deployment complete."
 
