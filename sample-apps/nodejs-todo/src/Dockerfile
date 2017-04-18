@@ -6,6 +6,7 @@ WORKDIR /src/app
 # Install app dependencies
 COPY package.json /src/app/
 RUN npm install
+RUN npm install applicationinsights
 
 # Bundle app source
 COPY . /src/app
