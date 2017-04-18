@@ -9,8 +9,7 @@ RED="\033[0;31m"
 echo -e "${BOLD}Create Document DB?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-utility resource group? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
-    ~/bin/az group deployment create --resource-group ossdemo-utility --name DocumentDB-Deployment \
-        --template-file /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/environment/ossdemo-utility-documentdb.json                    
+    ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-utility --kind MongoDB
 fi
 echo "-------------------------"
 echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js for remote documentDB"
