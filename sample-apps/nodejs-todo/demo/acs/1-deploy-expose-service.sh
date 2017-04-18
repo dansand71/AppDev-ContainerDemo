@@ -9,7 +9,7 @@ RED="\033[0;31m"
 echo -e "${BOLD}Create containers...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/ansible/build-containers.sh
+    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
 fi
 echo "-------------------------"
 echo "Deploy the app deployment"

@@ -17,11 +17,12 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        imagePullSecrets:
-        - name: ossdemoregistrykey
-
+      
       - name: nosqlsvc
         image: mongo:3
         imagePullPolicy: Always
         ports:
         - containerPort: 27017
+
+      imagePullSecrets:
+        - name: ossdemoregistrykey
