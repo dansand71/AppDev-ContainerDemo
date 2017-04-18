@@ -5,13 +5,13 @@
 
   tasks: 
   - name: Build the DOCKER image
-    command: docker build -t ossdemo/nodejs-todo .
+    command: docker build -t ossdemo/nodejs-todo-docdb .
     become: true
     args:
       chdir: /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
 
   - name: Tag the DOCKER image
-    command: docker tag ossdemo/node-todo VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo
+    command: docker tag ossdemo/node-todo-docdb VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
     become: true
 
   - name: Log into private registry and force re-authorization
@@ -19,5 +19,5 @@
     become: true
 
   - name: Push to the Azure Private Registry
-    command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo
+    command: docker push VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
     become: true
