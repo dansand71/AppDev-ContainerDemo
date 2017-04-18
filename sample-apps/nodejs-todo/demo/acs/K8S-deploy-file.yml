@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: nodejs-todo
-        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
