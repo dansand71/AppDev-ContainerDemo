@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "components_app_Insight_nodejstodo_name": {
+            "defaultValue": "app Insight nodejs-todo",
+            "type": "String"
+        }
+
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource.",
+            "type": "microsoft.insights/components",
+            "kind": "other",
+            "name": "[parameters('components_app_Insight_nodejstodo_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "ApplicationId": "[parameters('components_app_Insight_nodejstodo_name')]"
+            },
+            "dependsOn": []
+        }
+    ]
+}

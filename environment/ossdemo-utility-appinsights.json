@@ -9,6 +9,10 @@
         "components_app_Insight_eShopOnContainer_name": {
             "defaultValue": "app Insight eShopOnContainer",
             "type": "String"
+        },
+        "components_app_Insight_nodejstodo_name": {
+            "defaultValue": "app Insight nodejs-todo",
+            "type": "String"
         }
 
     },
@@ -38,6 +42,19 @@
             "tags": {},
             "properties": {
                 "ApplicationId": "[parameters('components_app_Insight_eShopOnContainer_name')]"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource.",
+            "type": "microsoft.insights/components",
+            "kind": "other",
+            "name": "[parameters('components_app_Insight_nodejstodo_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "ApplicationId": "[parameters('components_app_Insight_nodejstodo_name')]"
             },
             "dependsOn": []
         }

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nodejs-todo-with-documentdb-deployment
+spec:
+  replicas: 1 # tells deployment to run x pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: nodejs-todo-with-documentdb-app
+    spec:
+      containers:
+      - name: nodejs-todo-with-documentdb
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080   
+      
+      imagePullSecrets:
+        - name: ossdemoregistrykey

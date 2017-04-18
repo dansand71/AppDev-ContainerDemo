@@ -37,7 +37,7 @@ spec:
         ports:
         - containerPort: 27017
         volumeMounts:
-        - mountPath: /data/db
+        - mountPath: /data/db #This mongo db instance uses this directory for storage.  To view run "kubectl exec -it  <podname> -- /bin/bash"
           name: nosql-home
       volumes:
       - name: nosql-home

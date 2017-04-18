@@ -148,6 +148,7 @@ if [[ $DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY = "" ]] ; then
       ASPNETCOREKEY=("${ASPNETCOREKEY[@]//\"/}")  #REMOVE Quotes
       ECONTAINERSHOPKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight eShopOnContainer' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
       ECONTAINERSHOPKEY=("${ECONTAINERSHOPKEY[@]//\"/}")  #REMOVE Quotes
+      
 
       #Set these values in the config file by default
       sudo sed -i -e "s@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=@DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=${ASPNETCOREKEY}@g" /source/appdev-demo-EnvironmentTemplateValues

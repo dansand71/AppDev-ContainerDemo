@@ -32,3 +32,6 @@ DEMO_APPLICATION_INSIGHTS_ASPNETLINUX_KEY=
 
 #This is gathered from your Azure Portal.  Resource Groups --> ossdemo-utility --> Azure Application Insights item --> Properties -->Instrumentation Key.  Example value APPLICATION-INSIGHTS-KEY=d8f672ed-fd97-4877-a421-f93779998b3a
 DEMO_APPLICATION_INSIGHTS_ESHOPONCONTAINERS_KEY=
+
+#This is gathered from your Azure Portal.  Resource Groups --> ossdemo-utility --> Azure Application Insights item --> Properties -->Instrumentation Key.  Example value APPLICATION-INSIGHTS-KEY=d8f672ed-fd97-4877-a421-f93779998b3a
+DEMO_APPLICATION_INSIGHTS_NODEJSTODO_KEY=
