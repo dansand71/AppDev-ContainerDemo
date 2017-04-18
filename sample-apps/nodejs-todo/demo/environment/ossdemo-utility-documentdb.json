@@ -31,8 +31,6 @@
                 "name": "[parameters('databaseAccounts_documentdb_name')]"
             },
             "dependsOn": []
-        },
-        
-        
+        }        
     ]
 }
