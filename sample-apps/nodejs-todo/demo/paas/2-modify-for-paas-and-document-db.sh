@@ -9,13 +9,12 @@ RED="\033[0;31m"
 echo -e "${BOLD}Create Document DB?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-utility resource group? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
-    ~/bin/az group deployment create --resource-group ossdemo-utility --name DocumentDB-Deployment \
-        --template-file /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/environment/ossdemo-utility-documentdb.json                    
+    ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB                    
 fi
 echo "-------------------------"
 echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js for remote documentDB"
 #Change connection string in code - we can also move this to an ENV variable instead
-DOCUMENTDBKEY=~/bin/az documentdb list-connection-strings -g ossdemo-utility -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv
+DOCUMENTDBKEY=~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv
 sed -i -e "s@mongodb://nosqlsvc:27017/todo@mongodb://${DOCUMENTDBKEY}/todo@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
 
 
