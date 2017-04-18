@@ -94,3 +94,23 @@ if [[ $continuescript != "n" ]];then
     echo ".running command: sudo docker stack deploy --compose-file docker-stack.yml eshop"
     sudo docker stack deploy --compose-file docker-stack.yml --with-registry-auth eshop 
 fi
+
+echo "--------------------------------------"
+echo "Warming up .net cache"
+curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5100/
+curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5101/
+curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5102/
+curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5103/
+#curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5104/
+curl -s http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5105/
+
+echo "--------------------------------------"
+echo "Site is up at: http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5100/"
+echo "If this is your first time running the SQL Databases will need to be configured."
+echo "Login as demouser@microsoft.com  password=Pass@word1 to add items to the cart."
+echo "--------------------------------------"
+echo "Example of scaling services:"
+echo "sudo docker service scale eshop_orderingapi=1"
+echo "sudo docker service scale eshop_webmvc=5"
+echo "sudo docker service scale eshop_basketapi=1"
+echo "sudo docker service scale eshop_catalogapi=2"

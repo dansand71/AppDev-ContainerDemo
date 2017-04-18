@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nodejs-todo-deployment
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
+      # generated from the deployment name
+      labels:
+        app: nodejs-todo
+    spec:
+      containers:
+      - name: nodejs-todo
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        imagePullSecrets:
+        - name: ossdemoregistrykey
+
+      - name: nosqlsvc
+        image: mongo:3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017
