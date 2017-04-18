@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: nodejs-todo-with-documentdb
-        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080   

@@ -17,13 +17,6 @@ echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/dat
 DOCUMENTDBKEY=~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv
 sed -i -e "s@mongodb://nosqlsvc:27017/todo@mongodb://${DOCUMENTDBKEY}/todo@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
 
-
-echo -e "${BOLD}Create Nodejs app service?...${RESET}"
-read -p "$(echo -e -n "${INPUT}Create new Azure App Service for node.js application resource into ossdemo-appdev-paas resource group? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    #command to create app service
-fi
-
 echo "-------------------------"
 echo -e "${BOLD}Publish Nodejs to Azure app service?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Publish up the nodejs application to Azure App service? [Y/n]:"${RESET})" continuescript
