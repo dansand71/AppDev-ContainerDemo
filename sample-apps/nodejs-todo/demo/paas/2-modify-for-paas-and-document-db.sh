@@ -17,6 +17,10 @@ echo -e "${BOLD}Pushing code to app service...${RESET}"
 echo ".attempting to push code to azure"
 cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
 #this tag was created in the initial demo setup ../1-setup-demo.sh
+#commit changes to the database.js and server.js files
+git config --global user.name "Demo user"
+git config --global user.email "gbossdemo@yourcompany.com"
+git commit -m "changed based on demo environment" -a
 git push nodejs-todo-azure-appsvc master
 
 
