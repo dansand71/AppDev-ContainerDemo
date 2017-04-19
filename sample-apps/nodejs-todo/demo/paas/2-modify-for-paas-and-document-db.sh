@@ -19,11 +19,11 @@ echo "Ensuring App Insights is configured."
 echo "-------------------------"
 echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js for remote documentDB"
 #Change connection string in code - we can also move this to an ENV variable instead
-DOCUMENTDBKEY=~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv
+DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
 sed -i -e "s@mongodb://nosqlsvc:27017/todo@mongodb://${DOCUMENTDBKEY}/todo@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
 
 echo "-------------------------"
-echo -e "${BOLD}Publish Nodejs to Azure app service?...${RESET}"
+echo -e "${BOLD}Create App Service & web plan?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Publish up the nodejs application to Azure App service? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
     ## Create the plan - only available in West US for now - Already done via template
@@ -54,7 +54,7 @@ if [[ ${continuescript,,} != "n" ]]; then
     done
     echo ".setting remote deployment user and password for VALUEOF-DEMO-ADMIN-USER-NAME"  #This is pulled from the initial demo environment setup
     ~/bin/az appservice web deployment user set --user-name VALUEOF-DEMO-ADMIN-USER-NAME --password $jumpboxPassword
-    GITURL=~/bin/az appservice web source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv
+    GITURL=`~/bin/az appservice web source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv`
     echo ".git url is: ${GITURL}"
     echo ".add git url to local repo"
     git remote add nodejs-todo-azure-appsvc $GITURL
