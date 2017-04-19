@@ -22,49 +22,11 @@ echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/dat
 DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
 sed -i -e "s|mongodb://nosqlsvc:27017/todo|${DOCUMENTDBKEY}|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
 
-echo "-------------------------"
-echo -e "${BOLD}Create App Service & web plan?...${RESET}"
-read -p "$(echo -e -n "${INPUT}Create Azure App service plan and service? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    ## Create the plan - only available in West US for now - Already done via template
-    echo ".creating appservice web plan"
-    ~/bin/az appservice plan create -g ossdemo-appdev-paas -n webtier-plan --is-linux --number-of-workers 1 --sku S1 -l westus
+echo -e "${BOLD}Pushing code to app service...${RESET}"
 
-    echo ".creating appservice web app"
-    ## Create the appservice - Already done via template
-    ~/bin/az appservice web create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo
+echo ".attempting to push code to azure"
+cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+#this tag was created in the initial demo setup ../1-setup-demo.sh
+git push nodejs-todo-azure-appsvc master
 
-    echo ".updating the web app with the nodejs details"
-    ## Config the Docker Container
-    ~/bin/az appservice web config update --linux-fx-version "NODE|6.9.3" --startup-file process.json --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas
-fi
-echo -e "${BOLD}Configure for git deployment & push code?...${RESET}"
-read -p "$(echo -e -n "${INPUT}Create Azure App service login and git URL? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
 
-    echo ".configuring for git deployment"
-    while true
-        do
-        read -s -p "$(echo -e -n "${INPUT}.Git Deployment Password for app:${RESET}")" jumpboxPassword
-        echo ""
-        read -s -p "$(echo -e -n "${INPUT}.Re-enter to verify:${RESET}")" jumpboxPassword2
-        
-        if [ $jumpboxPassword = $jumpboxPassword2 ]
-        then
-            break 2
-        else
-            echo -e ".${RED}Passwords do not match.  Please retry. ${RESET}"
-        fi
-    done
-    echo ""
-    echo ".setting remote deployment user and password for VALUEOF-DEMO-ADMIN-USER-NAME"  #This is pulled from the initial demo environment setup
-    ~/bin/az appservice web deployment user set --user-name VALUEOF-DEMO-ADMIN-USER-NAME --password $jumpboxPassword
-    GITURL=`~/bin/az appservice web source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv`
-    echo ".git url is: ${GITURL}"
-    echo ".add git url to local repo"
-    git remote add nodejs-todo-azure-appsvc $GITURL
-    echo ".now pushing code to azure"
-    cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
-    git push nodejs-todo-azure-appsvc master
-
-fi
