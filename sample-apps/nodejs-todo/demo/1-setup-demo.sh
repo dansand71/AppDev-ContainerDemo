@@ -10,8 +10,17 @@ read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-utili
 if [[ ${continuescript,,} != "n" ]]; then
     ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB
 fi
+echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
+if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
+     echo ".files already downloaded, no action needed."
+else
+    echo ".source directory is empty.  cloning from github."
+    cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+    git clone git://github.com/dansand71/node-todo .
+fi
+
 echo "-------------------------"
-echo "Ensuring App Insights is configured."
+echo "Ensuring App Insights is configured for the sample"
     /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/environment/create-app-insight.sh
 echo "-------------------------"
 
@@ -31,16 +40,6 @@ if [[ ${continuescript,,} != "n" ]]; then
     ## Config the Docker Container
     ~/bin/az appservice web config update --linux-fx-version "NODE|6.9.3" --startup-file process.json --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas
 fi
-
-echo -e ".checking if we have cloned down the sample app."
-if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
-     echo ".files already downloaded, no action needed."
-else
-    echo ".source directory is empty.  cloning from github."
-    cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
-    git clone git://github.com/dansand71/node-todo .
-fi
-
 
 echo -e "${BOLD}Configure for git deployment & push code?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create Azure App service login and git URL? [Y/n]:"${RESET})" continuescript
