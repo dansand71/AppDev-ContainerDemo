@@ -12,15 +12,33 @@ echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/dat
 DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
 sed -i -e "s|mongodb://nosqlsvc:27017/todo|${DOCUMENTDBKEY}|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
 
-echo -e "${BOLD}Pushing code to app service...${RESET}"
 
-echo ".attempting to push code to azure"
-cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
-#this tag was created in the initial demo setup ../1-setup-demo.sh
-#commit changes to the database.js and server.js files
-git config --global user.name "Demo user"
-git config --global user.email "gbossdemo@yourcompany.com"
-git commit -m "changed based on demo environment" -a
-git push nodejs-todo-azure-appsvc master
+#BUILD Container & publish to registry
+read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
+if [[ ${continuescript,,} != "n" ]]; then
+    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-docdb-containers.sh
+fi
+
+echo ".updating the web app with the container details"
+## Config the Docker Container
+~/bin/az appservice web config container update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas \
+    --docker-registry-server-password VALUEOF-REGISTRY-PASSWORD \
+    --docker-registry-server-user VALUEOF-REGISTRY-USER-NAME \
+    --docker-registry-server-url VALUEOF-REGISTRY-SERVER-NAME \
+    --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
+
+echo ".container file updated.  Please see portal for additional details."
+echo ".testing url http://VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo.azurewebsites.net"
+
+# echo -e "${BOLD}Pushing code to app service...${RESET}"
+
+# echo ".attempting to push code to azure"
+# cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+# #this tag was created in the initial demo setup ../1-setup-demo.sh
+# #commit changes to the database.js and server.js files
+# git config --global user.name "Demo user"
+# git config --global user.email "gbossdemo@yourcompany.com"
+# git commit -m "changed based on demo environment" -a
+# git push nodejs-todo-azure-appsvc master
 
 
