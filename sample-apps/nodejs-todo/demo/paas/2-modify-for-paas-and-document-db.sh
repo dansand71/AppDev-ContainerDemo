@@ -24,7 +24,7 @@ sed -i -e "s@mongodb://nosqlsvc:27017/todo@mongodb://${DOCUMENTDBKEY}/todo@g" /s
 
 echo "-------------------------"
 echo -e "${BOLD}Create App Service & web plan?...${RESET}"
-read -p "$(echo -e -n "${INPUT}Publish up the nodejs application to Azure App service? [Y/n]:"${RESET})" continuescript
+read -p "$(echo -e -n "${INPUT}Create Azure App service plan and service? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
     ## Create the plan - only available in West US for now - Already done via template
     echo ".creating appservice web plan"
@@ -37,6 +37,10 @@ if [[ ${continuescript,,} != "n" ]]; then
     echo ".updating the web app with the nodejs details"
     ## Config the Docker Container
     ~/bin/az appservice web config update --linux-fx-version "NODE|6.9.3" --startup-file process.json --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas
+fi
+echo -e "${BOLD}Configure for git deployment & push code?...${RESET}"
+read -p "$(echo -e -n "${INPUT}Create Azure App service login and git URL? [Y/n]:"${RESET})" continuescript
+if [[ ${continuescript,,} != "n" ]]; then
 
     echo ".configuring for git deployment"
     while true
@@ -52,18 +56,15 @@ if [[ ${continuescript,,} != "n" ]]; then
             echo -e ".${RED}Passwords do not match.  Please retry. ${RESET}"
         fi
     done
+    echo ""
     echo ".setting remote deployment user and password for VALUEOF-DEMO-ADMIN-USER-NAME"  #This is pulled from the initial demo environment setup
     ~/bin/az appservice web deployment user set --user-name VALUEOF-DEMO-ADMIN-USER-NAME --password $jumpboxPassword
     GITURL=`~/bin/az appservice web source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv`
     echo ".git url is: ${GITURL}"
     echo ".add git url to local repo"
     git remote add nodejs-todo-azure-appsvc $GITURL
-    echo ".now push to azure"
+    echo ".now pushing code to azure"
     cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
     git push nodejs-todo-azure-appsvc master
 
 fi
-
-
-
-#publish to the app service
