@@ -42,6 +42,8 @@ echo ".testing url http://VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo.azurewebsites
 # echo -e "${BOLD}Pushing code to app service...${RESET}"
 
 # echo ".attempting to push code to azure"
+# Config the nodejs environment
+#~/bin/az appservice web config update --linux-fx-version "NODE|6.9.3" --startup-file package.json --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas
 # cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
 # #this tag was created in the initial demo setup ../1-setup-demo.sh
 # #commit changes to the database.js and server.js files

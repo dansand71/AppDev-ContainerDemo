@@ -38,8 +38,7 @@ if [[ ${continuescript,,} != "n" ]]; then
     ~/bin/az appservice web create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo
 
     echo ".updating the web app with the nodejs details"
-    ## Config the nodejs environment
-    ~/bin/az appservice web config update --linux-fx-version "NODE|6.9.3" --startup-file package.json --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas
+    
 fi
 
 echo -e "${BOLD}Configure for git deployment & push code?...${RESET}"
