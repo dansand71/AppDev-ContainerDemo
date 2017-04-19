@@ -30,7 +30,7 @@ echo "-------------------------"
 echo "Initial deployment & expose the service"
 kubectl expose deployments nodejs-todo-with-documentdb-deployment --port=80 --target-port=8080 --type=LoadBalancer --name=nodejs-todo-with-documentdb
 
-echo "Deployment complete."
+echo "Deployment complete for pods: nodejs-todo-with-documentdb"
 
 echo ".kubectl get services"
 kubectl get services
