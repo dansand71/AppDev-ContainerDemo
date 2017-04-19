@@ -17,7 +17,7 @@ if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
 else
     echo ".source directory is empty.  cloning from github."
     cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
-    git clone git://github.com/dansand71/node-todo .
+    git clone https://github.com/dansand71/node-todo .
 fi
 
 echo "-------------------------"
