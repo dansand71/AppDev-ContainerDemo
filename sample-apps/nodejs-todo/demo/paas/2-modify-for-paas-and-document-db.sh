@@ -7,6 +7,15 @@ RED="\033[0;31m"
 
 #az account set --subscription "Microsoft Azure Internal Consumption"
 echo "-------------------------"
+echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
+mkdir /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
+     echo ".files already downloaded, no action needed."
+else
+    echo ".source directory is empty.  cloning from github."
+    cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+    git clone https://github.com/dansand71/node-todo .
+fi
 echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js for remote documentDB"
 #Change connection string in code - we can also move this to an ENV variable instead
 DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
