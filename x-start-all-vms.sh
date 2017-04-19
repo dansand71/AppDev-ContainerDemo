@@ -3,6 +3,7 @@ rgList=(
     "ossdemo-appdev-iaas"
     "ossdemo-appdev-acs"
     "ossdemo-appdev-oshift"
+    "ossdemo-utility"
 )
 
 for rg in "${rgList[@]}"
