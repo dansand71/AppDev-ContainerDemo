@@ -11,6 +11,7 @@ if [[ ${continuescript,,} != "n" ]]; then
     ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB
 fi
 echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
+mkdir /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
 if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
      echo ".files already downloaded, no action needed."
 else
