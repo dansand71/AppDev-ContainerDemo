@@ -1,0 +1,141 @@
+version: '3'
+
+services:
+  basketapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Basket/Basket.API
+      dockerfile: Dockerfile
+    image: VALUEOF-REGISTRY-SERVER-NAME/eshop/basketapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5103
+      - ConnectionString=basketdata
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+    ports:
+      - "5103:5103"
+    depends_on:
+      - basketdata
+      - identityapi
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+
+  catalogapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Catalog/Catalog.API
+      dockerfile: Dockerfile
+    image: VALUEOF-REGISTRY-SERVER-NAME/eshop/catalogapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5101
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
+      - ExternalCatalogBaseUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5101    #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105.
+    ports:
+      - "5101:5101"
+    depends_on:
+      - sqldata
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]
+
+  identityapi:
+    build:
+        context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Identity/Identity.API
+        dockerfile: Dockerfile
+    image: VALUEOF-REGISTRY-SERVER-NAME/eshop/identityapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5105
+      - SpaClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5104
+      - ConnectionStrings__DefaultConnection=Server=sqldata;Database=Microsoft.eShopOnContainers.Service.IdentityDb;User Id=sa;Password=Pass@word 
+      - MvcClient=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5100              #Local: You need to open your host's firewall at range 5100-5105.  
+    ports:
+      - "5105:5105"
+    depends_on:
+      - sqldata
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+
+  orderingapi:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Ordering/Ordering.API
+      dockerfile: Dockerfile
+    image: VALUEOF-REGISTRY-SERVER-NAME/eshop/orderingapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5102
+      - ConnectionString=Server=sqldata;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sa;Password=Pass@word
+      - identityUrl=http://identityapi:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
+    ports:
+      - "5102:5102"
+    depends_on:
+      - sqldata
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+
+  webmvc:
+    build:
+      context: /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Web/WebMVC
+      dockerfile: Dockerfile
+    image: VALUEOF-REGISTRY-SERVER-NAME/eshop/webmvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5100
+      - CatalogUrl=http://catalogapi:5101
+      - OrderingUrl=http://orderingapi:5102
+      - IdentityUrl=http://VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com:5105     #Local: Use VALUEOF-UNIQUE-SERVER-PREFIX-iaas-demo.eastus.cloudapp.azure.com, if using external IP or DNS name from browser.          
+      - BasketUrl=http://basketapi:5103
+    ports:
+      - "5100:5100"
+    depends_on:
+      - catalogapi
+      - orderingapi
+      - identityapi
+      - basketapi
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]
+
+  sqldata:
+    image: microsoft/mssql-server-linux
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    #Pinning to a local directory on the jumpbox - to show file level recovery in LINUX on Azure
+    volumes: ["/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/demo/iaas-swarm/sqldata:/var/opt/mssql"]
+    #This is what the cloudstor mount point will look like
+    #volumes: ["sqldata_vol:/var/opt/mssql"]
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+
+  basketdata:
+    image: redis
+    ports:
+      - "6379:6379"
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+#Ideally we would like to demo cloudstor but the performance as of 4/17 is too slow for SQL on the demo.  Instead we are pinning SQL Server to a local mount point on the jumpbox server
+#volumes:
+#   sqldata_vol:
+#     driver: "cloudstor:azure"
