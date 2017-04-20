@@ -22,7 +22,7 @@ do
   fi
 done
 echo ".verified password.  Running command to create SQL Server."
-~/bin/az sql server create --name ossdemo-sql-VALUEOF-UNIQUE-SERVER-PREFIX --resource-group ossdemo-utility --location eastus \
+~/bin/az sql server create --name ossdemo-sql-VALUEOF-UNIQUE-SERVER-PREFIX --resource-group ossdemo-appdev-paas --location eastus \
     --admin-user VALUEOF-DEMO-ADMIN-USER-NAME --admin-password $NEWPassword
 
 echo ".allowing Azure traffic to the new SQL Server"

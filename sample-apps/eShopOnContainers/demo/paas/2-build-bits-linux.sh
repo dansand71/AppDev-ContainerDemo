@@ -1,10 +1,11 @@
 
+sourcedir="/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src"
 projectList=(
-    "/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Catalog/Catalog.API"
-    "/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Basket/Basket.API"
-    "/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Ordering/Ordering.API"
-    "/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Services/Identity/Identity.API"
-    "/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src/src/Web/WebMVC"
+    "${sourcedir}}/src/Services/Catalog/Catalog.API"
+    "${sourcedir}}/src/Services/Basket/Basket.API"
+    "${sourcedir}}/src/Services/Ordering/Ordering.API"
+    "${sourcedir}}/src/Services/Identity/Identity.API"
+    "${sourcedir}}/src/Web/WebMVC"
     # "../src/Web/WebSPA"
 )
 
@@ -12,6 +13,7 @@ projectList=(
 #pushd $(pwd)/src/Web/WebSPA
 #npm rebuild node-sass
 #npm run build:prod
+
 read -p "Build, Publish and restore dotnet bits? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ ${continuescript,,} != "n" ]];then
