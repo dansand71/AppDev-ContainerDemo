@@ -32,9 +32,9 @@ read -p "Build bits? [Y/n]:"  continuescript
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
-    echo -e "${BOLD}Working on $(pwd)/$project ${RESET}"
+    echo -e "${BOLD}Working on $project ${RESET}"
     echo -e "${YELLOW}Removing old publish output${RESET}"
-    pushd $(pwd)/$project
+    pushd $project
     sudo rm -rf obj/Docker/publish
     echo -e "Restoring project"
     /usr/local/bin/dotnet restore
