@@ -1,3 +1,10 @@
+#!/bin/bash
+RESET="\e[0m"
+INPUT="\e[7m"
+BOLD="\e[4m"
+YELLOW="\033[38;5;11m"
+RED="\033[0;31m"
+
 
 sourcedir="/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src"
 projectList=(
@@ -20,7 +27,7 @@ fi
 #pushd $(pwd)/src/Web/WebSPA
 #npm rebuild node-sass
 #npm run build:prod
-read -p "Build bits? [Y/n]:"  continuescript
+read -p "${BOLD}Build bits? [Y/n]:${RESET}"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
@@ -36,7 +43,7 @@ do
     popd
 done
 fi
-read -p "Remove old images & rebuild? [Y/n]:"  continuescript
+read -p "${RESET}${BOLD}Remove old images & rebuild? [Y/n]:${RESET}"  continuescript
 if [[ ${continuescript,,} != "n" ]];then
     # remove old docker images:
     echo ""
@@ -62,7 +69,7 @@ fi
 # do that using the images and containers defined in the docker-compose.yml file.
 echo ""
 echo "-------------------------------------"
-echo "Push to Registry"
+echo "${BOLD}Push to Registry${RESET}"
 echo "-------------------------------------"
 read -p "Push eshop images to registry? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
@@ -92,7 +99,7 @@ if [[ $continuescript != "n" ]];then
     fi
 fi
 echo "-------------------------------------"
-read -p "Deploy to Docker SWARM? [Y/n]:"  continuescript
+read -p "${BOLD}Deploy to Docker SWARM? [Y/n]:${RESET}"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
     echo ".removing any existing SWARM services for eshop"
