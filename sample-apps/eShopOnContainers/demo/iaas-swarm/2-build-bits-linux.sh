@@ -26,23 +26,26 @@ fi
 #pushd $(pwd)/src/Web/WebSPA
 #npm rebuild node-sass
 #npm run build:prod
-read -p "${BOLD}Build bits? [Y/n]:${RESET}"  continuescript
+echo -e "${BOLD}Compile source code${RESET}"
+read -p "Build bits? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
-    echo -e "\e[33mWorking on $(pwd)/$project"
-    echo -e "\e[33m\tRemoving old publish output"
+    echo -e "${BOLD}Working on $(pwd)/$project ${RESET}"
+    echo -e "${YELLOW}Removing old publish output${RESET}"
     pushd $(pwd)/$project
     sudo rm -rf obj/Docker/publish
-    echo -e "\e[33m\tRestoring project"
+    echo -e "Restoring project"
     /usr/local/bin/dotnet restore
-    echo -e "\e[33m\tBuilding and publishing projects"
+    echo -e "Building and publishing projects"
     /usr/local/bin/dotnet publish -o obj/Docker/publish
+    echo -e "Building and publishing projects"
     popd
 done
 fi
-read -p "${RESET}${BOLD}Remove old images & rebuild? [Y/n]:${RESET}"  continuescript
+echo -e "${BOLD}Docker Images${RESET}"
+read -p "Remove old images & rebuild? [Y/n]:"  continuescript
 if [[ ${continuescript,,} != "n" ]];then
     # remove old docker images:
     echo ""
@@ -98,7 +101,8 @@ if [[ $continuescript != "n" ]];then
     fi
 fi
 echo "-------------------------------------"
-read -p "${BOLD}Deploy to Docker SWARM? [Y/n]:${RESET}"  continuescript
+echo -e "${BOLD}Deploy to Docker SWARM${RESET}"
+read -p "Deploy to Docker SWARM? [Y/n]:"  continuescript
 #This environment requires accurate settings of HOST NAME in  .env file off the source directory.  Change for BUILD BOX....
 if [[ $continuescript != "n" ]];then
     echo ".removing any existing SWARM services for eshop"
