@@ -69,3 +69,13 @@ if [[ ${continuescript,,} != "n" ]]; then
     git remote add nodejs-todo-azure-appsvc $GITURL
 
 fi
+
+
+#Set Scripts as executable & ensure everything is writeable
+echo ".set any scripts as executable"
+sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+/source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+
+#Reset DEMO Values
+echo ".reset demo values"
+/source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
