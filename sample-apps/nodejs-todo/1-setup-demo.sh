@@ -6,7 +6,7 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 echo -e "${BOLD}Create Document DB?...${RESET}"
-read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-utility resource group? [Y/n]:"${RESET})" continuescript
+read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-appdev-paas resource group? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
     ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB
 fi

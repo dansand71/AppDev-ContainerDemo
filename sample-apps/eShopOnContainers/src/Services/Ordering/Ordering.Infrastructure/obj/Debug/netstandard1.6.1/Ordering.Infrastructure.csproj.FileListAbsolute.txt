@@ -1,9 +1,0 @@
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\bin\Debug\netstandard1.6.1\Ordering.Infrastructure.deps.json
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\bin\Debug\netstandard1.6.1\Ordering.Infrastructure.dll
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\bin\Debug\netstandard1.6.1\Ordering.Infrastructure.pdb
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\bin\Debug\netstandard1.6.1\Ordering.Domain.dll
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\bin\Debug\netstandard1.6.1\Ordering.Domain.pdb
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\obj\Debug\netstandard1.6.1\Ordering.Infrastructure.csprojResolveAssemblyReference.cache
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\obj\Debug\netstandard1.6.1\Ordering.Infrastructure.AssemblyInfo.cs
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\obj\Debug\netstandard1.6.1\Ordering.Infrastructure.dll
-C:\git\AppDev-ContainerDemo\sample-apps\eShopOnContainers\src\Services\Ordering\Ordering.Infrastructure\obj\Debug\netstandard1.6.1\Ordering.Infrastructure.pdb
