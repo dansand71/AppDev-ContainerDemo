@@ -18,13 +18,15 @@ else
     echo ".source directory is empty.  cloning from github."
     cd /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src
     git clone https://github.com/dansand71/sampleApp-eShopOnContainers .
+
+    #Set Scripts as executable & ensure everything is writeable
+    echo ".set any scripts as executable"
+    sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+    /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
+
+    #Reset DEMO Values
+    echo ".reset demo values"
+    /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
+
 fi
 
-#Set Scripts as executable & ensure everything is writeable
-echo ".set any scripts as executable"
-sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
-/source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
-
-#Reset DEMO Values
-echo ".reset demo values"
-/source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh

@@ -7,7 +7,7 @@ RED="\033[0;31m"
 
 #az account set --subscription "Microsoft Azure Internal Consumption"
 echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
-mkdir /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
+mkdir -p /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
 if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src)" ]; then
      echo ".files already downloaded, no action needed."
 else
