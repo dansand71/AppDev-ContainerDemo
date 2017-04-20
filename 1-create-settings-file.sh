@@ -124,7 +124,7 @@ if [[ $DEMO_REGISTRY_SERVER_NAME = "" ]]; then
       
       #Get the new server
       echo ".Get the registry server details and save it to the template file."
-      REGISTRYSERVER=`~/bin/az resource show -g ossdemo-utility -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
+      REGISTRYSERVER=`~/bin/az resource show -g ossdemo-appdev-paas -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --resource-type Microsoft.ContainerRegistry/registries --output json | jq '.properties.loginServer'`
       REGISTRYSERVER=("${REGISTRYSERVER[@]//\"/}")  #REMOVE Quotes
       REGISTRYPASSWORD=`~/bin/az acr credential show -n ${DEMO_UNIQUE_SERVER_PREFIX}demoregistry --query passwords[0].value`
       REGISTRYPASSWORD=("${REGISTRYPASSWORD[@]//\"/}")
