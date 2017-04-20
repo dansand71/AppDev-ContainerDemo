@@ -12,7 +12,7 @@ if [[ ${continuescript,,} != "n" ]]; then
    ~/bin/az group deployment create --resource-group ossdemo-utility --name InitialDeployment \
         --template-file /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/environment/ossdemo-utility-appinsights.json
 fi
-      
+echo ".finding appInsights Instrumentation key from Azure."
 NODEJSTODOKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight Nodejs-todo' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
 NODEJSTODOKEY=("${NODEJSTODOKEY[@]//\"/}")  #REMOVE Quotes
 

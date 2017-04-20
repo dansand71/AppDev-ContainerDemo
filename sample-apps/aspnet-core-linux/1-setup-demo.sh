@@ -32,4 +32,3 @@ else
     echo ".reset demo values"
     /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 fi
-
