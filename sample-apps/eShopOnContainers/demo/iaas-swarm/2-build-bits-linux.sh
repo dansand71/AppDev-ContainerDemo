@@ -8,11 +8,11 @@ RED="\033[0;31m"
 
 sourcedir="/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src"
 projectList=(
-    "${sourcedir}}/src/Services/Catalog/Catalog.API"
-    "${sourcedir}}/src/Services/Basket/Basket.API"
-    "${sourcedir}}/src/Services/Ordering/Ordering.API"
-    "${sourcedir}}/src/Services/Identity/Identity.API"
-    "${sourcedir}}/src/Web/WebMVC"
+    "${sourcedir}/src/Services/Catalog/Catalog.API"
+    "${sourcedir}/src/Services/Basket/Basket.API"
+    "${sourcedir}/src/Services/Ordering/Ordering.API"
+    "${sourcedir}/src/Services/Identity/Identity.API"
+    "${sourcedir}/src/Web/WebMVC"
     # "../src/Web/WebSPA"
 )
 echo -e ".checking to see if we have already cloned the sample from GITHUB"

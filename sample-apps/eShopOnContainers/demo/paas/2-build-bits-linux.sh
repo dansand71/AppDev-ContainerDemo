@@ -1,11 +1,11 @@
 
 sourcedir="/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src"
 projectList=(
-    "${sourcedir}}/src/Services/Catalog/Catalog.API"
-    "${sourcedir}}/src/Services/Basket/Basket.API"
-    "${sourcedir}}/src/Services/Ordering/Ordering.API"
-    "${sourcedir}}/src/Services/Identity/Identity.API"
-    "${sourcedir}}/src/Web/WebMVC"
+    "${sourcedir}/src/Services/Catalog/Catalog.API"
+    "${sourcedir}/src/Services/Basket/Basket.API"
+    "${sourcedir}/src/Services/Ordering/Ordering.API"
+    "${sourcedir}/src/Services/Identity/Identity.API"
+    "${sourcedir}/src/Web/WebMVC"
     # "../src/Web/WebSPA"
 )
 
