@@ -9,6 +9,13 @@ projectList=(
     # "../src/Web/WebSPA"
 )
 
+echo -e ".checking to see if we have already cloned the sample from GITHUB"
+if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src)" ]; then
+     echo ".files already downloaded, no action needed."
+else
+    echo ".running initial setup of repo for sample."
+    ../../1-setup-demo.sh
+fi
 # Build SPA app
 #pushd $(pwd)/src/Web/WebSPA
 #npm rebuild node-sass

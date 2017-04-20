@@ -6,7 +6,7 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
-mkdir /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src
+mkdir -p /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src
 if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src)" ]; then
      echo ".files already downloaded, no action needed."
 else

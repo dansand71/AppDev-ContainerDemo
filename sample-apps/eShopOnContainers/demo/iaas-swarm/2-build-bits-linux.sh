@@ -15,13 +15,12 @@ projectList=(
     "${sourcedir}}/src/Web/WebMVC"
     # "../src/Web/WebSPA"
 )
-echo ".checking to see if we have already cloned the sample from GITHUB"
+echo -e ".checking to see if we have already cloned the sample from GITHUB"
 if [ "$(ls -A /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src)" ]; then
      echo ".files already downloaded, no action needed."
 else
-    echo ".source directory is empty.  cloning from github."
-    cd /source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src
-    git clone https://github.com/dansand71/sampleApp-eShopOnContainers .
+    echo ".running initial setup of repo for sample."
+    ../../1-setup-demo.sh
 fi
 # Build SPA app
 #pushd $(pwd)/src/Web/WebSPA
