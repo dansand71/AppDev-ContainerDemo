@@ -51,5 +51,3 @@ echo ".testing url http://VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo.azurewebsites
 # git config --global user.email "gbossdemo@yourcompany.com"
 # git commit -m "changed based on demo environment" -a
 # git push nodejs-todo-azure-appsvc master
-
-

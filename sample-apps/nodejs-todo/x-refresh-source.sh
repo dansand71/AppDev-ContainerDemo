@@ -10,6 +10,6 @@ echo -e "${BOLD}Deleting the source and re-cloning from master...${RESET}"
 rm -rf ${projectdir}/src
 mkdir -p ${projectdir}/src
 cd ${projectdir}/src
-git clone https://github.com/dansand71/sampleApp-eShopOnContainers .
+git clone https://github.com/dansand71/node-todo .
 echo -e ".clone from master complete."
 

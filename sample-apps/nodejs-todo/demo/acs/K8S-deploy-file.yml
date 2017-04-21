@@ -11,13 +11,12 @@ spec:
     spec:
       containers:
       - name: nodejs-todo
-        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest  #Azure Private Registry
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080   
-      
+        - containerPort: 8080       
       imagePullSecrets:
-        - name: ossdemoregistrykey
+        - name: ossdemoregistrykey  #Login credentials provided earlier as part of the K8S Deployment
 
 ---
 apiVersion: extensions/v1beta1
@@ -33,7 +32,7 @@ spec:
     spec:
       containers:
       - name: nosqlsvc
-        image: mongo:3
+        image: mongo:3  
         ports:
         - containerPort: 27017
         volumeMounts:
@@ -51,7 +50,9 @@ metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
-  skuName: Standard_LRS
+  skuName: Premium_LRS
+  location: eastus
+  storageAccount: ossdemok8sdansand
 ---
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"

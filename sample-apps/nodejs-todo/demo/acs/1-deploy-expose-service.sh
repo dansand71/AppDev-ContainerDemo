@@ -5,14 +5,6 @@ BOLD="\e[4m"
 YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
-#az account set --subscription "Microsoft Azure Internal Consumption"
-#reset the database connection string in case it has changed
-echo "module.exports = {
-    remoteUrl : 'mongodb://nosqlsvc:27017/todo',
-    localUrl: 'mongodb://nosqlsvc:27017/todo'
-};" > /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
-
-#
 echo -e "${BOLD}Create containers...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
@@ -36,4 +28,9 @@ kubectl get services
 echo ".kubectl get pods"
 kubectl get pods
 
+echo "To scale: kubectl scale --replicas=3 deployment/nodejs-todo-deployment"
+echo "To debug: kubectl log <pod name>"
+echo "To bash : kubectl exec -p <pod name> -i -t -- bash -il"
+echo "Service : kubectl get services"
+echo "Pods    : kubectl get pods"
 
