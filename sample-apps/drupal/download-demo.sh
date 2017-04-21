@@ -17,7 +17,7 @@ else
     cd ~/drupal-demo-tmp
     git clone https://github.com/dansand71/sampleApp-drupal .
 
-    mv ~/drupal-demo-tmp ${projectdir}
+    mv -r -i ~/drupal-demo-tmp ${projectdir}
     cd ${projectdir}
     rm -rf ~/drupal-demo-tmp
     
