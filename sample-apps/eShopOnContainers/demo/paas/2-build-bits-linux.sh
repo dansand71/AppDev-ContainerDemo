@@ -26,14 +26,15 @@ read -p "Build, Publish and restore dotnet bits? [Y/n]:"  continuescript
 if [[ ${continuescript,,} != "n" ]];then
 for project in "${projectList[@]}"
 do
-    echo -e "\e[33mWorking on $(pwd)/$project"
-    echo -e "\e[33m\tRemoving old publish output"
-    pushd $(pwd)/$project
+    e echo -e "${BOLD}Working on $project ${RESET}"
+    echo -e "${YELLOW}Removing old publish output${RESET}"
+    pushd $project
     sudo rm -rf obj/Docker/publish
-    echo -e "\e[33m\tRestoring project"
+    echo -e "Restoring project"
     /usr/local/bin/dotnet restore
-    echo -e "\e[33m\tBuilding and publishing projects"
+    echo -e "Building and publishing projects"
     /usr/local/bin/dotnet publish -o obj/Docker/publish
+    echo -e "Building and publishing projects"
     popd
 done
 fi
