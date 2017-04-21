@@ -9,16 +9,18 @@ projectdir="/source/AppDev-ContainerDemo/sample-apps/drupal"
 
 
 echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
-mkdir -p /source/AppDev-ContainerDemo/sample-apps/drupal/tmp
-if [ "$(ls -A ${projectdir}/tmp)" ]; then
+mkdir -p ~/drupal-demo-tmp
+if [ "$(ls -A ~/drupal-demo-tmp)" ]; then
      echo ".files already downloaded, no action needed."
 else
     echo ".source directory is empty.  cloning from github."
-    cd ${projectdir}/tmp
+    cd ~/drupal-demo-tmp
     git clone https://github.com/dansand71/sampleApp-drupal .
 
-    mv ${projectdir}/tmp ${projectdir}
-    rm tmp
+    mv ~/drupal-demo-tmp ${projectdir}
+    cd ${projectdir}
+    rm -rf ~/drupal-demo-tmp
+    
     #Set Scripts as executable & ensure everything is writeable
     echo ".set any scripts as executable"
     sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
