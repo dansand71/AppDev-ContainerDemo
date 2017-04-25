@@ -37,6 +37,7 @@ echo ".updating the web app with the container details"
     --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
 
 #Set the port to 8080 - this is in the DockerFile
+echo ".updating the port settings on the website...."
 ~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting PORT=8081
 
 echo ".container file updated.  Please see portal for additional details."
