@@ -15,7 +15,7 @@ oc status
 #https://github.com/openshift-s2i/s2i-aspnet    
 oc new-build https://github.com/openshift-s2i/s2i-aspnet
 oc new-app registry.access.redhat.com/dotnet/dotnetcore-11-rhel7~https://github.com/dansand71/sampleApp-s2i-aspnetcore:dotnetcore-1.1 --name=aspnet-s2i-app --context-dir=app
-oc service expose aspnet-s2i-app
+oc expose service aspnet-s2i-app
 
 "
 echo "Please login to the Openshift origin cluster: https://VALUEOF-UNIQUE-SERVER-PREFIX-ossdemo-oshift-master.eastus.cloudapp.azure.com:8443 "
