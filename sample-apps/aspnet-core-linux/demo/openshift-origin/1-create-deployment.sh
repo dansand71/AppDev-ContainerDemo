@@ -1,7 +1,7 @@
 #SSH to master
 ssh VALUEOF-DEMO-ADMIN-USER-NAME@VALUEOF-UNIQUE-SERVER-PREFIX-ossdemo-oshift-master.eastus.cloudapp.azure.com "
 echo 'Logging into Openshift'
-oc login
+oc login -u system:login
 #oc create -n openshift -f https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-example.json
 echo 'Creating new project'
 #Create new project
