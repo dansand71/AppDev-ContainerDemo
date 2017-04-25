@@ -36,6 +36,9 @@ echo ".updating the web app with the container details"
     --docker-registry-server-url VALUEOF-REGISTRY-SERVER-NAME \
     --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
 
+#Set the port to 8080 - this is in the DockerFile
+~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting PORT=8081
+
 echo ".container file updated.  Please see portal for additional details."
 echo ".testing url http://VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo.azurewebsites.net"
 
