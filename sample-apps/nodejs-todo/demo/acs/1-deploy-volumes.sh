@@ -5,10 +5,15 @@ BOLD="\e[4m"
 YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
+echo -e "${BOLD}Create containers...${RESET}"
+read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
+if [[ ${continuescript,,} != "n" ]]; then
+    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
+fi
 
 echo "-------------------------"
 echo "Remove existing Volumes"
-kubectl delete pcv nosql-pv
+kubectl delete pvc nosql-pv
 
 
 echo "-------------------------"

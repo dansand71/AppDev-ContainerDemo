@@ -26,7 +26,7 @@ echo "deleting existing nodejs deployment "
 ./x-reset-demo.sh
 echo "-------------------------"
 echo "Deploy the app deployment"
-kubectl create -f K8S-deploy-file.yml
+kubectl create -f deploy-nodejs.yml
 echo "-------------------------"
 
 echo "Initial deployment & expose the service"

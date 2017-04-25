@@ -5,11 +5,6 @@ BOLD="\e[4m"
 YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
-echo -e "${BOLD}Create containers...${RESET}"
-read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
-fi
 
 echo "-------------------------"
 echo "Remove existing deployments"
@@ -17,8 +12,8 @@ kubectl delete deployment nodejs-todo-deployment
 kubectl delete deployment nosqlsvc-deployment
 
 echo "-------------------------"
-echo "Deploy the app deployment"
-kubectl create -f K8S-deploy-file.yml
+echo "Deploy the Nosql and Nodejs deployment"
+kubectl create -f deploy-nosql-nodejs.yml
 echo "-------------------------"
 
 echo "Initial deployment & expose the service"

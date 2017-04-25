@@ -22,7 +22,7 @@ if [[ ${continuescript,,} != "n" ]]; then
 fi
 echo -e "${BOLD}Force a update with Kubernetes...${RESET}"
 echo "Trigger a K8S refresh"
-kubectl apply -f K8S-deploy-file.yml
+kubectl apply -f deploy-nosql-nodejs.yml
 
 echo ""
 echo ".kubectl get pods"
