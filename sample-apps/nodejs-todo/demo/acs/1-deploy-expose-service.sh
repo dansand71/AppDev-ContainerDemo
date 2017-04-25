@@ -12,6 +12,11 @@ if [[ ${continuescript,,} != "n" ]]; then
 fi
 
 echo "-------------------------"
+echo "Remove existing deployments"
+kubectl delete deployment nodejs-todo-deployment
+kubectl delete deployment nosqlsvc-deployment
+
+echo "-------------------------"
 echo "Deploy the app deployment"
 kubectl create -f K8S-deploy-file.yml
 echo "-------------------------"
