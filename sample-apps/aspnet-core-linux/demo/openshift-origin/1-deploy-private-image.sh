@@ -9,7 +9,7 @@ oc new-project aspnet-core-linux
 oc project aspnet-core-linux
 oc status
 #System Admin Login
-oc login -u system:login
+oc login -u system:admin
 echo 'Creating secret if it doesnt already exist'
 #Create Secret for logging into the Azure Registry - for use if you want to show the image pull vs S2I demos
 oc secrets new-dockercfg ossdemoregistrykey \

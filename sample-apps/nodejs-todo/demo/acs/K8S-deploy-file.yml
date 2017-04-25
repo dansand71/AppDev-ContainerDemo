@@ -50,9 +50,7 @@ metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
 parameters:
-  skuName: Premium_LRS
-  location: eastus
-  storageAccount: ossdemok8sdansand
+  skuName: Starndard_LRS
 ---
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
