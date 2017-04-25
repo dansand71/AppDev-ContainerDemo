@@ -44,11 +44,13 @@ DEMO's Available:
 
 ## SCRIPT to Configure Demo 1.  Sample ASP.net core app in containers.
 ```
+cd /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas
 /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/iaas/1-build-deploy-containers
 ```
 
 ## SCRIPT to Configure Demo 2.  Sample ASP.net core app on ACS with Kubernetes.
 ```
+cd /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs
 /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/1-deploy-expose-service.sh
 /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/2-browse-k8s-cluster.sh
 /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/3-republish.sh
