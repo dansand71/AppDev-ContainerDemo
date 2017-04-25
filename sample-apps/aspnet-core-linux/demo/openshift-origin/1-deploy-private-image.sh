@@ -29,12 +29,5 @@ oc new-app --docker-image=VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
 echo 'Exposing a default route to the application'
 oc expose service aspnet-image
 
-
-#S2I app example
-#https://github.com/openshift-s2i/s2i-aspnet    
-#oc new-build https://github.com/openshift-s2i/s2i-aspnet
-#oc new-app registry.access.redhat.com/dotnet/dotnetcore-11-rhel7~https://github.com/dansand71/sampleApp-s2i-aspnetcore:dotnetcore-1.1 --name=aspnet-app --context-dir=app
-#oc service expose aspnet-app
-
 "
 echo "Please login to the Openshift origin cluster: https://VALUEOF-UNIQUE-SERVER-PREFIX-ossdemo-oshift-master.eastus.cloudapp.azure.com:8443 "
