@@ -9,13 +9,12 @@ projectdir="/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src"
 tempdir="~/aspnet-core-linux"
 sourceproject="https://github.com/dansand71/sampleApp-aspnetcore"
 
-echo -e "${BOLD}Cloning project.${RESET}"
+echo -e "${INPUT}Cloning project - ${sourceproject}${RESET}"
 rm -rf ${tempdir} ${projectdir} ; mkdir -p ${tempdir} ${projectdir}
 
-cd ${tempdir}
-git clone ${sourceproject} .
+cd ${tempdir} ; git clone ${sourceproject} .
 
-cp -r ${tempdir}. ${projectdir}
+cp -r ${tempdir}/. ${projectdir}
 rm -rf ${tempdir}
     
 cd ${projectdir}
