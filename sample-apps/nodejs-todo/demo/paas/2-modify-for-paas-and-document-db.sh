@@ -25,7 +25,7 @@ sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-Cont
 #BUILD Container & publish to registry
 read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-docdb-containers.sh
+    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
 fi
 
 echo ".updating the web app with the container details"
