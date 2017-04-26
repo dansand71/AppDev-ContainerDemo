@@ -10,7 +10,8 @@ tempdir="~/eShopOnContainers"
 sourceproject="https://github.com/dansand71/sampleApp-eShopOnContainers"
 
 echo -e "${BOLD}Cloning project.${RESET}"
-rm -rf ${tempdir} ${projectdir} ; mkdir -p ${tempdir} ${projectdir}
+rm -rf ${tempdir} ${projectdir} 
+mkdir -p ${tempdir} ${projectdir}
 
 cd ${tempdir}
 git clone ${sourceproject} .
