@@ -1,5 +1,5 @@
 echo "Download source for the samples."
-sourcedir="/source/AppDev-ContainerDemo"
+sourcedir="/source/AppDev-ContainerDemo/sample-apps/"
 sampleList=(
     "${sourcedir}/aspnet-core-linux"
     "${sourcedir}/drupal"
