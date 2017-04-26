@@ -9,7 +9,7 @@ sampleList=(
 for sample in "${sampleList[@]}"
 do
     echo -e "${BOLD}Working on $sample ${RESET}"
-    pushd $project
+    pushd $sample
     ./download-source.sh
     popd
 done
