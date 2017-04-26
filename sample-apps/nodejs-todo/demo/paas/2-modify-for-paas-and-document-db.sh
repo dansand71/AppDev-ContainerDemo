@@ -34,10 +34,10 @@ echo ".updating the web app with the container details"
     --docker-registry-server-password VALUEOF-REGISTRY-PASSWORD \
     --docker-registry-server-user VALUEOF-REGISTRY-USER-NAME \
     --docker-registry-server-url VALUEOF-REGISTRY-SERVER-NAME \
-    --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb
+    --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo
 
 #Set the port to 8080 - this is in the DockerFile
-echo ".updating the port settings on the website...."
+echo ".updating the port settings and DB Connection string on the website...."
 ~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting PORT=8081
 ~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting MONGO_DBCONNECTION=${DOCUMENTDBKEY}
 
