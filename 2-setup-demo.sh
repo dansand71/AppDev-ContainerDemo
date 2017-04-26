@@ -72,6 +72,7 @@ sudo chmod 777 -R /source
 
 #RESET DEMO VALUES
 echo -e "${BOLD}Configuring demo scripts with defaults.${RESET}"
+cd /source/AppDev-ContainerDemo
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
 echo "---------------------------------------------"
