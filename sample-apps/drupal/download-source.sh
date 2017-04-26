@@ -6,7 +6,7 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 projectdir="/source/AppDev-ContainerDemo/sample-apps/drupal"
-tempdir="$HOME/drupal"
+tempdir="$HOME/drupal-src"
 sourceproject="https://github.com/dansand71/sampleApp-drupal"
 
 echo -e "${BOLD}Cloning project.${RESET}"
