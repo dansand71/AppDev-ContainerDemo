@@ -13,7 +13,8 @@ echo -e "${INPUT}Cloning project - ${sourceproject}${RESET}"
 rm -rf ${tempdir} ${projectdir} 
 mkdir -p ${tempdir} ${projectdir}
 
-cd ${tempdir} ; git clone ${sourceproject} .
+cd ${tempdir} 
+git clone ${sourceproject} .
 
 cp -r ${tempdir}/. ${projectdir}
 rm -rf ${tempdir}
