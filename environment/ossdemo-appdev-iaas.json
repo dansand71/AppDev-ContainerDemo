@@ -208,7 +208,10 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_svr1_publicIP_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name'))]"
+                
+
             ]
         },
         {
@@ -248,7 +251,8 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_svr2_publicIP_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ossdemo_appdev_iaas_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_ossdemo_appdev_iaas_publicLoadBalancer_name'))]"
             ]
         },
         {
