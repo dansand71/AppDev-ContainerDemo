@@ -21,6 +21,7 @@ echo ".Resetting rights on /source"
 sudo chmod -R 777 /source
 echo ".Setting scripts as executable and ensuring file format is unix and not dos"
 sudo yum install -y -q dos2unix
+sudo pip install --upgrade pip
 sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
