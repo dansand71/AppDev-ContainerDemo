@@ -9,7 +9,7 @@ projectdir="/source/AppDev-ContainerDemo/sample-apps/drupal"
 tempdir="$HOME/drupal-src"
 sourceproject="https://github.com/dansand71/sampleApp-drupal"
 
-echo -e "${BOLD}Cloning project.${RESET}"
+echo -e "${BOLD}Cloning project. ${RESET}"
 rm -rf ${tempdir} 
 rm -rf ${projectdir} 
 mkdir -p ${tempdir} 
