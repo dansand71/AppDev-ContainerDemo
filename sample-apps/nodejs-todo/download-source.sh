@@ -6,13 +6,15 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 projectdir="/source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src"
-tempdir="~/nodejs-todo"
+tempdir="$HOME/nodejs-todo"
 sourceproject="https://github.com/dansand71/nodejs-todo"
 
 echo -e "${BOLD}Cloning project.${RESET}"
-rm -rf ${tempdir} ${projectdir} 
-mkdir -p ${tempdir} ${projectdir}
-read
+rm -rf ${tempdir} 
+rm -rf ${projectdir} 
+mkdir -p ${tempdir} 
+mkdir -p ${projectdir}
+
 cd ${tempdir}
 git clone ${sourceproject} .
 

@@ -6,13 +6,15 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 projectdir="/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src"
-tempdir="~/aspnet-core-linux"
+tempdir="$HOME/aspnet-core-linux"
 sourceproject="https://github.com/dansand71/sampleApp-aspnetcore"
 
 echo -e "${INPUT}Cloning project - ${sourceproject}${RESET}"
-rm -rf ${tempdir} ${projectdir} 
-mkdir -p ${tempdir} ${projectdir}
-read
+rm -rf ${tempdir} 
+rm -rf ${projectdir} 
+mkdir -p ${tempdir} 
+mkdir -p ${projectdir}
+
 cd ${tempdir} 
 git clone ${sourceproject} .
 

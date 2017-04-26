@@ -6,13 +6,15 @@ YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
 projectdir="/source/AppDev-ContainerDemo/sample-apps/eShopOnContainers/src"
-tempdir="~/eShopOnContainers"
+tempdir="$HOME/eShopOnContainers"
 sourceproject="https://github.com/dansand71/sampleApp-eShopOnContainers"
 
 echo -e "${BOLD}Cloning project.${RESET}"
-rm -rf ${tempdir} ${projectdir} 
-mkdir -p ${tempdir} ${projectdir}
-read
+rm -rf ${tempdir} 
+rm -rf ${projectdir} 
+mkdir -p ${tempdir} 
+mkdir -p ${projectdir}
+
 cd ${tempdir}
 git clone ${sourceproject} .
 
