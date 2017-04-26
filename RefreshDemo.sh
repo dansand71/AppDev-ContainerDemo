@@ -38,21 +38,8 @@ sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 #Reset DEMO Values
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
-echo "Download source for the samples."
-sourcedir="/source/AppDev-ContainerDemo"
-sampleList=(
-    "${sourcedir}/aspnet-core-linux"
-    "${sourcedir}/drupal"
-    "${sourcedir}/eShopOnContainers"
-    "${sourcedir}/nodejs-todo"
-)
-for sample in "${sampleList[@]}"
-do
-    echo -e "${BOLD}Working on $sample ${RESET}"
-    pushd $project
-    ./download-source.sh
-    popd
-done
+#DOWNLOAD SOURCE FILES
+/source/AppDev-ContainerDemo/environment/download-source-projects.sh
 
 echo ""
 echo "Complete"

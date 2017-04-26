@@ -75,6 +75,9 @@ echo -e "${BOLD}Configuring demo scripts with defaults.${RESET}"
 cd /source/AppDev-ContainerDemo
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
+#DOWNLOAD SOURCE FILES
+/source/AppDev-ContainerDemo/environment/download-source-projects.sh
+
 echo "---------------------------------------------"
 echo -e "${INPUT}Resource Group Creation${RESET}"
 read -p "Apply JSON Templates for and network rules and create IaaS, K8S and PaaS resources? [Y/n]:"  continuescript
