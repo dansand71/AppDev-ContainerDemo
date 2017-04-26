@@ -11,10 +11,13 @@ spec:
     spec:
       containers:
       - name: nodejs-todo-with-documentdb
-        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo-docdb:latest
+        image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/nodejs-todo:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080   
+        - containerPort: 8080
+        env:
+        - name: MONGO_DBCONNECTION
+          value: "mongodb://nosqlsvc:27017/todo"   
       
       imagePullSecrets:
         - name: ossdemoregistrykey

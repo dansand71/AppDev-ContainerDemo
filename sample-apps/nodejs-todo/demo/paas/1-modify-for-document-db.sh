@@ -12,7 +12,7 @@ echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/dat
 #Change connection string in code - we can also move this to an ENV variable instead
 DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
 echo ".working with documentdbkey:${DOCUMENTDBKEY}"
-sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
+sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/paas/deploy-nodejs.yml
 
 #BUILD Container & publish to registry
 read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript

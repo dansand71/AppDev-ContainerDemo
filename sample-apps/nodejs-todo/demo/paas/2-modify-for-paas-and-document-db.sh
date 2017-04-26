@@ -19,7 +19,7 @@ fi
 echo "Modify /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js for remote documentDB"
 #Change connection string in code - we can also move this to an ENV variable instead
 DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paas -n VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --query connectionStrings[].connectionString -o tsv`
-sed -i -e "s|mongodb://nosqlsvc:27017/todo|${DOCUMENTDBKEY}|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/database.js
+sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/paas/deploy-nodejs.yml
 
 
 #BUILD Container & publish to registry
@@ -39,6 +39,7 @@ echo ".updating the web app with the container details"
 #Set the port to 8080 - this is in the DockerFile
 echo ".updating the port settings on the website...."
 ~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting PORT=8081
+~/bin/az appservice web config appsettings update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas --setting MONGO_DBCONNECTION=${DOCUMENTDBKEY}
 
 echo ".container file updated.  Please see portal for additional details."
 echo ".testing url http://VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo.azurewebsites.net"

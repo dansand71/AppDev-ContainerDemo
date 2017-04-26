@@ -15,6 +15,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080       
+        env:
+        - name: MONGO_DBCONNECTION
+          value: "mongodb://nosqlsvc:27017/todo"
       imagePullSecrets:
         - name: ossdemoregistrykey  #Login credentials provided earlier as part of the K8S Deployment
 
