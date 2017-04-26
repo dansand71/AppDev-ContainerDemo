@@ -12,7 +12,7 @@ sourceproject="https://github.com/dansand71/sampleApp-eShopOnContainers"
 echo -e "${BOLD}Cloning project.${RESET}"
 rm -rf ${tempdir} ${projectdir} 
 mkdir -p ${tempdir} ${projectdir}
-
+read
 cd ${tempdir}
 git clone ${sourceproject} .
 
