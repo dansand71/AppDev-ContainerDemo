@@ -22,7 +22,6 @@ rm -rf ${tempdir}
 cd ${projectdir}
 #Set Scripts as executable & ensure everything is writeable
 echo ".set any scripts as executable"
-sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
 #Reset DEMO Values

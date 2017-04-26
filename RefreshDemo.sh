@@ -26,17 +26,10 @@ sudo rm -rf /source/AppDev-ContainerDemo
 echo "    Reclone github repository https://github.com/dansand71/AppDev-ContainerDemo"
 
 cd /source
-#Necessary for demos to build and restore .NET application
-sudo chmod -R 777 /source
 
 git clone https://github.com/dansand71/AppDev-ContainerDemo 
 sudo chmod +x /source/AppDev-ContainerDemo/1-create-settings-file.sh
 sudo chmod +x /source/AppDev-ContainerDemo/2-setup-demo.sh
-cp /source/AppDev-ContainerDemo/RefreshDemo.sh /source/refresh-appdev-container-demo.sh
-sudo chmod +x /source/refresh-appdev-container-demo.sh
-
-
-
 
 #Set Scripts as executable & ensure everything is writeable
 sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
@@ -44,6 +37,22 @@ sudo chmod +x /source/AppDev-ContainerDemo/environment/set-scripts-executable.sh
 
 #Reset DEMO Values
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
+
+echo "Download source for the samples."
+sourcedir="/source/AppDev-ContainerDemo"
+sampleList=(
+    "${sourcedir}/aspnet-core-linux"
+    "${sourcedir}/drupal"
+    "${sourcedir}/eShopOnContainers"
+    "${sourcedir}/nodejs-todo"
+)
+for sample in "${sampleList[@]}"
+do
+    echo -e "${BOLD}Working on $sample ${RESET}"
+    pushd $project
+    ./download-source.sh
+    popd
+done
 
 echo ""
 echo "Complete"

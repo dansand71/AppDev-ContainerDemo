@@ -5,9 +5,9 @@ BOLD="\e[4m"
 YELLOW="\033[38;5;11m"
 RED="\033[0;31m"
 
-projectdir="/source/AppDev-ContainerDemo/sample-apps/drupal"
-tempdir="~/drupal"
-sourceproject="https://github.com/dansand71/sampleApp-drupal"
+projectdir="/source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/src"
+tempdir="~/aspnet-core-linux"
+sourceproject="https://github.com/dansand71/sampleApp-aspnetcore"
 
 echo -e "${BOLD}Cloning project.${RESET}"
 rm -rf ${tempdir}
