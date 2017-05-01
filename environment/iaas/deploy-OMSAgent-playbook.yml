@@ -24,8 +24,8 @@
     - name: Install and Configure OMS Service Mapping Tool
       command: /etc/InstallDependencyAgent-Linux64.bin -s
 
-#Start the monitoring container
-    - name: Start the monitoring container for Application Insights if not already running
-      command: docker run -v /var/run/docker.sock:/docker.sock --name=AppInsightMonitoring -d microsoft/applicationinsights ikey=VALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY 
-      become: true
-      ignore_errors: true
+#Start the monitoring container - we dont need this as the agent should already be installed across the board.
+    # - name: Start the monitoring container for Application Insights if not already running
+    #   command: docker run -v /var/run/docker.sock:/docker.sock --name=AppInsightMonitoring -d microsoft/applicationinsights ikey=VALUEOF-APPLICATION-INSIGHTS-ASPNETCORELINUX-KEY 
+    #   become: true
+    #   ignore_errors: true
