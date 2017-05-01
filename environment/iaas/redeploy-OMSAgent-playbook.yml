@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
+  sudo: true
+
+  tasks:
+    - name: UNCONFIGURE OMS Agent
+      command: /opt/microsoft/omsagent/bin/omsadmin.sh -X
+      become: true
+
+    - name: CONFIGURE OMS Agent
+      command: /opt/microsoft/omsagent/bin/omsadmin.sh -w VALUEOF-REPLACE-OMS-WORKSPACE -s VALUEOF-REPLACE-OMS-PRIMARYKEY
+      become: true
