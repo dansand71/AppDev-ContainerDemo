@@ -13,3 +13,4 @@ echo ".updating the web app with the container details"
     --docker-registry-server-user VALUEOF-REGISTRY-USER-NAME \
     --docker-registry-server-url VALUEOF-REGISTRY-SERVER-NAME \
     --docker-custom-image-name VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux
+
