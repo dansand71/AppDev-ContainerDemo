@@ -3,7 +3,7 @@
   remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
   sudo: true
 
-#OMS Service MAP
+  tasks:
     - name: Get OMS Service Map
       get_url: 
         url: https://aka.ms/dependencyagentlinux
