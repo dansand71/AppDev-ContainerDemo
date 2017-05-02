@@ -117,7 +117,6 @@ if [[ $continuescript != "n" ]];then
   # we need to make sure we run the ansible playbook from this directory to pick up the cfg file
   cd /source/AppDev-ContainerDemo/environment/iaas/ 
   /source/AppDev-ContainerDemo/environment/iaas/deploy-docker-engine.sh
-  /source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
   
   echo ".calling acs creation script"
   /source/AppDev-ContainerDemo/environment/acs/create-k8s-cluster.sh
@@ -163,5 +162,8 @@ sudo npm install node-sass -g -silent
 #reset file permissions
 echo "CHMOD for Users on /source"
 sudo chmod 777 -R /source
+
+echo "installing OMS Agent across environment"
+/source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
 
 echo "${BOLD}Demo environment setup complete.  Please review demos found under /source/AppDev-ContainerDemo for IaaS, ACS and PaaS.${RESET}"

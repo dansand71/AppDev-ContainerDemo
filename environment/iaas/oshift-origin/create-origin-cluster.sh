@@ -62,4 +62,6 @@ read -p "$(echo -e -n "${INPUT}Deployments can take up to 30 minutes and require
         --template-file /source/AppDev-ContainerDemo/environment/iaas/oshift-origin/oshift-origin-template.json
 
 echo "complete..."
+echo "deploying OMS Agent"
+/source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
 echo "Please access the web console @ https://VALUEOF-UNIQUE-SERVER-PREFIX-ossdemo-oshift-master.eastus.cloudapp.azure.com:8443/console"
