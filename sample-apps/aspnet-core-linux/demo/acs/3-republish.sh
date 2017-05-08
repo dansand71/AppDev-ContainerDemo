@@ -15,15 +15,10 @@ if grep -q aspnet-core-linux:latest /source/AppDev-ContainerDemo/sample-apps/asp
     sudo sed -i -e "s@image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux@image: VALUEOF-REGISTRY-SERVER-NAME/ossdemo/aspnet-core-linux:latest@g" /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/acs/K8S-deploy-file.yml
  fi
 
-echo -e "${BOLD}Recreate containers...${RESET}"
-read -p "$(echo -e -n "${INPUT}Recreate and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/aspnet-core-linux/demo/ansible/build-containers.sh
-fi
 echo -e "${BOLD}Force a update with Kubernetes...${RESET}"
 echo "Trigger a K8S refresh"
 kubectl apply -f K8S-deploy-file.yml
 
 echo ""
 echo ".kubectl get pods"
-kubectl get pods
+#kubectl get pods

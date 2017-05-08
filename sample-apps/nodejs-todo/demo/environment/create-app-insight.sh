@@ -17,4 +17,4 @@ NODEJSTODOKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight Nodejs-
 NODEJSTODOKEY=("${NODEJSTODOKEY[@]//\"/}")  #REMOVE Quotes
 
 echo ".editing the /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/server.js file with the new key: ${NODEJSTODOKEY}"
-sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-NODEJSTODO-KEY@$NODEJSTODOKEY@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/server.js
+sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-NODEJSTODO-KEY@$NODEJSTODOKEY@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/base.js

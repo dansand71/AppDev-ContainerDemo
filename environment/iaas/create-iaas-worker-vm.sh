@@ -34,3 +34,5 @@ echo "Create VM #2 & add it to the availability set and vnet"
 #        --nsg 'NSG-ossdemo-appdev-iaas' --availability-set 'ossdemo-appdev-iaas-availabilityset' \
 #        --no-wait \
 #        --ssh-key-value 'REPLACE-SSH-KEY'
+
+#To Resize disks later - https://blogs.msdn.microsoft.com/cloud_solution_architect/2016/05/24/step-by-step-how-to-resize-a-linux-vm-os-disk-in-azure-arm/

@@ -30,4 +30,11 @@ echo ".set any scripts as executable"
 echo ".reset demo values"
 /source/AppDev-ContainerDemo/environment/reset-demo-template-values.sh
 
+echo ".finding appInsights Instrumentation key from Azure."
+NODEJSTODOKEY=`~/bin/az resource show -g ossdemo-utility -n 'app Insight Nodejs-todo' --resource-type microsoft.insights/components --output json | jq '.properties.InstrumentationKey'`
+NODEJSTODOKEY=("${NODEJSTODOKEY[@]//\"/}")  #REMOVE Quotes
+
+echo ".editing the /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/server.js file with the new key: ${NODEJSTODOKEY}"
+sed -i -e "s@VALUEOF-APPLICATION-INSIGHTS-NODEJSTODO-KEY@$NODEJSTODOKEY@g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src/config/base.js
+
 echo ".done"

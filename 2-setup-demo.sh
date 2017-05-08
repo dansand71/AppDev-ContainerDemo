@@ -163,6 +163,13 @@ sudo npm install node-sass -g -silent
 echo "CHMOD for Users on /source"
 sudo chmod 777 -R /source
 
+#install HELM for Kubernetes package management
+mkdir -p $HOME/Downloads/HELM && cd $HOME/Downloads/HELM
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+helm init
+
 echo "installing OMS Agent across environment"
 /source/AppDev-ContainerDemo/environment/iaas/deploy-OMS-agent.sh
 
