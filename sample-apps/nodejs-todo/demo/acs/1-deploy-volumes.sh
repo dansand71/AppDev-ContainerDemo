@@ -8,6 +8,7 @@ RED="\033[0;31m"
 echo -e "${BOLD}Create containers...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
+    #Delete existing App Insight directory
     /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
 fi
 
