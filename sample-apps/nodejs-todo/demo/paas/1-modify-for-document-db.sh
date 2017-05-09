@@ -14,11 +14,6 @@ DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paa
 echo ".working with documentdbkey:${DOCUMENTDBKEY}"
 sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/paas/deploy-nodejs.yml
 
-#BUILD Container & publish to registry
-read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
-fi
 
 #Delete existing K8S Service & Redeploy
 cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/paas

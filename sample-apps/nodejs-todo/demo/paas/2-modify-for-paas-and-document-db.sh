@@ -22,12 +22,6 @@ DOCUMENTDBKEY=`~/bin/az documentdb list-connection-strings -g ossdemo-appdev-paa
 sed -i -e "s|mongodb://nosqlsvc:27017/todo|$DOCUMENTDBKEY|g" /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/paas/deploy-nodejs.yml
 
 
-#BUILD Container & publish to registry
-read -p "$(echo -e -n "${INPUT}Create and publish containers into Azure Private Registry? [Y/n]:"${RESET})" continuescript
-if [[ ${continuescript,,} != "n" ]]; then
-    /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/demo/ansible/build-containers.sh
-fi
-
 echo ".updating the web app with the container details"
 ## Config the Docker Container
 ~/bin/az appservice web config container update -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo -g ossdemo-appdev-paas \
