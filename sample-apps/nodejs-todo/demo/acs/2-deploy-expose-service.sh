@@ -33,5 +33,6 @@ echo "To debug: kubectl log <pod name>"
 echo "To bash : kubectl exec -p <pod name> -i -t -- bash -il"
 echo "Service : kubectl get services"
 echo "Pods    : kubectl get pods"
+echo " cmd - mongo,  use todo , db.todos.find()"
 echo " To query into the mongodb.  bash into mongo instance - db.todos.find()"
 
