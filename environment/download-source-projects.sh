@@ -12,6 +12,7 @@ sampleList=(
     "${sourcedir}/drupal"
     "${sourcedir}/eShopOnContainers"
     "${sourcedir}/nodejs-todo"
+    "${sourcedir}/lamp"
 )
 for sample in "${sampleList[@]}"
 do
