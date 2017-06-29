@@ -8,7 +8,7 @@ RED="\033[0;31m"
 echo -e "${BOLD}Create Document DB?...${RESET}"
 read -p "$(echo -e -n "${INPUT}Create new DocumentDB resource into ossdemo-appdev-paas resource group? [Y/n]:"${RESET})" continuescript
 if [[ ${continuescript,,} != "n" ]]; then
-    ~/bin/az documentdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB
+    ~/bin/az cosmosdb create --name VALUEOF-UNIQUE-SERVER-PREFIX-documentdb --resource-group ossdemo-appdev-paas --kind MongoDB
 fi
 echo -e "${BOLD}Checking to see if we need to download the sample app...${RESET}"
 mkdir /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
@@ -31,11 +31,11 @@ read -p "$(echo -e -n "${INPUT}Create Azure App service plan and service? [Y/n]:
 if [[ ${continuescript,,} != "n" ]]; then
     ## Create the plan - only available in West US for now - Already done via template
     echo ".creating appservice web plan"
-    ~/bin/az appservice plan create -g ossdemo-appdev-paas -n webtier-plan --is-linux --number-of-workers 1 --sku S1 -l westus
+    ~/bin/az webapp plan create -g ossdemo-appdev-paas -n webtier-plan --is-linux --number-of-workers 1 --sku S1 -l westus
 
     echo ".creating appservice web app"
     ## Create the appservice - Already done via template
-    ~/bin/az appservice web create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo
+    ~/bin/az webapp create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo
 
     echo ".updating the web app with the nodejs details"
     
@@ -61,8 +61,8 @@ if [[ ${continuescript,,} != "n" ]]; then
     done
     echo ""
     echo ".setting remote deployment user and password for VALUEOF-DEMO-ADMIN-USER-NAME"  #This is pulled from the initial demo environment setup
-    ~/bin/az appservice web deployment user set --user-name VALUEOF-DEMO-ADMIN-USER-NAME --password $jumpboxPassword
-    GITURL=`~/bin/az appservice web source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv`
+    ~/bin/az webapp deployment user set --user-name VALUEOF-DEMO-ADMIN-USER-NAME --password $jumpboxPassword
+    GITURL=`~/bin/az webapp source-control config-local-git --name VALUEOF-UNIQUE-SERVER-PREFIX-nodejs-todo --resource-group ossdemo-appdev-paas --query url --output tsv`
     echo ".git url is: ${GITURL}"
     echo ".add git url to local repo"
     cd /source/AppDev-ContainerDemo/sample-apps/nodejs-todo/src
