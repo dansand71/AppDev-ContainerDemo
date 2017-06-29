@@ -4,11 +4,11 @@ echo ".creating appservice web plan"
 
 echo ".creating appservice web app"
 ## Create the appservice - Already done via template
-~/bin/az appservice web create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas
+~/bin/az webapp create -g ossdemo-appdev-paas -p webtier-plan -n VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas
 
 echo ".updating the web app with the container details"
 ## Config the Docker Container
-~/bin/az appservice web config container update -n VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas -g ossdemo-appdev-paas \
+~/bin/az webapp config container set -n VALUEOF-UNIQUE-SERVER-PREFIX-aspnet-core-linux-paas -g ossdemo-appdev-paas \
     --docker-registry-server-password VALUEOF-REGISTRY-PASSWORD \
     --docker-registry-server-user VALUEOF-REGISTRY-USER-NAME \
     --docker-registry-server-url VALUEOF-REGISTRY-SERVER-NAME \
